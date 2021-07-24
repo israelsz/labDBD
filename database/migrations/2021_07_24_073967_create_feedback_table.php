@@ -17,8 +17,9 @@ class CreateFeedbackTable extends Migration
             $table->id();
             $table->timestamps();
             $table->boolean('tipo_valoracion');
-            //Falta Llave foranea con Usuario
-                //Agregar llavesita aca
+            //Llave foranea con Usuario
+            $table->unsignedBigInteger('id_usuario')->nullable();
+            $table->foreign('id_usuario')->references('id')->on('users');
             //Llave foreana con Video
             $table->unsignedBigInteger('id_video');
             $table->foreign('id_video')->references('id')->on('videos');

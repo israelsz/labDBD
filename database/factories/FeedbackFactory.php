@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Feedback;
 use App\Models\Video;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class FeedbackFactory extends Factory
@@ -25,8 +26,8 @@ class FeedbackFactory extends Factory
         return [
             //
             'tipo_valoracion' => $this->faker->boolean(70),
-            //Enlazar a id de otras tablas foraneas
-               //Falta enlazarlo a id autor
+            //Se enlaza a un usuario
+            //'id_user' => User::all()->random()->id,
             //Se enlaza a un video
             'id_video' => Video::all()->random()->id,
         ];

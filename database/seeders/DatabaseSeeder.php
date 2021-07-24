@@ -11,6 +11,7 @@ use App\Models\Region;
 use App\Models\Video;
 use App\Models\Feedback;
 use App\Models\PlaylistVideo;
+use App\Models\UserPlaylist;
 use Illuminate\Database\Seeder;
 
 

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PlaylistVideo extends Model
+class UserPlaylist extends Model
 {
     use HasFactory;
 
@@ -15,9 +15,15 @@ class PlaylistVideo extends Model
         return $this->belongsTo(Playlist::class);
     }
 
-    //Relación con Video
-    public function video()
+    //Relación con Donacion
+    public function donation()
     {
-        return $this->belongsTo(Video::class);
+        return $this->hasMany(Donation::class);
+    }
+
+    //Relación con Usuario
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

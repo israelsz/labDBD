@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class UserVideo extends Model
 {
     use HasFactory;
-    use HasFactory;
+
     //Relacion con clase Video
     public function video()
     {
