@@ -9,6 +9,8 @@ use App\Models\PaymentMethod;
 use App\Models\Playlist;
 use App\Models\Region;
 use App\Models\Video;
+use App\Models\Feedback;
+use App\Models\PlaylistVideo;
 use Illuminate\Database\Seeder;
 
 
@@ -28,6 +30,8 @@ class DatabaseSeeder extends Seeder
         Region::factory(10)->create();
         Commune::factory(10)->create();
         Video::factory(10)->create();
+        Feedback::factory(10)->create();
+        PlaylistVideo::factory(10)->create();
     }
 
     
