@@ -16,8 +16,10 @@ class CreateUserSubscriptionsTable extends Migration
         Schema::create('user_subscriptions', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            //Falta llave foranea de usuario suscriptor
-            //Falta llave foranea de usuario  
+            $table->unsignedBigInteger('id_usuario_suscripcion');
+            $table->foreign('id_usuario_suscripcion')->references('id')->on('users');
+            $table->unsignedBigInteger('id_usuario_suscriptor');
+            $table->foreign('id_usuario_suscriptor')->references('id')->on('users');
         });
     }
 
