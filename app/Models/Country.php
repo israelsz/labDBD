@@ -9,5 +9,9 @@ class Country extends Model
 {
     use HasFactory;
 
-    
+    //Relacion con clase Region
+    public function region()
+    {
+        return $this->hasMany(Region::class);
+    }
 }

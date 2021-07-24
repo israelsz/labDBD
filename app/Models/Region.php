@@ -8,4 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Region extends Model
 {
     use HasFactory;
+
+    //Relacion con clase Country
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+
+    //Relacion con clase Commune
+    public function commune()
+    {
+        return $this->hasMany(Commune::class);
+    }
+    
 }
