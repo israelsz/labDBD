@@ -3,8 +3,10 @@
 namespace Database\Seeders;
 
 use App\Models\Country;
+use App\Models\Category;
 use App\Models\PaymentMethod;
 use Illuminate\Database\Seeder;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,6 +18,9 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Country::factory(10)->create();
+        Category::factory(15)->create();
         PaymentMethod::factory(10)->create();
     }
+
+    
 }
