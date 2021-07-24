@@ -8,4 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Commentary extends Model
 {
     use HasFactory;
+    //Relacion con clase Video
+    public function video()
+    {
+        return $this->belongsTo(Video::class);
+    }
+    //Relacion con clase User
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
