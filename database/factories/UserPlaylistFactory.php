@@ -1,6 +1,9 @@
 <?php
 
 namespace Database\Factories;
+use App\Models\User;
+use App\Models\Playlist;
+use App\Models\Donation;
 
 use App\Models\UserPlaylist;
 use Illuminate\Database\Eloquent\Factories\Factory;

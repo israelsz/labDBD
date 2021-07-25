@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->float('monedero',8,2);
             $table->string('email')->unique();
             $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
             //Llave foranea id_comuna
             $table->unsignedBigInteger('id_comuna')->nullable();
             $table->foreign('id_comuna')->references('id')->on('communes');

@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class donation extends Model
+class Donation extends Model
 {
     use HasFactory;
 
     //Relacion con playlist
     public function playlist()
     {
-        return $this->belongsTo(Playlist::class);
+        return $this->belongsTo(PlaylistVideo::class);
     }
 
     //Relacion con video

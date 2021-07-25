@@ -16,6 +16,6 @@ class User extends Model
     }
 
     public function userType(){
-        return $this->belongsTo(userType::class);
+        return $this->belongsTo(UserType::class);
     }
 }

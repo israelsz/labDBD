@@ -12,6 +12,10 @@ use App\Models\Video;
 use App\Models\Feedback;
 use App\Models\PlaylistVideo;
 use App\Models\UserPlaylist;
+use App\Models\UserType;
+use App\Models\User;
+use App\Models\Donation;
+use App\Models\VideoCategory;
 use Illuminate\Database\Seeder;
 
 
@@ -33,6 +37,12 @@ class DatabaseSeeder extends Seeder
         Video::factory(10)->create();
         Feedback::factory(10)->create();
         PlaylistVideo::factory(10)->create();
+        UserType::factory(2)->create();
+        User::factory(10)->create();
+        Donation::factory(20)->create();
+        UserPlaylist::factory(10)->create();
+        VideoCategory::factory(5)->create();
+        
     }
 
     
