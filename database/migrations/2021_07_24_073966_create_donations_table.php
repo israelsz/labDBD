@@ -20,10 +20,10 @@ class CreateDonationsTable extends Migration
             
             //Lave forania de donador
             $table->unsignedBigInteger('id_donador');
-            $table->foreign('id_donador')->references('id')->on('user_types');
+            $table->foreign('id_donador')->references('id')->on('users');
             //Lave forania de receptor
             $table->unsignedBigInteger('id_receptor')->nullable();
-            $table->foreign('id_receptor')->references('id')->on('user_types');
+            $table->foreign('id_receptor')->references('id')->on('users');
             //Llave forania metodo pago
             $table->unsignedBigInteger('id_metodo_pago')->nullable();
             $table->foreign('id_metodo_pago')->references('id')->on('payment_methods');

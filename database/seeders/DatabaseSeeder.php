@@ -34,14 +34,14 @@ class DatabaseSeeder extends Seeder
         Playlist::factory(15)->create();
         Region::factory(10)->create();
         Commune::factory(10)->create();
+        UserType::factory(2)->create();
+        User::factory(20)->create();
         Video::factory(10)->create();
         Feedback::factory(10)->create();
         PlaylistVideo::factory(10)->create();
-        UserType::factory(2)->create();
-        User::factory(10)->create();
-        Donation::factory(20)->create();
-        UserPlaylist::factory(10)->create();
         VideoCategory::factory(5)->create();
+        Donation::factory(10)->create();
+        UserPlaylist::factory(10)->create();
         
     }
 
