@@ -4,6 +4,7 @@ use App\Http\Controllers\CommuneController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\VideoController;
+use App\Http\Controllers\PlaylistController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -54,3 +55,10 @@ Route::get('/videos/{id}', [VideoController::class, 'show']);
 Route::post('/videos/create', [VideoController::class, 'store']);
 Route::put('/videos/update/{id}', [VideoController::class, 'update']);
 Route::delete('/videos/delete/{id}', [VideoController::class, 'destroy']);
+
+//Rutas para Tabla/Clase Playlist:
+Route::get('/playlists', [PlaylistController::class, 'index']);
+Route::get('/playlists/{id}', [PlaylistController::class, 'show']);
+Route::post('/playlists/create', [PlaylistController::class, 'store']);
+Route::put('/playlists/update/{id}', [PlaylistController::class, 'update']);
+Route::delete('/playlists/delete/{id}', [PlaylistController::class, 'destroy']);
