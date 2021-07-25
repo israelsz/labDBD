@@ -5,6 +5,9 @@ use App\Http\Controllers\CountryController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\PlaylistController;
+use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\PlaylistVideoController;
+use App\Http\Controllers\UserPlaylistController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -62,3 +65,24 @@ Route::get('/playlists/{id}', [PlaylistController::class, 'show']);
 Route::post('/playlists/create', [PlaylistController::class, 'store']);
 Route::put('/playlists/update/{id}', [PlaylistController::class, 'update']);
 Route::delete('/playlists/delete/{id}', [PlaylistController::class, 'destroy']);
+
+//Rutas para Tabla/Clase Feedback:
+Route::get('/feedbacks', [FeedbackController::class, 'index']);
+Route::get('/feedbacks/{id}', [FeedbackController::class, 'show']);
+Route::post('/feedbacks/create', [FeedbackController::class, 'store']);
+Route::put('/feedbacks/update/{id}', [FeedbackController::class, 'update']);
+Route::delete('/feedbacks/delete/{id}', [FeedbackController::class, 'destroy']);
+
+//Rutas para Tabla/Clase intermedia PlaylistVideo:
+Route::get('/playlist_videos', [PlaylistVideoController::class, 'index']);
+Route::get('/playlist_videos/{id}', [PlaylistVideoController::class, 'show']);
+Route::post('/playlist_videos/create', [PlaylistVideoController::class, 'store']);
+Route::put('/playlist_videos/update/{id}', [PlaylistVideoController::class, 'update']);
+Route::delete('/playlist_videos/delete/{id}', [PlaylistVideoController::class, 'destroy']);
+
+//Rutas para Tabla/Clase intermedia UserPlaylist:
+Route::get('/user_playlists', [UserPlaylistController::class, 'index']);
+Route::get('/user_playlists/{id}', [UserPlaylistController::class, 'show']);
+Route::post('/user_playlists/create', [UserPlaylistController::class, 'store']);
+Route::put('/user_playlists/update/{id}', [UserPlaylistController::class, 'update']);
+Route::delete('/user_playlists/delete/{id}', [UserPlaylistController::class, 'destroy']);

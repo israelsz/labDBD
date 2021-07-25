@@ -25,9 +25,9 @@ class FeedbackFactory extends Factory
     {
         return [
             //
-            'tipo_valoracion' => $this->faker->boolean(70),
+            'tipo_valoracion' => $this->faker->numberBetween(0,1),
             //Se enlaza a un usuario
-            //'id_user' => User::all()->random()->id,
+            'id_usuario' => User::all()->random()->id,
             //Se enlaza a un video
             'id_video' => Video::all()->random()->id,
         ];

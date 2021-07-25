@@ -16,7 +16,7 @@ class CreateFeedbackTable extends Migration
         Schema::create('feedback', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->boolean('tipo_valoracion');
+            $table->integer('tipo_valoracion');
             //Llave foranea con Usuario
             $table->unsignedBigInteger('id_usuario')->nullable();
             $table->foreign('id_usuario')->references('id')->on('users');
