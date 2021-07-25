@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Commune;
+use App\Models\User;
 use App\Models\Video;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -31,7 +32,8 @@ class VideoFactory extends Factory
             'cantidad_temporadas' => $this->faker->numberBetween(0,15),
             'descripcion' => $this->faker->text(150),
             //Enlazar a id de otras tablas foraneas
-               //Falta enlazarlo a id usuario autor
+            //Se enlaza al usuario
+            'id_usuario_autor' => User::all()->random()->id,
             //Se enlaza a una comuna
             'id_comuna' => Commune::all()->random()->id
         ];

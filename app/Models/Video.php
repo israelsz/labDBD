@@ -45,7 +45,15 @@ class Video extends Model
         return $this->hasMany(PlaylistVideo::class);
     }
 
-    //FALTA
     //Relacion con clase donacion
+    public function donation()
+    {
+        return $this->hasMany(donation::class);
+    }
+
     //Relacion con clase video_categoria
+    public function videocategory()
+    {
+        return $this->hasMany(VideoCategory::class);
+    }
 }
