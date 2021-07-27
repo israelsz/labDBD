@@ -8,6 +8,10 @@ use App\Http\Controllers\PlaylistController;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\PlaylistVideoController;
 use App\Http\Controllers\UserPlaylistController;
+use App\Http\Controllers\CommentaryController;
+use App\Http\Controllers\PaymentMethodController;
+use App\Http\Controllers\UserVideoController;
+use App\Http\Controllers\UserSubscriptionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -86,3 +90,28 @@ Route::get('/user_playlists/{id}', [UserPlaylistController::class, 'show']);
 Route::post('/user_playlists/create', [UserPlaylistController::class, 'store']);
 Route::put('/user_playlists/update/{id}', [UserPlaylistController::class, 'update']);
 Route::delete('/user_playlists/delete/{id}', [UserPlaylistController::class, 'destroy']);
+
+//Rutas para tabla/clase Commentary:
+Route::get('/commentaries', [CommentaryController::class, 'index']);//Probado
+Route::get('/commentaries/{id}', [CommentaryController::class, 'show']);//Probado
+Route::post('/commentaries/create', [CommentaryController::class, 'store']);//Probado
+Route::put('/commentaries/update/{id}', [CommentaryController::class, 'update']); //Probado
+Route::delete('/commentaries/delete/{id}', [CommentaryController::class, 'destroy']);//Probado
+//Rutas para tabla PaymentMethod
+Route::get('/payment_methods', [PaymentMethodController::class, 'index']); //Probada
+Route::get('/payment_methods/{id}', [PaymentMethodController::class, 'show']);//Probada
+Route::post('/payment_methods/create', [PaymentMethodController::class, 'store']);//Probada
+Route::put('/payment_methods/update/{id}', [PaymentMethodController::class, 'update']);//Probada
+Route::delete('/payment_methods/delete/{id}', [PaymentMethodController::class, 'destroy']);// Probada
+//Rutas para tabla UserVideo
+Route::get('/user_videos', [UserVideoController::class, 'index']); //Probada
+Route::get('/user_videos/{id}', [UserVideoController::class, 'show']);//Probada
+Route::post('/user_videos/create', [UserVideoController::class, 'store']);//Probada
+Route::put('/user_videos/update/{id}', [UserVideoController::class, 'update']);//Probada
+Route::delete('/user_videos/delete/{id}', [UserVideoController::class, 'destroy']);//Probada
+//Rutas para tabla userSubscription
+Route::get('/user_subscriptions', [UserSubscriptionController::class, 'index']); //Probada
+Route::get('/user_subscriptions/{id}', [UserSubscriptionController::class, 'show']);//Probada
+Route::post('/user_subscriptions/create', [UserSubscriptionController::class, 'store']);//Probada
+Route::put('/user_subscriptions/update/{id}', [UserSubscriptionController::class, 'update']);//Probada
+Route::delete('/user_subscriptions/delete/{id}', [UserSubscriptionController::class, 'destroy']);//Probada
