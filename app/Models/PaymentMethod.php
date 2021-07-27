@@ -11,6 +11,6 @@ class PaymentMethod extends Model
     //Relacion con clase Donation
     public function donation()
     {
-        //return $this->hasMany(Donation::class);
+        return $this->hasMany(Donation::class);
     }
 }

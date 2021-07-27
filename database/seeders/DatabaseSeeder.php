@@ -16,7 +16,11 @@ use App\Models\UserType;
 use App\Models\User;
 use App\Models\Donation;
 use App\Models\VideoCategory;
+use App\Models\UserVideo;
+use App\Models\UserSubscription;
+use App\Models\Commentary;
 use Illuminate\Database\Seeder;
+
 
 
 class DatabaseSeeder extends Seeder
@@ -42,6 +46,10 @@ class DatabaseSeeder extends Seeder
         VideoCategory::factory(5)->create();
         Donation::factory(10)->create();
         UserPlaylist::factory(10)->create();
+        Commentary::factory(10)->create();
+        UserVideo::factory(10)->create();
+        UserSubscription::factory(10)->create();
+
         
     }
 

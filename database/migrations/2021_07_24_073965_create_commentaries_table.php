@@ -15,12 +15,14 @@ class CreateCommentariesTable extends Migration
     {
         Schema::create('commentaries', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
             $table->string('contenido');
+            #Llave foranea usuario autor
             $table->unsignedBigInteger('id_usuario');
             $table->foreign('id_usuario')->references('id')->on('users');
+            #Llave foranea video
             $table->unsignedBigInteger('id_video');
             $table->foreign('id_video')->references('id')->on('videos');
+            $table->timestamps();
         });
     }
 

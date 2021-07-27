@@ -24,9 +24,9 @@ class CommentaryFactory extends Factory
     public function definition()
     {
         return [
-            'contenido' => $this->faker->text(200), 
+            'contenido' => $this->faker->text(150), 
             'id_usuario' => User::all()->random()->id,
-            'id_video' => Video::all()->random()->id,
+            'id_video' => Video::all()->random()->id
         ];
     }
 }
