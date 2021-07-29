@@ -12,6 +12,11 @@ use App\Http\Controllers\CommentaryController;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\UserVideoController;
 use App\Http\Controllers\UserSubscriptionController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\UserTypeController;
+use App\Http\Controllers\VideoCategoryController;
+use App\Http\Controllers\DonationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -115,3 +120,38 @@ Route::get('/user_subscriptions/{id}', [UserSubscriptionController::class, 'show
 Route::post('/user_subscriptions/create', [UserSubscriptionController::class, 'store']);//Probada
 Route::put('/user_subscriptions/update/{id}', [UserSubscriptionController::class, 'update']);//Probada
 Route::delete('/user_subscriptions/delete/{id}', [UserSubscriptionController::class, 'destroy']);//Probada
+
+//Rutas para tabla Category
+Route::get('/categories', [CategoryController::class, 'index']); 
+Route::get('/categories/{id}', [CategoryController::class, 'show']);
+Route::post('/categories/create', [CategoryController::class, 'store']);
+Route::put('/categories/update/{id}', [CategoryController::class, 'update']);
+Route::delete('/categories/delete/{id}', [CategoryController::class, 'destroy']);
+
+//Rutas para la table VideoCategory
+Route::get('/video_categories', [VideoCategoryController::class, 'index']); 
+Route::get('/video_categories/{id}', [VideoCategoryController::class, 'show']);
+Route::post('/video_categories/create', [VideoCategoryController::class, 'store']);
+Route::put('/video_categories/update/{id}', [VideoCategoryController::class, 'update']);
+Route::delete('/video_categories/delete/{id}', [VideoCategoryController::class, 'destroy']);
+
+//Rutas para la tabla UserType
+Route::get('/user_types', [UserTypeController::class, 'index']); 
+Route::get('/user_types/{id}', [UserTypeController::class, 'show']);
+Route::post('/user_types/create', [UserTypeController::class, 'store']);
+Route::put('/user_types/update/{id}', [UserTypeController::class, 'update']);
+Route::delete('/user_types/delete/{id}', [UserTypeController::class, 'destroy']);
+
+//Rutas para la table User
+Route::get('/users', [UserController::class, 'index']); 
+Route::get('/users/{id}', [UserController::class, 'show']);
+Route::post('/users/create', [UserController::class, 'store']);
+Route::put('/users/update/{id}', [UserController::class, 'update']);
+Route::delete('/users/delete/{id}', [UserController::class, 'destroy']);
+
+//Rutas para la tabla Dontation
+Route::get('/donations', [DonationController::class, 'index']); 
+Route::get('/donations/{id}', [DonationController::class, 'show']);
+Route::post('/donations/create', [DonationController::class, 'store']);
+Route::put('/donations/update/{id}', [DonationController::class, 'update']);
+Route::delete('/donations/delete/{id}', [DonationController::class, 'destroy']);
