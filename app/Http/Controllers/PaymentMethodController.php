@@ -67,7 +67,7 @@ class PaymentMethodController extends Controller
         $validarDatos = Validator::make($request->all(),[
             'nombre_metodo_pago' => 'required|max:100'
         ],[
-            'nombre_metodo_pago.required' => 'Debe ingresar el nombre del metodo de pago'
+            'nombre_metodo_pago.required' => 'Debe ingresar el nombre del metodo de pago',
             'nombre_metodo_pago.max:100' => 'El nombre del metodo de pago no puede exceder los 100 caracteres'
 
         ]);
