@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Playlist;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class PlaylistController extends Controller
 {
@@ -26,7 +27,7 @@ class PlaylistController extends Controller
     {
         $playlist = new Playlist();
 
-        $request->validate([
+        $validarDatos = Validator::make($request->all(),[
             'nombre_playlist' => 'required|max:60',
             'descripcion_playlist' => 'required|max:500',
         ],[ //Mensajes de error abajo
@@ -35,6 +36,9 @@ class PlaylistController extends Controller
             'descripcion_playlist.required' => 'Debe ingresar una descripcion a la playlist',
             'descripcion_playlist.max' => 'No puede exceder mas de 500 caracteres',
         ]);
+        if ($validarDatos->fails()){
+            return response()->json($validarDatos->errors(), 400);
+        }
 
         $playlist->nombre_playlist = $request->nombre_playlist;
         $playlist->descripcion_playlist = $request->descripcion_playlist;
@@ -66,7 +70,7 @@ class PlaylistController extends Controller
         if($playlist == NULL){
             return "No existe una playlist asociada a ese id";
         }
-        $request->validate([
+        $validarDatos = Validator::make($request->all(),[
             'nombre_playlist' => 'required|max:60',
             'descripcion_playlist' => 'required|max:500',
         ],[ //Mensajes de error abajo
@@ -75,6 +79,9 @@ class PlaylistController extends Controller
             'descripcion_playlist.required' => 'Debe ingresar una descripcion a la playlist',
             'descripcion_playlist.max' => 'No puede exceder mas de 500 caracteres',
         ]);
+        if ($validarDatos->fails()){
+            return response()->json($validarDatos->errors(), 400);
+        }
         $playlist->nombre_playlist = $request->nombre_playlist;
         $playlist->descripcion_playlist = $request->descripcion_playlist;
 

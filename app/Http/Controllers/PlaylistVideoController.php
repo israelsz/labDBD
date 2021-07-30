@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\PlaylistVideo;
+use Illuminate\Support\Facades\Validator;
 
 class PlaylistVideoController extends Controller
 {
@@ -25,13 +26,16 @@ class PlaylistVideoController extends Controller
     {
         $playlistVideo = new PlaylistVideo();
 
-        $request->validate([
+        $validarDatos = Validator::make($request->all(),[
             'id_playlist' => 'required',
             'id_video' => 'required',
         ],[ //Mensajes de error abajo
             'id_playlist.required' => 'Debe ingresar el id de la playlist',
             'id_video.required' => 'Debe ingresar el id del video de la playlist',
         ]);
+        if ($validarDatos->fails()){
+            return response()->json($validarDatos->errors(), 400);
+        }
 
         $playlistVideo->id_playlist = $request->id_playlist;
         $playlistVideo->id_video = $request->id_video;
@@ -64,13 +68,16 @@ class PlaylistVideoController extends Controller
             return "No existe ninguna tupla de la tabla intermedia playlist-video con ese id";
         }
 
-        $request->validate([
+        $validarDatos = Validator::make($request->all(),[
             'id_playlist' => 'required',
             'id_video' => 'required',
         ],[ //Mensajes de error abajo
             'id_playlist.required' => 'Debe ingresar el id de la playlist',
             'id_video.required' => 'Debe ingresar el id del video de la playlist',
         ]);
+        if ($validarDatos->fails()){
+            return response()->json($validarDatos->errors(), 400);
+        }
 
         $playlistVideo->id_playlist = $request->id_playlist;
         $playlistVideo->id_video = $request->id_video;

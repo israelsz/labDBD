@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\UserPlaylist;
+use Illuminate\Support\Facades\Validator;
 
 class UserPlaylistController extends Controller
 {
@@ -25,19 +26,19 @@ class UserPlaylistController extends Controller
     {
         $userPlaylist = new UserPlaylist();
 
-        $request->validate([
+        $validarDatos = Validator::make($request->all(),[
             'id_playlist' => 'required',
             'id_usuario' => 'required',
-            'id_donacion' => 'required',
         ],[ //Mensajes de error abajo
             'id_playlist.required' => 'Debe ingresar el id de la playlist',
             'id_usuario.required' => 'Debe ingresar el id del usuario',
-            'id_donacion.required' => 'Debe ingresar el id de la donacion',
         ]);
+        if ($validarDatos->fails()){
+            return response()->json($validarDatos->errors(), 400);
+        }
 
         $userPlaylist->id_playlist = $request->id_playlist;
         $userPlaylist->id_usuario = $request->id_usuario;
-        $userPlaylist->id_donacion = $request->id_donacion;
         $userPlaylist->save();
 
         return response()->json([
@@ -62,19 +63,19 @@ class UserPlaylistController extends Controller
     {
         $userPlaylist = UserPlaylist::find($id);
 
-        $request->validate([
+        $validarDatos = Validator::make($request->all(),[
             'id_playlist' => 'required',
             'id_usuario' => 'required',
-            'id_donacion' => 'required',
         ],[ //Mensajes de error abajo
             'id_playlist.required' => 'Debe ingresar el id de la playlist',
             'id_usuario.required' => 'Debe ingresar el id del usuario',
-            'id_donacion.required' => 'Debe ingresar el id de la donacion',
         ]);
+        if ($validarDatos->fails()){
+            return response()->json($validarDatos->errors(), 400);
+        }
 
         $userPlaylist->id_playlist = $request->id_playlist;
         $userPlaylist->id_usuario = $request->id_usuario;
-        $userPlaylist->id_donacion = $request->id_donacion;
         $userPlaylist->save();
 
         $userPlaylist->save();

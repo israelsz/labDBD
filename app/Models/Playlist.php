@@ -14,6 +14,11 @@ class Playlist extends Model
         return $this->hasMany(UserPlaylist::class);
     }
 
+    public function donation()
+    {
+        return $this->hasMany(Donation::class);
+    }
+
     //Relacion con clase playlist_video
     public function playlistVideo()
     {

@@ -20,8 +20,6 @@ class CreateUserPlaylistsTable extends Migration
             $table->foreign('id_playlist')->references('id')->on('playlists');
             $table->unsignedBigInteger('id_usuario');
             $table->foreign('id_usuario')->references('id')->on('users');
-            $table->unsignedBigInteger('id_donacion');
-            $table->foreign('id_donacion')->references('id')->on('donations');
         });
     }
 

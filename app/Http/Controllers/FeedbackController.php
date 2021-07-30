@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Feedback;
+use Illuminate\Support\Facades\Validator;
 
 class FeedbackController extends Controller
 {
@@ -25,7 +26,7 @@ class FeedbackController extends Controller
     {
         $feedback = new Feedback();
 
-        $request->validate([
+        $validarDatos = Validator::make($request->all(),[
             'tipo_valoracion' => 'required',
             'id_usuario' => 'required',
             'id_video' => 'required',
@@ -34,6 +35,9 @@ class FeedbackController extends Controller
             'id_usuario.required' => 'Debe ingresar el id el usuario que dió la valoración',
             'id_video.required' => 'Debe ingresar el id del video que recibió la valoración',
         ]);
+        if ($validarDatos->fails()){
+            return response()->json($validarDatos->errors(), 400);
+        }
 
         $feedback->tipo_valoracion = $request->tipo_valoracion;
         $feedback->id_usuario = $request->id_usuario;
@@ -66,7 +70,7 @@ class FeedbackController extends Controller
         if($feedback == NULL){
             return "No existe ninguna valoración con ese id";
         }
-        $request->validate([
+        $validarDatos = Validator::make($request->all(),[
             'tipo_valoracion' => 'required',
             'id_usuario' => 'required',
             'id_video' => 'required',
@@ -75,6 +79,9 @@ class FeedbackController extends Controller
             'id_usuario.required' => 'Debe ingresar el id el usuario que dió la valoración',
             'id_video.required' => 'Debe ingresar el id del video que recibió la valoración',
         ]);
+        if ($validarDatos->fails()){
+            return response()->json($validarDatos->errors(), 400);
+        }
 
         $feedback->tipo_valoracion = $request->tipo_valoracion;
         $feedback->id_usuario = $request->id_usuario;

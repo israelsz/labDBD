@@ -15,12 +15,6 @@ class UserPlaylist extends Model
         return $this->belongsTo(Playlist::class);
     }
 
-    //Relación con Donacion
-    public function donation()
-    {
-        return $this->hasMany(Donation::class);
-    }
-
     //Relación con Usuario
     public function user()
     {
