@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\UserVideo;
+use Illuminate\Support\Facades\Validator;
 
 class UserVideoController extends Controller
 {
@@ -22,13 +23,17 @@ class UserVideoController extends Controller
     public function store(Request $request)
     {
         $usuarioVideo = new UserVideo();
-        $request->validate([
+        $validarDatos = Validator::make($request->all(),[
             'id_usuario' => 'required',
             'id_video' => 'required'
-        ],[ //Mensajes de error abajo
-            'id_usuario' => 'Debe ingresar el id del usuario',
-            'id_video' => 'Debe ingresar el id del video'
+        ],[
+            'id_usuario.required' => 'Debe ingresar el id del usuario',
+            'id_video.required' => 'Debe ingresar el id del video'
         ]);
+
+        if ($validarDatos->fails()){
+            return response()->json($validarDatos->errors(), 400);
+        }
 
         $usuarioVideo->id_usuario= $request->id_usuario;
         $usuarioVideo->id_video= $request->id_video;
@@ -54,13 +59,17 @@ class UserVideoController extends Controller
         if($usuarioVideo == NULL){
             return "No existe un usuario video";
         }
-        $request->validate([
+        $validarDatos = Validator::make($request->all(),[
             'id_usuario' => 'required',
             'id_video' => 'required'
-        ],[ //Mensajes de error abajo
-            'id_usuario' => 'Debe ingresar el id del usuario',
-            'id_video' => 'Debe ingresar el id del video'
+        ],[
+            'id_usuario.required' => 'Debe ingresar el id del usuario',
+            'id_video.required' => 'Debe ingresar el id del video'
         ]);
+
+        if ($validarDatos->fails()){
+            return response()->json($validarDatos->errors(), 400);
+        }
 
         $usuarioVideo->id_usuario = $request->id_usuario;
         $usuarioVideo->id_video = $request->id_video;

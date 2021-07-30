@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\PaymentMethod;
+use Illuminate\Support\Facades\Validator;
 
 class PaymentMethodController extends Controller
 {
@@ -28,11 +29,16 @@ class PaymentMethodController extends Controller
     public function store(Request $request)
     {
         $metodoPago = new PaymentMethod();
-        $request->validate([
-            'nombre_metodo_pago' => 'required|max:200'
-        ],[ //Mensajes de error abajo
-            'nombre_metodo_pago.required' => 'Debe ingresar el nombre del metodo de pago'
+        $validarDatos = Validator::make($request->all(),[
+            'nombre_metodo_pago' => 'required|max:100'
+        ],[
+            'nombre_metodo_pago.required' => 'Debe ingresar el nombre del metodo de pago',
+            'nombre_metodo_pago.max:100' => 'El nombre del metodo de pago no debe exceder los 100 caracteres'
         ]);
+
+        if ($validarDatos->fails()){
+            return response()->json($validarDatos->errors(), 400);
+        }
 
         $metodoPago->nombre_metodo_pago = $request->nombre_metodo_pago;
         $metodoPago->save();
@@ -58,12 +64,16 @@ class PaymentMethodController extends Controller
         if($metodoPago == NULL){
             return "No existe un metodo de pago asociada a ese id";
         }
-        $request->validate([
-            'nombre_metodo_pago' => 'required|max:200'
-        ],[ //Mensajes de error abajo
+        $validarDatos = Validator::make($request->all(),[
+            'nombre_metodo_pago' => 'required|max:100'
+        ],[
             'nombre_metodo_pago.required' => 'Debe ingresar el nombre del metodo de pago'
+            'nombre_metodo_pago.max:100' => 'El nombre del metodo de pago no puede exceder los 100 caracteres'
 
         ]);
+        if ($validarDatos->fails()){
+            return response()->json($validarDatos->errors(), 400);
+        }
 
         $metodoPago->nombre_metodo_pago = $request->nombre_metodo_pago;
         $metodoPago->save();

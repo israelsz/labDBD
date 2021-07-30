@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\UserSubscription;
+use Illuminate\Support\Facades\Validator;
 
 class UserSubscriptionController extends Controller
 {
@@ -22,13 +23,17 @@ class UserSubscriptionController extends Controller
     public function store(Request $request)
     {
         $usuarioSuscripcion = new UserSubscription();
-        $request->validate([
+        $validarDatos = Validator::make($request->all(),[
             'id_usuario_suscripcion' => 'required',
             'id_usuario_suscriptor' => 'required'
-        ],[ //Mensajes de error abajo
-            'id_usuario_suscripcion' => 'Debe ingresar el id del usuario suscripcion',
-            'id_usuario_suscriptor' => 'Debe ingresar el id del usuario suscriptor'
+        ],[
+            'id_usuario_suscripcion.required' => 'Debe ingresar el id del usuario suscripcion',
+            'id_usuario_suscriptor.required' => 'Debe ingresar el id del usuario suscriptor'
         ]);
+
+        if ($validarDatos->fails()){
+            return response()->json($validarDatos->errors(), 400);
+        }
 
         $usuarioSuscripcion->id_usuario_suscriptor= $request->id_usuario_suscriptor;
         $usuarioSuscripcion->id_usuario_suscripcion= $request->id_usuario_suscripcion;
@@ -56,13 +61,17 @@ class UserSubscriptionController extends Controller
         if($usuarioSuscripcion == NULL){
             return "No existe un usuario suscripcion";
         }
-        $request->validate([
+        $validarDatos = Validator::make($request->all(),[
             'id_usuario_suscripcion' => 'required',
             'id_usuario_suscriptor' => 'required'
-        ],[ //Mensajes de error abajo
-            'id_usuario_suscripcion' => 'Debe ingresar el id del usuario suscripcion',
-            'id_usuario_suscriptor' => 'Debe ingresar el id del usuario suscriptor'
+        ],[
+            'id_usuario_suscripcion.required' => 'Debe ingresar el id del usuario suscripcion',
+            'id_usuario_suscriptor.required' => 'Debe ingresar el id del usuario suscriptor'
         ]);
+
+        if ($validarDatos->fails()){
+            return response()->json($validarDatos->errors(), 400);
+        }
 
         $usuarioSuscripcion->id_usuario_suscriptor= $request->id_usuario_suscriptor;
         $usuarioSuscripcion->id_usuario_suscripcion= $request->id_usuario_suscripcion;
