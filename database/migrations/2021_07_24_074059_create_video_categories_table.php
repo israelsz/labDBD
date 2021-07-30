@@ -15,6 +15,7 @@ class CreateVideoCategoriesTable extends Migration
     {
         Schema::create('video_categories', function (Blueprint $table) {
             $table->id();
+            $table->softDeletes(); //Soft delete
             //Llave forania de id_video
             $table->unsignedBigInteger('id_video')->nullable();
             $table->foreign('id_video')->references('id')->on('videos');

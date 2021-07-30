@@ -16,6 +16,7 @@ class CreateCommentariesTable extends Migration
         Schema::create('commentaries', function (Blueprint $table) {
             $table->id();
             $table->string('contenido');
+            $table->softDeletes(); //Soft delete
             #Llave foranea usuario autor
             $table->unsignedBigInteger('id_usuario');
             $table->foreign('id_usuario')->references('id')->on('users');

@@ -17,7 +17,7 @@ class CreateDonationsTable extends Migration
             $table->id();
             $table->float('monto',8,2);
             $table->date('fecha_donacion');
-            
+            $table->softDeletes(); //Soft delete
             //Lave forania de donador
             $table->unsignedBigInteger('id_donador');
             $table->foreign('id_donador')->references('id')->on('users');

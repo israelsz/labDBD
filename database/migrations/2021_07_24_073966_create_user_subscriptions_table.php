@@ -16,6 +16,7 @@ class CreateUserSubscriptionsTable extends Migration
         Schema::create('user_subscriptions', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->softDeletes(); //Soft delete
             $table->unsignedBigInteger('id_usuario_suscripcion');
             $table->foreign('id_usuario_suscripcion')->references('id')->on('users');
             $table->unsignedBigInteger('id_usuario_suscriptor');

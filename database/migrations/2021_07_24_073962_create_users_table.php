@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->date('fecha_nacimiento');
             $table->float('monedero',8,2);
             $table->string('email')->unique();
+            $table->softDeletes(); //Soft delete
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
             //Llave foranea id_comuna

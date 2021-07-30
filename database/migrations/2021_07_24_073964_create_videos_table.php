@@ -23,6 +23,7 @@ class CreateVideosTable extends Migration
             $table->float('popularidad', 8, 2);
             $table->integer('cantidad_temporadas');
             $table->string('descripcion');
+            $table->softDeletes(); //Soft delete
             //Falta Llave foranea con usuario
             $table->unsignedBigInteger('id_usuario_autor');
             $table->foreign('id_usuario_autor')->references('id')->on('users');

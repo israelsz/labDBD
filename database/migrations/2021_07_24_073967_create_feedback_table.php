@@ -17,6 +17,7 @@ class CreateFeedbackTable extends Migration
             $table->id();
             $table->timestamps();
             $table->integer('tipo_valoracion');
+            $table->softDeletes(); //Soft delete
             //Llave foranea con Usuario
             $table->unsignedBigInteger('id_usuario')->nullable();
             $table->foreign('id_usuario')->references('id')->on('users');

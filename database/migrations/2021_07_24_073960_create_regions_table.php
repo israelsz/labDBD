@@ -17,6 +17,7 @@ class CreateRegionsTable extends Migration
             $table->id();
             $table->string('nombre_region');
             $table->timestamps();
+            $table->softDeletes(); //Soft delete
             //Llave foranea con paises
             $table->unsignedBigInteger('id_pais');
             $table->foreign('id_pais')->references('id')->on('countries');

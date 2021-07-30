@@ -17,6 +17,7 @@ class CreateCommunesTable extends Migration
             $table->id();
             $table->string('nombre_comuna');
             $table->timestamps();
+            $table->softDeletes(); //Soft delete
             //Llave foranea con region
             $table->unsignedBigInteger('id_region');
             $table->foreign('id_region')->references('id')->on('regions');

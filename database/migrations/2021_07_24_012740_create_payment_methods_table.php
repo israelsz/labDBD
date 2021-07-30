@@ -16,6 +16,7 @@ class CreatePaymentMethodsTable extends Migration
         Schema::create('payment_methods', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->softDeletes(); //Soft delete
             $table->string('nombre_metodo_pago');
         });
     }

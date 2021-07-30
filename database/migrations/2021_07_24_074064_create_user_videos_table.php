@@ -16,6 +16,7 @@ class CreateUserVideosTable extends Migration
         Schema::create('user_videos', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->softDeletes(); //Soft delete
             $table->unsignedBigInteger('id_usuario');
             $table->foreign('id_usuario')->references('id')->on('users');
             $table->unsignedBigInteger('id_video');
