@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Video;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class VideoController extends Controller
 {
@@ -23,7 +24,7 @@ class VideoController extends Controller
     {
         $video = new Video();
 
-        $request->validate([
+        $validarDatos = Validator::make($request->all(),[
             'direccion_video' => 'required|max:100',
             'titulo_video' => 'required|max:60',
             'visitas' => 'required',
@@ -33,7 +34,7 @@ class VideoController extends Controller
             'descripcion' => 'required|max:500',
             'id_usuario_autor' => 'required',
             'id_comuna' => 'required'
-        ],[ //Mensajes de error abajo
+        ],[
             'direccion_video.required' => 'Debe ingresar una direccion de video',
             'direccion_video.max' => 'No puede exceder mas de 100 caracteres',
             'titulo_video.required' => 'Debe ingresar el titulo del video',
@@ -47,6 +48,10 @@ class VideoController extends Controller
             'id_comuna.required' => 'Debe ingresar el id de la comuna al que pertenece el video'
         ]);
 
+        if ($validarDatos->fails()){
+            return response()->json($validarDatos->errors(), 400);
+        }
+        
         $video->direccion_video = $request->direccion_video;
         $video->titulo_video = $request->titulo_video;
         $video->visitas= $request->visitas;
@@ -83,8 +88,8 @@ class VideoController extends Controller
         if($video == NULL){
             return "No existe un video asociada a ese id";
         }
-
-        $request->validate([
+    
+        $validarDatos = Validator::make($request->all(),[
             'direccion_video' => 'required|max:100',
             'titulo_video' => 'required|max:60',
             'visitas' => 'required',
@@ -94,7 +99,7 @@ class VideoController extends Controller
             'descripcion' => 'required|max:500',
             'id_usuario_autor' => 'required',
             'id_comuna' => 'required'
-        ],[ //Mensajes de error abajo
+        ],[
             'direccion_video.required' => 'Debe ingresar una direccion de video',
             'direccion_video.max' => 'No puede exceder mas de 100 caracteres',
             'titulo_video.required' => 'Debe ingresar el titulo del video',
@@ -107,6 +112,11 @@ class VideoController extends Controller
             'id_usuario_autor.required' => 'Debe ingresar el id del usuario que subio el video',
             'id_comuna.required' => 'Debe ingresar el id de la comuna al que pertenece el video'
         ]);
+
+        if ($validarDatos->fails()){
+            return response()->json($validarDatos->errors(), 400);
+        }
+
 
         $video->direccion_video = $request->direccion_video;
         $video->titulo_video = $request->titulo_video;

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Region;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class RegionController extends Controller
 {
@@ -27,12 +28,22 @@ class RegionController extends Controller
     {
         $region = new Region();
 
-        $request->validate([
+        $validarDatos = Validator::make($request->all(),[
             'nombre_region' => 'required|max:100',
             'id_pais' => 'required'
+        ],[
+            'nombre_region.required' => 'Debe ingresar el nombre de la region',
+            'nombre_region.max:100' => 'El nombre de la region no puede exceder los 100 caracteres',
+            'id_pais.required' => 'Debe ingresar el id del pais al que pertenece la region'
         ]);
 
+        if ($validarDatos->fails()){
+            return response()->json($validarDatos->errors(), 400);
+        }
+
         $region->nombre_region = $request->nombre_region;
+        $region->id_pais = $region->id_pais;
+
         $region->save();
 
         return response()->json([
@@ -61,11 +72,25 @@ class RegionController extends Controller
         if($region == NULL){
             return "No existe una region asociada a ese id";
         }
-        //Se verifica no se intenta ingresar un nombre vacio
-        if($request->nombre_region != NULL){
-            $region->nombre_region = $request->nombre_region;
+
+        $validarDatos = Validator::make($request->all(),[
+            'nombre_region' => 'required|max:100',
+            'id_pais' => 'required'
+        ],[
+            'nombre_region.required' => 'Debe ingresar el nombre de la region',
+            'nombre_region.max:100' => 'El nombre de la region no puede exceder los 100 caracteres',
+            'id_pais.required' => 'Debe ingresar el id del pais al que pertenece la region'
+        ]);
+
+        if ($validarDatos->fails()){
+            return response()->json($validarDatos->errors(), 400);
         }
+
+        $region->nombre_region = $request->nombre_region;
+        $region->id_pais = $region->id_pais;
+
         $region->save();
+
         return response()->json($region);
     }
 

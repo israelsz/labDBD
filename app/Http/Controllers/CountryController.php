@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Country;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CountryController extends Controller
 {
@@ -27,9 +28,17 @@ class CountryController extends Controller
     {
         $country = new Country();
 
-        $request->validate([
-            'nombre_pais' => 'required|max:100',
+        $validarDatos = Validator::make($request->all(),[
+            'nombre_pais' => 'required|max:100'
+        ],[
+            'nombre_pais.required' => 'Debe de ingresar el nombre del pais',
+            'nombre_pais.max:100' => 'El nombre no puede exceder los 100 caracteres'
         ]);
+
+        if ($validarDatos->fails()){
+            return response()->json($validarDatos->errors(), 400);
+        }
+        
 
         $country->nombre_pais = $request->nombre_pais;
         $country->save();
@@ -60,11 +69,21 @@ class CountryController extends Controller
         if($country == NULL){
             return "No existe un pais asociado a ese id";
         }
-        //Se verifica no se intenta ingresar un nombre vacio
-        if($request->nombre_pais != NULL){
-            $country->nombre_pais = $request->nombre_pais;
+
+        $validarDatos = Validator::make($request->all(),[
+            'nombre_pais' => 'required|max:100'
+        ],[
+            'nombre_pais.required' => 'Debe de ingresar el nombre del pais',
+            'nombre_pais.max:100' => 'El nombre no puede exceder los 100 caracteres'
+        ]);
+
+        if ($validarDatos->fails()){
+            return response()->json($validarDatos->errors(), 400);
         }
+
+        $country->nombre_pais = $request->nombre_pais;
         $country->save();
+        
         return response()->json($country);
     }
 

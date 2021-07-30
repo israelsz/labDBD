@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Commune;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class CommuneController extends Controller
 {
@@ -23,12 +24,21 @@ class CommuneController extends Controller
     {
         $commune = new Commune();
 
-        $request->validate([
+        $validarDatos = Validator::make($request->all(),[
             'nombre_comuna' => 'required|max:60',
             'id_region' => 'required'
+        ],[
+            'nombre_comuna.required' => 'Debe de ingresar un nombre de comuna',
+            'nombre_comuna.max:60' => 'El nombre de la comuna no puede exceder 60 caracteres ',
+            'id_region.required' => 'Debe de ingresar el id de la region a la que pertenece la comuna'
         ]);
 
+        if ($validarDatos->fails()){
+            return response()->json($validarDatos->errors(), 400);
+        }
+
         $commune->nombre_comuna = $request->nombre_comuna;
+        $commune->id_region = $request->id_region;
         $commune->save();
 
         return response()->json([
@@ -55,11 +65,24 @@ class CommuneController extends Controller
         if($commune == NULL){
             return "No existe una comuna asociada a ese id";
         }
-        //Se verifica no se intenta ingresar un nombre vacio
-        if($request->nombre_comuna != NULL){
-            $commune->nombre_comuna = $request->nombre_comuna;
+
+        $validarDatos = Validator::make($request->all(),[
+            'nombre_comuna' => 'required|max:60',
+            'id_region' => 'required'
+        ],[
+            'nombre_comuna.required' => 'Debe de ingresar un nombre de comuna',
+            'nombre_comuna.max:60' => 'El nombre de la comuna no puede exceder 60 caracteres ',
+            'id_region.required' => 'Debe de ingresar el id de la region a la que pertenece la comuna'
+        ]);
+
+        if ($validarDatos->fails()){
+            return response()->json($validarDatos->errors(), 400);
         }
+        
+        $commune->nombre_comuna = $request->nombre_comuna;
+        $commune->id_region = $request->id_region;
         $commune->save();
+
         return response()->json($commune);
     }
 
