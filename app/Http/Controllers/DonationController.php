@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Donation;
-
+use Illuminate\Support\Facades\Validator;
 class DonationController extends Controller
 {
     /**
@@ -18,7 +18,7 @@ class DonationController extends Controller
 
         //Indicar con un mensaje en el caso de que no existan donaciones
         if ($donaciones == NULL){
-            return "No exiten donaciones";
+            return response()->json(["message"=> "No exiten donaciones"],404);
         }
         //Entregar las donaciones 
         return response()->json($donaciones);
@@ -36,7 +36,9 @@ class DonationController extends Controller
         //
         $donacion= new Donation();
 
-        $request->validate(
+    
+
+        $validarDatos = Validator::make($request->all(),
             [
                 'monto'=>'required',
                 'fecha_donacion'=>'required',
@@ -46,6 +48,7 @@ class DonationController extends Controller
                 'id_playlist'=>'required',
                 'id_video'=>'required'
             ],
+            
             [
                 'monto.required'=>'Se debre ingresar un monto de la donacion',
                 'fecha_donacion.required'=>'Se debre ingresar una fecha de donacion',
@@ -55,8 +58,18 @@ class DonationController extends Controller
                 'id_playlist.required'=>'Se debre ingresar id de lista de reproduccion',
                 'id_video.required'=>'Se debre ingresar de video'   
             ]
+            
         
             );
+        if ($v->fails()) {
+            return response()->json([
+                "message"=> "No se han ingresado los datos correctamente"
+            ]);
+        };
+
+        if ($validarDatos->fails()){
+            return response()->json($validarDatos->errors(), 400);
+        }
         
         $donacion->monto = $request->monto;
         $donacion->fecha_donacion= $request->fecha_donacion;
@@ -68,9 +81,9 @@ class DonationController extends Controller
         $donacion->save();
 
         return response()->json([
-            "mesagge"=> "Se ha creado una nueva donacion",
+            "message"=> "Se ha creado una nueva donacion",
             $donacion
-        ]);
+        ],202);
         
     }
 
@@ -86,10 +99,10 @@ class DonationController extends Controller
         $donacion= Donation::find($id);
 
         if ($donacion==NULL) {
-            return "No existe una donacion asociada al usuario ingresado";
+            return response()->json(["message"=> "No exiten donaciones asociadas a la id ingresada"],404);
         }
 
-        return $reponse()->json($donacion);
+        return response()->json($donacion);
     
     }
 
@@ -107,10 +120,10 @@ class DonationController extends Controller
         $donacion= Donation::find($id);
 
         if ($donacion==NULL) {
-            return "No existe una donacion asociada al usuario ingresado";
+            return response()->json(["message"=> "No exiten donaciones asociadas a la id ingresada"],404);
         }
 
-        $request->validate(
+        $validarDatos = Validator::make($request->all(),
             [
                 'monto'=>'required',
                 'fecha_donacion'=>'required',
@@ -130,7 +143,11 @@ class DonationController extends Controller
                 'id_video.required'=>'Se debre ingresar de video'   
             ]
         
-            );
+        );
+
+        if ($validarDatos->fails()){
+            return response()->json($validarDatos->errors(), 400);
+        }
         
         $donacion->monto = $request->monto;
         $donacion->fecha_donacion= $request->fecha_donacion;
@@ -142,9 +159,9 @@ class DonationController extends Controller
         $donacion->save();
 
         return response()->json([
-            "mesagge"=> "Se ha editado una donacion",
+            "message"=> "Se ha editado una donacion",
             $donacion
-        ]);
+        ],202);
 
 
     }
@@ -161,13 +178,13 @@ class DonationController extends Controller
         $donacion= Donation::find($id);
 
         if ($donacion==NULL) {
-            return "No existe una donacion asociada al usuario ingresado";
+            return response()->json(["message"=> "No exiten donaciones asociadas a la id ingresada"],404);
         }
 
         $donacion->delete();
         return response()->json([
-            "mesagge"=> "Se ha eliminado una donacion",
+            "message"=> "Se ha eliminado una donacion",
             $donacion
-        ]);
+        ],202);
     }
 }

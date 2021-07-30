@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\UserType;
+use Illuminate\Support\Facades\Validator;
 
 class UserTypeController extends Controller
 {
@@ -17,7 +18,7 @@ class UserTypeController extends Controller
         $tipoUsuario= UserType::all();
         
         if ($tipoUsuario==NULL) {
-            return "No existen tipos de usuarios almacenados";
+            return response()->json(["message"=> "No exiten tipos de usuarios"],404);
         }
 
         return response()->json($tipoUsuario);
@@ -35,16 +36,20 @@ class UserTypeController extends Controller
         //
         $tipoUsuario = new UserType();
 
-        $request->validate(
+        $validarDatos = Validator::make($request->all(),
             [
                 'nombre_tipo_usuario'=>'required|max:60',
-                'descripcion_tipo_usuario'=>'required|max:100'
+                'descripcion_tipo_usuario'=>'required|max:500'
             ],
             [
                 'nombre_tipo_usuario.requider'=>'Debe ingresar un nombre al tipo de usuario',
                 'descripcion_tipo_usuario.required'=> 'Debe ingresar una descripcion del tipo de usuario'
             ]
             );
+        
+        if ($validarDatos->fails()){
+            return response()->json($validarDatos->errors(), 400);
+        }
 
         $tipoUsuario->nombre_tipo_usuario=$request->nombre_tipo_usuario;
         $tipoUsuario->descripcion_tipo_usuario=$request->descripcion_tipo_usuario;
@@ -52,9 +57,9 @@ class UserTypeController extends Controller
         $tipoUsuario->save();
 
         return response()->json([
-            "mesagge"=> "Se ha creado un nuevo tipo de usuario",
+            "message"=> "Se ha creado un nuevo tipo de usuario",
             $tipoUsuario
-        ]);
+        ],202);
     }
 
     /**
@@ -68,7 +73,7 @@ class UserTypeController extends Controller
         $tipoUsuario=UserType::find($id);
 
         if ($tipoUsuario==NULL) {
-            return "No existe un tipo de usuario asociado a la id ingresada";
+            return response()->json(["message"=> "No exiten tipos de usuarios asociadas a la id ingresada"],404);
         }
 
         return response()->json($tipoUsuario);
@@ -86,10 +91,10 @@ class UserTypeController extends Controller
         $tipoUsuario=UserType::find($id);
 
         if ($tipoUsuario==NULL) {
-            return "No existe un tipo de usuario asociado a la id ingresada";
+            return response()->json(["message"=> "No exiten tipos de usuarios asociadas a la id ingresada"],404);
         }
 
-        $request->validate(
+        $validarDatos = Validator::make($request->all(),
             [
                 'nombre_tipo_usuario'=>'required|max:60',
                 'descripcion_tipo_usuario'=>'required|max:100'
@@ -98,7 +103,11 @@ class UserTypeController extends Controller
                 'nombre_tipo_usuario.requider'=>'Debe ingresar un nombre al tipo de usuario',
                 'descripcion_tipo_usuario.required'=> 'Debe ingresar una descripcion del tipo de usuario'
             ]
-            );
+        );
+        
+        if ($validarDatos->fails()){
+            return response()->json($validarDatos->errors(), 400);
+        }
 
         $tipoUsuario->nombre_tipo_usuario=$request->nombre_tipo_usuario;
         $tipoUsuario->descripcion_tipo_usuario=$request->descripcion_tipo_usuario;
@@ -106,9 +115,9 @@ class UserTypeController extends Controller
         $tipoUsuario->save();
 
         return response()->json([
-            "mesagge"=> "Se ha actualizado el tipo de usuario",
+            "message"=> "Se ha actualizado el tipo de usuario",
             $tipoUsuario
-        ]);
+        ],202);
 
 
     }
@@ -124,7 +133,7 @@ class UserTypeController extends Controller
         $tipoUsuario=UserType::find($id);
 
         if ($tipoUsuario==NULL) {
-            return "No existe un tipo de usuario asociado a la id ingresada";
+            return response()->json(["message"=> "No exiten tipos de usuarios asociadas a la id ingresada"],404);
         }
 
         $tipoUsuario->delete();
@@ -134,6 +143,6 @@ class UserTypeController extends Controller
                 "message"=>"Se ha borrado el tipo de usuario",
                 "id"=>$tipoUsuario->id
             ]
-            );
+            ,202);
     }
 }

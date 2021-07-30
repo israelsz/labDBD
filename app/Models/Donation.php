@@ -12,7 +12,7 @@ class Donation extends Model
     //Relacion con playlist
     public function playlist()
     {
-        return $this->belongsTo(PlaylistVideo::class);
+        return $this->belongsTo(Playlist::class);
     }
 
     //Relacion con video

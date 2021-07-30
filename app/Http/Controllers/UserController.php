@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-
+use Illuminate\Support\Facades\Validator;
 class UserController extends Controller
 {
     /**
@@ -17,7 +17,7 @@ class UserController extends Controller
         //
         $user = User::all();
         if ($user==NULL) {
-            return "No hay usuarios registrados";
+            return response()->json(["message"=> "No exiten usuarios"],404);
         }
 
         return response()->json($user);
@@ -33,18 +33,25 @@ class UserController extends Controller
     {
         //
         $user = new User();
-
-        $request->validate(
+        /*
+        if(User::find($request->username)){
+            return response()->json([
+                "message" => ""
+            ], 400);
+        }
+        */
+        $validarDatos = Validator::make($request->all(),
             [
-                'username'=>'required|max:16',
+                'username'=>'required|max:16|unique:posts',
                 'password'=>'required|max:30',
                 'fecha_nacimineto'=>'required',
                 'monedero'=>'required',
-                'email'=>'required|max:60',
+                'email'=>'required|max:30',
                 'id_comuna'=>'required',
                 'id_tipo_usuario'=>'required'
             ],
             [
+                'username'.'unique:posts'=> 'El nombre de usuario ya existe',
                 'username.required'=>'Debe ingresar un nombre de usuario',
                 'password.required'=>'Debe ingresar una contraseña',
                 'fecha_nacimineto.required'=>'Debe ingresar una fecha de nacimiento',
@@ -54,6 +61,10 @@ class UserController extends Controller
                 'id_tipo_usuario.required'=>'Debe ingresar un id de tipo de usuario'
             ]
         );
+
+        if ($validarDatos->fails()){
+            return response()->json($validarDatos->errors(), 400);
+        }
 
         $user->username= $request->username;
         $user->password= $request->password;
@@ -66,9 +77,9 @@ class UserController extends Controller
         $user->save();
 
         return response()->json([
-            "mesagge"=> "Se ha creado un nuevo usuario ",
+            "message"=> "Se ha creado un nuevo usuario ",
             $user
-        ]);
+        ],202);
 
 
         
@@ -85,7 +96,7 @@ class UserController extends Controller
         //
         $user=User::find($id);
         if ($user==NULL) {
-            return "No existe un usuario registrado con la id ingresada";
+            return response()->json(["message"=> "No exiten usuarios asociadas a la id ingresada"],404);
         }
 
         return response()->json($user);
@@ -104,10 +115,10 @@ class UserController extends Controller
     {
         $user=User::find($id);
         if ($user==NULL) {
-            return "No existe un usuario registrado con la id ingresada";
+            return response()->json(["message"=> "No exiten usuarios asociadas a la id ingresada"],404);
         }
 
-        $request->validate(
+        $validarDatos = Validator::make($request->all(),
             [
                 'username'=>'required|max:16',
                 'password'=>'required|max:30',
@@ -128,6 +139,10 @@ class UserController extends Controller
             ]
         );
 
+        if ($validarDatos->fails()){
+            return response()->json($validarDatos->errors(), 400);
+        }
+
         $user->username= $request->username;
         $user->password= $request->password;
         $user->fecha_nacimineto= $request->fecha_nacimineto;
@@ -139,9 +154,9 @@ class UserController extends Controller
         $user->save();
 
         return response()->json([
-            "mesagge"=> "Se ha editado un usuario ",
+            "message"=> "Se ha editado un usuario ",
             $user
-        ]);
+        ],202);
     }
 
     /**
@@ -154,14 +169,14 @@ class UserController extends Controller
     {
         $user=User::find($id);
         if ($user==NULL) {
-            return "No existe un usuario registrado con la id ingresada";
+            return response()->json(["message"=> "No exiten usuarios asociadas a la id ingresada"],404);
         }
 
         $user->delete();
         return response()->json([
-            "mesagge"=> "Se ha eliminado un usuario ",
+            "message"=> "Se ha eliminado un usuario ",
             $user
-        ]);
+        ],202);
 
     }
 }

@@ -23,7 +23,7 @@ class UserTypeFactory extends Factory
     {
         return [
             'nombre_tipo_usuario'=> $this->faker->text(30),
-            'descripcion_tipo_usuario'=> $this->faker->text(30)
+            'descripcion_tipo_usuario'=> $this->faker->text(200)
             //
         ];
     }

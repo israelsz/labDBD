@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Illuminate\Support\Facades\Validator;
 
 class CategoryController extends Controller
 {
@@ -19,7 +20,7 @@ class CategoryController extends Controller
 
         //Indicar con un mensaje en el caso de que no existan categorias
         if ($categorias == NULL){
-            return "No exites categorias";
+            return response()->json(["message"=> "No exiten categorias"],404);
         }
         //Entregar las categorias 
         return response()->json($categorias);
@@ -37,19 +38,23 @@ class CategoryController extends Controller
         //Crear una nueva categoria
         $categoria= new Category();
 
-        $request->validate(
-            ['nombre_categoria'=> 'required|max:60'],
+        $validarDatos = Validator::make($request->all(),
+            ['nombre_categoria'=> 'required|max:20'],
             ['nombre_categoria.required'=> 'Debe ingresar un nombre de categoria']
         );
+
+        if ($validarDatos->fails()){
+            return response()->json($validarDatos->errors(), 400);
+        }
         
         $caregoria->nombre_categoria = $request->nombre_categoria;
 
         $categoria->save();
 
         return response()->json([
-            "mesagge"=> "Se ha creado una nueva categoria",
+            "message"=> "Se ha creado una nueva categoria",
             $categoria
-        ]);
+        ],202);
     }
 
     /**
@@ -64,7 +69,7 @@ class CategoryController extends Controller
         $categoria = Category::find($id);
 
         if ($categoria==NULL) {
-            return "No existe una categoria asociada a esa id";
+            return response()->json(["message"=> "No exiten categorias asociadas a la id ingresada"],404);
         }
         return response()->json($categoria);
     }
@@ -81,20 +86,24 @@ class CategoryController extends Controller
         $categoria = Category::find($id);
 
         if ($categoria==NULL) {
-            return "No existe una categoria asociada a esa id";
+            return response()->json(["message"=> "No exiten categorias asociadas a la id ingresada"],404);
         }
 
-        $request->validate(
+        $validarDatos = Validator::make($request->all(),
             ['nombre_categoria'=> 'required|max:60'],
             ['nombre_categoria.required'=> 'Debe ingresar un nombre de categoria']
         );
         
+        if ($validarDatos->fails()){
+            return response()->json($validarDatos->errors(), 400);
+        }
+
         $caregoria->nombre_categoria = $request->nombre_categoria;
 
         return response()->json([
-            "mesagge"=> "Se ha actualizado una nueva categoria",
+            "message"=> "Se ha actualizado una nueva categoria",
             $categoria
-        ]);
+        ],202);
     }
 
 
@@ -110,7 +119,7 @@ class CategoryController extends Controller
         $categoria = Category::find($id);
 
         if ($categoria==NULL) {
-            return "No existe una categoria asociada a esa id";
+            return response()->json(["message"=> "No exiten categorias asociadas a la id ingresada"],404);
         }
 
         $categoria->delete();
@@ -118,7 +127,7 @@ class CategoryController extends Controller
             [
                 "message"=> "Se ha borrado la categoria",
                 "id" => $categoria->id
-            ]);
+            ],202);
         
     }
 }

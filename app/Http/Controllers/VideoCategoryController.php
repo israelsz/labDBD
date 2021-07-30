@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\VideoCategory;
+use Illuminate\Support\Facades\Validator;
 
 class VideoCategoryController extends Controller
 {
@@ -18,7 +19,7 @@ class VideoCategoryController extends Controller
         $videoCategoria = videoCategory::all();
 
         if ($videoCategoria==NULL) {
-            return "No exite ninguna tupla intermedia entre video-categoria";
+            return response()->json(["message"=> "No exiten video-categorias"],404);
         }
         return response()->json($videoCategoria);
 
@@ -43,13 +44,17 @@ class VideoCategoryController extends Controller
                 'id_categoria.required'=>'Debe ingresar el id de  la categoria'
             ]);
 
+        if ($validarDatos->fails()){
+            return response()->json($validarDatos->errors(), 400);
+        }
+
         $videoCategoria->id_video= $request->id_video;
         $videoCategoria->id_categoria= $request->id_categoria;
         $videoCategoria->save();
         return response()->json([
             "message"=> "Se ha creado un nuevo video-categoria",
             $videoCategoria
-        ]);
+        ],202);
 
 
     }
@@ -64,7 +69,7 @@ class VideoCategoryController extends Controller
     {
         $videoCategoria= VideoCategory::find($id);
         if ($videoCategoria==NULL) {
-            return "No existe la tupla vido-categoria con esa id";
+            return response()->json(["message"=> "No exiten video-categorias asociadas a la id ingresada"],404);
         }
 
         return response()->json($videoCategoria);
@@ -84,10 +89,10 @@ class VideoCategoryController extends Controller
         //
         $videoCategoria= VideoCategory::find($id);
         if ($videoCategoria==NULL) {
-            return "No existe la tupla vido-categoria con esa id";
+            return response()->json(["message"=> "No exiten video-categorias asociadas a la id ingresada"],404);
         }
 
-        $request->validate([
+        $validarDatos = Validator::make($request->all(),[
             'id_video'=>'required',
             'id_categoria'=>'required'
         ],[
@@ -95,13 +100,17 @@ class VideoCategoryController extends Controller
             'id_categoria.required'=>'Debe ingresar el id de  la categoria'
         ]);
 
+        if ($validarDatos->fails()){
+            return response()->json($validarDatos->errors(), 400);
+        }
+
         $videoCategoria->id_video= $request->id_video;
         $videoCategoria->id_categoria= $request->id_categoria;
         $videoCategoria->save();
         return response()->json([
             "message"=> "Se ha actualizado un video-categoria",
             $videoCategoria
-        ]);
+        ],202);
     }
 
     /**
@@ -116,7 +125,7 @@ class VideoCategoryController extends Controller
         $videoCategoria=VideoCategoria::find($id);
 
         if ($videoCategoria==NULL) {
-            return "No existe la tupla video-categoria asociada con la id";
+            return response()->json(["message"=> "No exiten video-categorias asociadas a la id ingresada"],404);
         }
 
         $videoCategoria->delete();
@@ -124,7 +133,6 @@ class VideoCategoryController extends Controller
             [
                 "message"=>"Se ha borrado la categoria",
                 "id"=>$videoCategoria->id
-            ]
-            );
+            ],202);
     }
 }
