@@ -40,7 +40,7 @@ class UserController extends Controller
             [
                 'username'=>'required|max:16|unique:users,username',
                 'password'=>'required|max:30',
-                'fecha_nacimineto'=>'required',
+                'fecha_nacimiento'=>'required',
                 'monedero'=>'required',
                 'email'=>'required|max:30|unique:users,email',
                 'id_comuna'=>'required',
@@ -50,7 +50,7 @@ class UserController extends Controller
                 'username.unique'=>'El nombre de usuario ya existe',
                 'username.required'=>'Debe ingresar un nombre de usuario',
                 'password.required'=>'Debe ingresar una contraseña',
-                'fecha_nacimineto.required'=>'Debe ingresar una fecha de nacimiento',
+                'fecha_nacimiento.required'=>'Debe ingresar una fecha de nacimiento',
                 'monedero.required'=>'Debe ingresar una cantidad de dinero',
                 'email.required'=>'Debe ingresar un correo electronico',
                 'email.unique'=>'El correo electronico ya existe',
@@ -65,7 +65,7 @@ class UserController extends Controller
 
         $user->username= $request->username;
         $user->password= $request->password;
-        $user->fecha_nacimineto= $request->fecha_nacimineto;
+        $user->fecha_nacimiento= $request->fecha_nacimiento;
         $user->monedero= $request->monedero;
         $user->email= $request->email;
         $user->id_comuna= $request->id_comuna;
@@ -119,7 +119,7 @@ class UserController extends Controller
             [
                 'username'=>'required|max:16',
                 'password'=>'required|max:30',
-                'fecha_nacimineto'=>'required',
+                'fecha_nacimiento'=>'required',
                 'monedero'=>'required',
                 'email'=>'required|max:60',
                 'id_comuna'=>'required',
@@ -128,7 +128,7 @@ class UserController extends Controller
             [
                 'username.required'=>'Debe ingresar un nombre de usuario',
                 'password.required'=>'Debe ingresar una contraseña',
-                'fecha_nacimineto.required'=>'Debe ingresar una fecha de nacimiento',
+                'fecha_nacimiento.required'=>'Debe ingresar una fecha de nacimiento',
                 'monedero.required'=>'Debe ingresar una cantidad de dinero',
                 'email.required'=>'Debe ingresar un correo electronico',
                 'id_comuna.required'=>'Debe ingresar un id de comuna',
@@ -142,7 +142,7 @@ class UserController extends Controller
 
         $user->username= $request->username;
         $user->password= $request->password;
-        $user->fecha_nacimineto= $request->fecha_nacimineto;
+        $user->fecha_nacimiento= $request->fecha_nacimiento;
         $user->monedero= $request->monedero;
         $user->email= $request->email;
         $user->id_comuna= $request->id_comuna;

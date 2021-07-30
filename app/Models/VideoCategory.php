@@ -9,9 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class VideoCategory extends Model
 {
     use HasFactory;
-<<<<<<< Updated upstream
     use SoftDeletes;
-=======
     public function category(){
         return $this->belongsTo(Category::class);
     }
@@ -19,5 +17,4 @@ class VideoCategory extends Model
     public function video(){
         return $this->belongsTo(Video::class);
     }
->>>>>>> Stashed changes
 }
