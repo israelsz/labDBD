@@ -33,30 +33,27 @@ class UserController extends Controller
     {
         //
         $user = new User();
-        /*
-        if(User::find($request->username)){
-            return response()->json([
-                "message" => ""
-            ], 400);
-        }
-        */
+        $users = User::all();
+    
+
         $validarDatos = Validator::make($request->all(),
             [
-                'username'=>'required|max:16|unique:posts',
+                'username'=>'required|max:16|unique:users,username',
                 'password'=>'required|max:30',
                 'fecha_nacimineto'=>'required',
                 'monedero'=>'required',
-                'email'=>'required|max:30',
+                'email'=>'required|max:30|unique:users,email',
                 'id_comuna'=>'required',
                 'id_tipo_usuario'=>'required'
             ],
             [
-                'username'.'unique:posts'=> 'El nombre de usuario ya existe',
+                'username.unique'=>'El nombre de usuario ya existe',
                 'username.required'=>'Debe ingresar un nombre de usuario',
                 'password.required'=>'Debe ingresar una contraseña',
                 'fecha_nacimineto.required'=>'Debe ingresar una fecha de nacimiento',
                 'monedero.required'=>'Debe ingresar una cantidad de dinero',
                 'email.required'=>'Debe ingresar un correo electronico',
+                'email.unique'=>'El correo electronico ya existe',
                 'id_comuna.required'=>'Debe ingresar un id de comuna',
                 'id_tipo_usuario.required'=>'Debe ingresar un id de tipo de usuario'
             ]
