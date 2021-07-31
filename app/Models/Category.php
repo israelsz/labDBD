@@ -11,9 +11,8 @@ class Category extends Model
 {
     use HasFactory;
     use SoftDeletes;
+
     public function videoCategory(){
         return $this->hasMany(VideoCategory::class);
     }
-
-
 }

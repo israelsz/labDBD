@@ -61,12 +61,7 @@ class DonationController extends Controller
             
         
             );
-        if ($v->fails()) {
-            return response()->json([
-                "message"=> "No se han ingresado los datos correctamente"
-            ]);
-        };
-
+   
         if ($validarDatos->fails()){
             return response()->json($validarDatos->errors(), 400);
         }

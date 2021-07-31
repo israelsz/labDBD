@@ -12,6 +12,7 @@ class User extends Model
     use HasFactory;
     use SoftDeletes;
 
+
     //Relacion con comunas
     public function commune(){
         return $this->belongsTo(Commune::class);
@@ -20,4 +21,5 @@ class User extends Model
     public function userType(){
         return $this->belongsTo(UserType::class);
     }
+
 }
