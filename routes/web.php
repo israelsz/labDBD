@@ -17,6 +17,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserTypeController;
 use App\Http\Controllers\VideoCategoryController;
 use App\Http\Controllers\DonationController;
+use App\Http\Controllers\ViewsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,10 +31,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Vista principal
-Route::get('/', function () {
-    return view('welcome');
-});
+//Rutas para vistas
+
+
+Route::get('/', [ViewsController::class, 'vistaIndice'])->name('vistaIndice');
+Route::get('/login', [ViewsController::class, 'vistaLogin'])->name('vistaLogin');
 
 //Rutas para Tabla/Clase Pais:
 //Muestra todos los paises guardados -> Read
