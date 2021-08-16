@@ -120,3 +120,29 @@ body {
   color: rgb(108,105,86);
 }
 
+#miCuenta {
+  text-align: center;
+}
+
+#containerDrop {
+  width: 138.016px;
+  margin: 20px;
+}
+
+#nav2 {
+}
+
+#linkMiCuenta {
+  border-width: 1px;
+  border-style: solid;
+}
+
+#imagenRegister1 {
+  height: 130px;
+}
+
+#listaSelect {
+  color: rgb(108,117,101);
+  background: rgb(30,40,51);
+}
+

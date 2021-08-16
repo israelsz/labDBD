@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     /**
@@ -31,55 +32,44 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
         $user = new User();
-        $users = User::all();
     
-
         $validarDatos = Validator::make($request->all(),
             [
                 'username'=>'required|max:16|unique:users,username',
                 'password'=>'required|max:30',
                 'fecha_nacimiento'=>'required',
-                'monedero'=>'required',
                 'email'=>'required|max:30|unique:users,email',
                 'id_comuna'=>'required',
-                'id_tipo_usuario'=>'required'
             ],
             [
                 'username.unique'=>'El nombre de usuario ya existe',
                 'username.required'=>'Debe ingresar un nombre de usuario',
                 'password.required'=>'Debe ingresar una contraseña',
                 'fecha_nacimiento.required'=>'Debe ingresar una fecha de nacimiento',
-                'monedero.required'=>'Debe ingresar una cantidad de dinero',
                 'email.required'=>'Debe ingresar un correo electronico',
                 'email.unique'=>'El correo electronico ya existe',
-                'id_comuna.required'=>'Debe ingresar un id de comuna',
-                'id_tipo_usuario.required'=>'Debe ingresar un id de tipo de usuario'
+                'id_comuna.required'=>'Debe ingresar un id de comuna'
             ]
         );
 
         if ($validarDatos->fails()){
-            return response()->json($validarDatos->errors(), 400);
+        //Si el logueo no fue correcto
+            return back()->with('registerError', $validarDatos->errors());
         }
 
         $user->username= $request->username;
-        $user->password= $request->password;
+        $user->password= Hash::make($request->password); //Se encripta la contraseña
         $user->fecha_nacimiento= $request->fecha_nacimiento;
-        $user->monedero= $request->monedero;
+        $user->monedero= 0.0;
         $user->email= $request->email;
         $user->id_comuna= $request->id_comuna;
-        $user->id_tipo_usuario= $request->id_tipo_usuario;
+        $user->id_tipo_usuario= 1;
 
         $user->save();
 
-        return response()->json([
-            "message"=> "Se ha creado un nuevo usuario ",
-            $user
-        ],202);
+        return redirect()->route('vistaIndice')->with('register','Te has registrado con exito !');
 
-
-        
     }
 
     /**

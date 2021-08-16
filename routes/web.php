@@ -17,6 +17,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserTypeController;
 use App\Http\Controllers\VideoCategoryController;
 use App\Http\Controllers\DonationController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ViewsController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,9 +34,9 @@ use Illuminate\Support\Facades\Route;
 
 //Rutas para vistas
 
-
 Route::get('/', [ViewsController::class, 'vistaIndice'])->name('vistaIndice');
 Route::get('/login', [ViewsController::class, 'vistaLogin'])->name('vistaLogin');
+Route::get('/register', [ViewsController::class, 'vistaRegister'])->name('vistaRegister');
 
 //Rutas para Tabla/Clase Pais:
 //Muestra todos los paises guardados -> Read
@@ -147,13 +148,17 @@ Route::delete('/user_types/delete/{id}', [UserTypeController::class, 'destroy'])
 //Rutas para la table User
 Route::get('/users', [UserController::class, 'index']); 
 Route::get('/users/{id}', [UserController::class, 'show']);
-Route::post('/users/create', [UserController::class, 'store']);
+Route::post('/users/create', [UserController::class, 'store'])->name('intentarRegister');
 Route::put('/users/update/{id}', [UserController::class, 'update']);
 Route::delete('/users/delete/{id}', [UserController::class, 'destroy']);
 
-//Rutas para la tabla Dontation
+//Rutas para la tabla Donation
 Route::get('/donations', [DonationController::class, 'index']); 
 Route::get('/donations/{id}', [DonationController::class, 'show']);
 Route::post('/donations/create', [DonationController::class, 'store']);
 Route::put('/donations/update/{id}', [DonationController::class, 'update']);
 Route::delete('/donations/delete/{id}', [DonationController::class, 'destroy']);
+
+//Ruta para Login
+Route::post('/login/attempt', [LoginController::class, 'login'])->name('intentarLogin');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');

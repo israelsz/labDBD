@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Validator;
 
 class CommuneController extends Controller
 {
-    public function index()
+    public static function index()
     {
         //Se traen todas las comunas de la tabla de la base de datos
         $communes = Commune::all();
@@ -17,7 +17,7 @@ class CommuneController extends Controller
         if($communes == NULL){
             return "No existen comunas.";
         }
-        return response()->json($communes);
+        return $communes;
     }
 
     public function store(Request $request)
