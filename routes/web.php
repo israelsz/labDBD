@@ -19,6 +19,7 @@ use App\Http\Controllers\VideoCategoryController;
 use App\Http\Controllers\DonationController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ViewsController;
+use App\Http\Controllers\EditUserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -42,11 +43,10 @@ Route::get('/myvideos', [ViewsController::class, 'vistaMyVideos'])->name('vistaM
 Route::get('/editvideo/{id}', [ViewsController::class, 'vistaEditVideo'])->name('vistaEditVideo');
 Route::get('/topvideos', [ViewsController::class, 'vistaTopVideos'])->name('vistaTopVideos');
 Route::get('/categoryvideos/{id}', [ViewsController::class, 'vistaVideosCategoria'])->name('vistaVideosCategoria');
-
+Route::get('/user/{id}',[ViewsController::class, 'vistaUsuario'])->name('vistaUsuario');
+Route::get('/user/{id}/editUser',[ViewsController::class, 'vistaEditarUsuario'])->name('vistaEditarUsuario');
 
 Route::put('/video/update/{id}', [ViewsController::class, 'actualizarVideo'])->name('updateVideo');
-
-
 //Rutas para Tabla/Clase Pais:
 //Muestra todos los paises guardados -> Read
 Route::get('/countries', [CountryController::class, 'index']);
@@ -171,3 +171,5 @@ Route::delete('/donations/delete/{id}', [DonationController::class, 'destroy']);
 //Ruta para Login
 Route::post('/login/attempt', [LoginController::class, 'login'])->name('intentarLogin');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+Route::put('user/{id}/editUser/attempt',[EditUserController::class, 'update'])->name('intentarEditarUsuario');

@@ -87,8 +87,6 @@ class UserController extends Controller
         }
 
         return response()->json($user);
-
-
     }
 
     /**
@@ -104,7 +102,7 @@ class UserController extends Controller
         if ($user==NULL) {
             return response()->json(["message"=> "No exiten usuarios asociadas a la id ingresada"],404);
         }
-
+            
         $validarDatos = Validator::make($request->all(),
             [
                 'username'=>'required|max:16',
