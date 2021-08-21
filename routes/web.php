@@ -34,6 +34,7 @@ use Illuminate\Support\Facades\Route;
 
 //Rutas para vistas
 
+
 Route::get('/', [ViewsController::class, 'vistaIndice'])->name('vistaIndice');
 Route::get('/login', [ViewsController::class, 'vistaLogin'])->name('vistaLogin');
 Route::get('/register', [ViewsController::class, 'vistaRegister'])->name('vistaRegister');

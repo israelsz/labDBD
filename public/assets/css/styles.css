@@ -146,3 +146,266 @@ body {
   background: rgb(30,40,51);
 }
 
+#tituloVideo {
+  color: var(--bs-white);
+  margin-left: 0.8em;
+  font-size: 60px;
+}
+
+#reproduccionesYFecha {
+  color: var(--bs-white);
+  margin-left: 4em;
+}
+
+#contenidoVideo {
+  display: flex;
+  justify-content: center;
+  max-width: 50%;
+}
+
+#infoVideoDiv {
+  margin: 0.5em;
+  max-width: 500px;
+  display: flex;
+}
+
+#infoVideoContainer {
+  width: 450px;
+}
+
+.videoDiv iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.videoDiv {
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+  margin-top: 0.5em;
+  /*max-width: 800px;*/
+  /*display: flex;*/
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+}
+
+#tituloVideoDiv {
+  margin: 0.3em;
+  /*position: relative;*/
+  /*word-break: break-all;*/
+}
+
+#video {
+  width: 100%;
+  height: 100%;
+}
+
+.in-flex {
+  flex: 1;
+}
+
+.home {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#valoraEsteVideo {
+  color: var(--bs-white);
+  text-align: center;
+}
+
+#likeButtom {
+  background: inherit;
+  border: inherit;
+  margin-right: 2em;
+  font-size: 25px;
+}
+
+#likeIcon {
+  font-size: 60px;
+}
+
+#feedBackDiv {
+  justify-content: left;
+  text-align: center;
+  margin-right: 4em;
+  margin-top: 1.5em;
+}
+
+#dislikeButton {
+  background: inherit;
+  border: inherit;
+  font-size: 25px;
+}
+
+#dislikeIcon {
+  font-size: 60px;
+  text-align: left;
+}
+
+.botonLike:active {
+  color: #adff2f !important;
+}
+
+.botonLike:focus {
+  color: #adff2f;
+}
+
+.botonLike:visited {
+  color: #adff2f;
+}
+
+.botonDislike:active {
+  color: var(--bs-red);
+}
+
+.botonDislike:focus {
+  color: var(--bs-red) !important;
+}
+
+.botonDislike:visited {
+  color: var(--bs-red);
+}
+
+#comentarioText {
+  height: 70px;
+  background: rgb(28,44,59);
+  border-color: white;
+  color: #ffffff;
+  max-height: 100px;
+  width: 500px;
+}
+
+#comentarioButton {
+  padding: 5px;
+  float: right;
+  background: inherit;
+  margin-bottom: 0.5em;
+}
+
+#valoracionDiv {
+  background: #242a2d;
+  justify-content: center;
+}
+
+#comentarioDiv {
+  width: 500px;
+  margin: 0.5em;
+  margin-top: 1.5em;
+}
+
+#InfoVideoP {
+  margin-right: 1em ;
+}
+
+
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+::-webkit-scrollbar-track {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cac9c9;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(255, 255, 255);
+}
+
+#autorVideo {
+  margin: 1em;
+  border-bottom-color: var(--bs-white);
+  color: var(--bs-light);
+}
+
+#rowDescripcion {
+  margin: 2em;
+}
+
+#divDescripcion {
+  word-wrap: break-word;
+  max-height: 250px;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  
+}
+
+#categoriasP {
+  margin-top: 1em;
+  font-size: 20px;
+  color: var(--bs-white);
+  
+}
+
+#divCategorias{
+  border-top: 4px solid rgb(255,255,255)
+}
+
+#categoriasContainer {
+  margin-top: 1em;
+  margin-right: 5em;
+  text-align: center;
+  margin-bottom: 2em;
+}
+
+.botonCategoria {
+  margin: 0.6em;
+  border-color: #ffffff;
+  background: inherit;
+  font-size: 15px;
+}
+
+#suscribeButton {
+  margin-left: 2em;
+  border-color: #ffffff;
+  background: inherit;
+}
+
+#comentariosDiv {
+  word-break: break-word;
+  border-top: 1px solid #bfbfbf;
+  padding-top: 20px;
+  margin-top: 1.5em;
+  border-bottom: 1px solid #bfbfbf;
+  color: var(--bs-white);
+}
+
+#comentador {
+  margin-left: 1em;
+  font-size: 21px;
+  text-align: left;
+}
+
+#comentario {
+  margin-left: 0.9em;
+  font-size: 18px;
+  text-align: left;
+}
+
+#seccionComentariosDiv {
+  justify-content: center;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#dejaComentario {
+  color: #ffffff;
+}
+
+#comentariosHeading{
+  color: #ffffff;
+  margin-top: 1.5em;
+}
+
+#mainDiv {
+  /*justify-content: center;*/
+}
+
