@@ -13,17 +13,17 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public static function index()
     {
         //Almacenar todos las categorias
         $categorias = Category::all();
 
         //Indicar con un mensaje en el caso de que no existan categorias
-        if ($categorias == NULL){
-            return response()->json(["message"=> "No exiten categorias"],404);
+        if (empty($categorias)){
+            return "No existen categorias";
         }
         //Entregar las categorias 
-        return response()->json($categorias);
+        return $categorias;
     }
 
 
@@ -47,7 +47,7 @@ class CategoryController extends Controller
             return response()->json($validarDatos->errors(), 400);
         }
         
-        $caregoria->nombre_categoria = $request->nombre_categoria;
+        $categoria->nombre_categoria = $request->nombre_categoria;
 
         $categoria->save();
 

@@ -43,7 +43,7 @@ Route::get('/register', [ViewsController::class, 'vistaRegister'])->name('vistaR
 Route::get('/myvideos', [ViewsController::class, 'vistaMyVideos'])->name('vistaMyVideos');
 Route::get('/editvideo/{id}', [ViewsController::class, 'vistaEditVideo'])->name('vistaEditVideo');
 Route::get('/topvideos', [ViewsController::class, 'vistaTopVideos'])->name('vistaTopVideos');
-Route::get('/categoryvideos/{id}', [ViewsController::class, 'vistaVideosCategoria'])->name('vistaVideosCategoria');
+Route::get('/categoryvideos', [ViewsController::class, 'vistaVideosCategoria'])->name('vistaVideosCategoria');
 Route::get('/user/{id}',[ViewsController::class, 'vistaUsuario'])->name('vistaUsuario');
 Route::get('/user/{id}/editUser',[ViewsController::class, 'vistaEditarUsuario'])->name('vistaEditarUsuario');
 Route::get('/watchVideo/{id}', [VideoController::class, 'vistaVideo'])->name('vistaVideo');

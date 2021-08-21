@@ -9,6 +9,9 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Http\Controllers\EditUserController;
+use App\Http\Controllers\CategoryVideoController;
+use App\Http\Controllers\CategoryController;
+use App\Models\Category;
 use App\Models\Commune;
 
 
@@ -90,9 +93,10 @@ class ViewsController extends Controller
         //Se regresa a la vista anterior
         return redirect()->action([ViewsController::class, 'vistaMyVideos'])->with('mensaje', 'Video actualizado!');
     }
-    public function vistaVideosCategoria($id){
-        $videos =  VideoController::ordenadosViews();
-        return view('categoryvideos',compact('videos'));
+    public function vistaVideosCategoria(Request $request){
+        $videos =  CategoryVideoController::videosPorCategoria($request->id);
+        $categorias =  CategoryController::index();
+        return view('categoryvideos',compact('videos','categorias'));
     }
 
 }
