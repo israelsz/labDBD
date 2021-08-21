@@ -135,4 +135,15 @@ class VideoCategoryController extends Controller
                 "id"=>$videoCategoria->id
             ],202);
     }
+
+    public static function videosDeCategoria($id)
+    {
+        //Se traen todas los videos de la tabla de la base de datos
+        $videos = VideoCategory::where("id_categoria","=",$id)->get();
+        //Se verifica en caso este vacia
+        if(empty($videos)){
+            return "No existen videos.";
+        }
+        return $videos;
+    }
 }

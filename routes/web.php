@@ -20,6 +20,7 @@ use App\Http\Controllers\DonationController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ViewsController;
 use App\Http\Controllers\EditUserController;
+use App\Http\Controllers\CategoryVideoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -142,6 +143,7 @@ Route::delete('/categories/delete/{id}', [CategoryController::class, 'destroy'])
 
 //Rutas para la table VideoCategory
 Route::get('/video_categories', [VideoCategoryController::class, 'index']); 
+Route::get('/video_categories/video/{id}', [VideoCategoryController::class, 'videosDeCategoria']); 
 Route::get('/video_categories/{id}', [VideoCategoryController::class, 'show']);
 Route::post('/video_categories/create', [VideoCategoryController::class, 'store']);
 Route::put('/video_categories/update/{id}', [VideoCategoryController::class, 'update']);
@@ -173,3 +175,6 @@ Route::post('/login/attempt', [LoginController::class, 'login'])->name('intentar
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::put('user/{id}/editUser/attempt',[EditUserController::class, 'update'])->name('intentarEditarUsuario');
+
+//Ruta para CategoryVideo
+Route::get('/categoryVideo/{id}', [CategoryVideoController::class, 'videosPorCategoria']);

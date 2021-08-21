@@ -90,4 +90,9 @@ class ViewsController extends Controller
         //Se regresa a la vista anterior
         return redirect()->action([ViewsController::class, 'vistaMyVideos'])->with('mensaje', 'Video actualizado!');
     }
+    public function vistaVideosCategoria($id){
+        $videos =  VideoController::ordenadosViews();
+        return view('categoryvideos',compact('videos'));
+    }
+
 }
