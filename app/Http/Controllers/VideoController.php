@@ -8,16 +8,16 @@ use Illuminate\Support\Facades\Validator;
 
 class VideoController extends Controller
 {
-    public function index()
+    public static function index()
     {
         //Se traen todas los videos de la tabla de la base de datos
         $videos = Video::all();
 
         //Se verifica en caso este vacia
-        if($videos == NULL){
+        if(empty($videos)){
             return "No existen videos.";
         }
-        return response()->json($videos);
+        return $videos;
     }
 
     public function store(Request $request)
@@ -70,15 +70,15 @@ class VideoController extends Controller
         ]);
     }
 
-    public function show($id)
+    public static function show($id)
     {
-        $video = Video::find($id);
+        $video = Video::findOrFail($id);
         
         if($video == NULL){
             return "No existe un video asociado a ese id";
         }
 
-        return response()->json($video);
+        return $video;
     }
 
     public function update(Request $request, $id)
@@ -145,5 +145,15 @@ class VideoController extends Controller
             "message" => "Se ha borrado el video",
             "id" => $video->id
         ]);
+    }
+    public static function ordenadosViews()
+    {
+        //Se traen todas los videos de la tabla de la base de datos
+        $videos = Video::orderBy('visitas','DESC')->get();
+        //Se verifica en caso este vacia
+        if(empty($videos)){
+            return "No existen videos.";
+        }
+        return $videos;
     }
 }

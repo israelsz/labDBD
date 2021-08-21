@@ -23,8 +23,9 @@ class VideoFactory extends Factory
      */
     public function definition()
     {
+
         return [
-            'direccion_video' => $this->faker->url(),
+            'direccion_video' => $this->faker->randomElement($array = array ('https://www.youtube.com/watch?v=H8B-fo_Z2aI','https://www.youtube.com/watch?v=fFA1qsTEKus','https://www.youtube.com/watch?v=qBc6y4XG28s','https://www.youtube.com/watch?v=dQw4w9WgXcQ','https://www.youtube.com/watch?v=kJQP7kiw5Fk','https://www.youtube.com/watch?v=eY52Zsg-KVI', 'https://www.youtube.com/watch?v=KZi3bZYUWFg','https://www.youtube.com/watch?v=eps_zI-ZztA','https://www.youtube.com/watch?v=uaFB8P6b5Hg','https://www.youtube.com/watch?v=A2DFwUqFUQY','https://www.youtube.com/watch?v=_gxRuTLSPTo','https://www.youtube.com/watch?v=Wl959QnD3lM')),
             'titulo_video' => $this->faker->sentence(6,true),
             'visitas' => $this->faker->numberBetween(0,562395623),
             'restriccion_edad' => $this->faker->numberBetween(0,1),

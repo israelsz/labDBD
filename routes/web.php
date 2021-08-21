@@ -37,6 +37,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [ViewsController::class, 'vistaIndice'])->name('vistaIndice');
 Route::get('/login', [ViewsController::class, 'vistaLogin'])->name('vistaLogin');
 Route::get('/register', [ViewsController::class, 'vistaRegister'])->name('vistaRegister');
+Route::get('/myvideos', [ViewsController::class, 'vistaMyVideos'])->name('vistaMyVideos');
+Route::get('/editvideo/{id}', [ViewsController::class, 'vistaEditVideo'])->name('vistaEditVideo');
+Route::get('/topvideos', [ViewsController::class, 'vistaTopVideos'])->name('vistaTopVideos');
+Route::get('/categoryvideos/{id}', [ViewsController::class, 'vistaVideosCategoria'])->name('vistaVideosCategoria');
+
+
+Route::put('/video/update/{id}', [ViewsController::class, 'actualizarVideo'])->name('updateVideo');
+
 
 //Rutas para Tabla/Clase Pais:
 //Muestra todos los paises guardados -> Read

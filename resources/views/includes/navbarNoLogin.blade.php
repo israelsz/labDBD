@@ -1,6 +1,6 @@
 <nav class="navbar navbar-light navbar-expand-md" id="barraNav">
     <div class="container-fluid">
-        <img id="cheems1" src="assets/img/cheems.png" /><a
+        <img id="cheems1" src="{{asset('assets/img/cheems.png')}}" /><a
             class="navbar-brand"
             id="logo"
             href="{{ route('vistaIndice') }}"
