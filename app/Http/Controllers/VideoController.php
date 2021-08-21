@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Video;
+use App\Models\User;
+use App\Models\Commentary;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -155,5 +158,16 @@ class VideoController extends Controller
             return "No existen videos.";
         }
         return $videos;
+    }
+
+    public static function vistaVideo($video){
+
+        //Se traen el video de la tabla de la base de datos
+        $videoSeleccionado = Video::findOrFail($video);
+        $autorVideo = User::findOrFail($videoSeleccionado->id_usuario_autor);
+        $comentarios = Commentary::find($videoSeleccionado->id_usuario);
+        $categorias = Category::findOrFail($videoSeleccionado->id);
+
+        return view('watchVideo', compact('videoSeleccionado', 'autorVideo', 'comentarios', 'categorias'));
     }
 }

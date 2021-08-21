@@ -35,7 +35,7 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ $vid->titulo_video }}</h5>
                                 <p class="card-text">{{$vid->descripcion}}</p>
-                                <a href="#" class="btn btn-primary">Ver</a>
+                                <a href="{{route('vistaVideo', $vid)}}" class="btn btn-primary">Ver</a>
                                 <a href="{{route('vistaEditVideo', $vid)}}" class="btn btn-primary">Editar</a>
                             </div>
                         </div>

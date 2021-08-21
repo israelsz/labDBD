@@ -20,11 +20,11 @@
 
     <div id="mainDiv" class="in-flex">
         <div id="tituloVideoDiv" class="row in-flex">
-            <h1 id="tituloVideo" class="row">Titulo Video</h1>
+            <h1 id="tituloVideo" class="row">{{$videoSeleccionado->titulo_video}}</h1>
             <p id="reproduccionesYFecha" class="row col-5">Reproducciones - Fecha de subida</p>
         </div>
         <div class="float-none in-flex container" id="contenidoVideo">
-            <div class="d-inline-flex flex-grow-0 flex-shrink-0 ratio ratio-16x9 container videoDiv" id="videoDiv"><iframe id="videoIframe" src="https://www.youtube.com/embed/jPr0A6J5iBI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+            <div class="d-inline-flex flex-grow-0 flex-shrink-0 ratio ratio-16x9 container videoDiv" id="videoDiv"><iframe id="videoIframe" src="{{$videoSeleccionado->direccion_video}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
             <div id="infoVideoDiv" class="in-flex container">
                 <div class="container" id="infoVideoContainer">
                     <div class="row" id="rowAutor">
@@ -54,10 +54,12 @@
         </div>
         <div id="seccionComentariosDiv" class="row">
             <h4 id="comentariosHeading">Comentarios</h4>
+            
             <div id="comentariosDiv" class="col-7">
-                <p id="comentador"><strong>Héctor Ballesteros&nbsp;</strong><span class="m-2">25/11/2020</span></p>
-                <p id="comentario">Lorem&nbsp;ipsum&nbsp;dolor&nbsp;sit&nbsp;amet&nbsp;consectetur&nbsp;adipisicing&nbsp;elit.&nbsp;Odio&nbsp;maxime&nbsp;aliquam&nbsp;porro&nbsp;fuga&nbsp;molestiae,&nbsp;sit&nbsp;iusto&nbsp;fugiat&nbsp;pariatur&nbsp;expedita&nbsp;sint&nbsp;mollitia&nbsp;officia&nbsp;architecto&nbsp;voluptate&nbsp;cumque,&nbsp;corporis&nbsp;ipsa,&nbsp;harum&nbsp;at&nbsp;dolorem?<br></p>
+                <p id="comentador"><strong>Autor comentario</strong></p>
+                <p id="comentario">{Comentario}<br></p>
             </div>
+           
         </div>
     </div>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>

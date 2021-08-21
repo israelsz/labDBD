@@ -25,7 +25,7 @@ class VideoFactory extends Factory
     {
 
         return [
-            'direccion_video' => $this->faker->randomElement($array = array ('https://www.youtube.com/watch?v=H8B-fo_Z2aI','https://www.youtube.com/watch?v=fFA1qsTEKus','https://www.youtube.com/watch?v=qBc6y4XG28s','https://www.youtube.com/watch?v=dQw4w9WgXcQ','https://www.youtube.com/watch?v=kJQP7kiw5Fk','https://www.youtube.com/watch?v=eY52Zsg-KVI', 'https://www.youtube.com/watch?v=KZi3bZYUWFg','https://www.youtube.com/watch?v=eps_zI-ZztA','https://www.youtube.com/watch?v=uaFB8P6b5Hg','https://www.youtube.com/watch?v=A2DFwUqFUQY','https://www.youtube.com/watch?v=_gxRuTLSPTo','https://www.youtube.com/watch?v=Wl959QnD3lM')),
+            'direccion_video' => $this->faker->randomElement($array = array ('https://www.youtube.com/embed/H8B-fo_Z2aI','https://www.youtube.com/embed/fFA1qsTEKus','https://www.youtube.com/embed/qBc6y4XG28s','https://www.youtube.com/embed/dQw4w9WgXcQ','https://www.youtube.com/embed/kJQP7kiw5Fk','https://www.youtube.com/embed/eY52Zsg-KVI', 'https://www.youtube.com/embed/KZi3bZYUWFg','https://www.youtube.com/embed/eps_zI-ZztA','https://www.youtube.com/embed/uaFB8P6b5Hg','https://www.youtube.com/embed/A2DFwUqFUQY','https://www.youtube.com/embed/_gxRuTLSPTo','https://www.youtube.com/embed/Wl959QnD3lM')),
             'titulo_video' => $this->faker->sentence(6,true),
             'visitas' => $this->faker->numberBetween(0,562395623),
             'restriccion_edad' => $this->faker->numberBetween(0,1),

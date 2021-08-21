@@ -34,7 +34,6 @@ class ViewsController extends Controller
         return view('register',compact('comunas'));
     }
 
-
     public function vistaEditarUsuario($user){
         $usuario=User::findOrFail($user);
         $comunas = CommuneController::index();
@@ -48,5 +47,47 @@ class ViewsController extends Controller
         $comunas = CommuneController::index();
         $comuna=Commune::find($user->id_comuna);
         return view('userView',compact('user','comuna'));
+    }
+
+    //Vista My videos
+    public function vistaMyVideos(){
+        //$userOn = Auth::user();
+        $videosUser =  VideoController::index();
+        /*
+        $videosUser = array();
+        if(!empty($userOn)){
+            foreach($videos as $vid){
+                if($vid->id_usuario_autor == $userOn->id){
+                    array_push($videosUser,$vid);
+                }
+
+            }
+        }
+        */
+        return view('myvideos',compact('videosUser'));
+    }
+    //Vista My videos
+    public function vistaEditVideo($id){
+        $video =  VideoController::show($id);
+        return view('editvideo',compact('video'));
+    }
+
+    public function vistaTopVideos(){
+        $videos =  VideoController::ordenadosViews();
+        return view('topvideos',compact('videos'));
+    }
+    public function actualizarVideo(Request $datos, $idVideo){
+        //Se busca al usuario segun su id
+        $videoActualizar = VideoController::show($idVideo);
+
+        //Se actualizan sus datos de acuerdo al formulario
+        $videoActualizar->titulo_video = $datos->titulo_video;
+        $videoActualizar->descripcion = $datos->descripcion;
+
+        //Se guardan los cambios en la base de datos
+        $videoActualizar->save();
+
+        //Se regresa a la vista anterior
+        return redirect()->action([ViewsController::class, 'vistaMyVideos'])->with('mensaje', 'Video actualizado!');
     }
 }

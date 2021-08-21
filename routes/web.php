@@ -45,7 +45,7 @@ Route::get('/topvideos', [ViewsController::class, 'vistaTopVideos'])->name('vist
 Route::get('/categoryvideos/{id}', [ViewsController::class, 'vistaVideosCategoria'])->name('vistaVideosCategoria');
 Route::get('/user/{id}',[ViewsController::class, 'vistaUsuario'])->name('vistaUsuario');
 Route::get('/user/{id}/editUser',[ViewsController::class, 'vistaEditarUsuario'])->name('vistaEditarUsuario');
-
+Route::get('/watchVideo/{id}', [VideoController::class, 'vistaVideo'])->name('vistaVideo');
 Route::put('/video/update/{id}', [ViewsController::class, 'actualizarVideo'])->name('updateVideo');
 //Rutas para Tabla/Clase Pais:
 //Muestra todos los paises guardados -> Read
