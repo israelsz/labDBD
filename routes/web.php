@@ -47,6 +47,7 @@ Route::get('/user/{id}',[ViewsController::class, 'vistaUsuario'])->name('vistaUs
 Route::get('/user/{id}/editUser',[ViewsController::class, 'vistaEditarUsuario'])->name('vistaEditarUsuario');
 Route::get('/watchVideo/{id}', [VideoController::class, 'vistaVideo'])->name('vistaVideo');
 Route::put('/video/update/{id}', [ViewsController::class, 'actualizarVideo'])->name('updateVideo');
+Route::get('/list', [ViewsController::class, 'vistaListaReproduccion'])->name('vistaListaReproduccion');
 //Rutas para Tabla/Clase Pais:
 //Muestra todos los paises guardados -> Read
 Route::get('/countries', [CountryController::class, 'index']);
@@ -173,3 +174,4 @@ Route::post('/login/attempt', [LoginController::class, 'login'])->name('intentar
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::put('user/{id}/editUser/attempt',[EditUserController::class, 'update'])->name('intentarEditarUsuario');
+Route::get('list/{id}',[ViewsController::class, 'vistaVideoListaReproduccion'])->name('vistaVideoListaReproduccion');

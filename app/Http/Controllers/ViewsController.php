@@ -10,7 +10,9 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Http\Controllers\EditUserController;
 use App\Models\Commune;
-
+use App\Models\Playlist;
+use App\Models\PlaylistVideo;
+use App\Models\Video;
 
 class ViewsController extends Controller
 {   
@@ -42,8 +44,8 @@ class ViewsController extends Controller
         return view('editUser',compact('comunas','usuario','comuna_usuario'));
     }
 
-    public function vistaUsuario(){
-        $user=Auth::user();
+    public function vistaUsuario($id){
+        $user=User::find($id);
         $comunas = CommuneController::index();
         $comuna=Commune::find($user->id_comuna);
         return view('userView',compact('user','comuna'));
@@ -90,4 +92,27 @@ class ViewsController extends Controller
         //Se regresa a la vista anterior
         return redirect()->action([ViewsController::class, 'vistaMyVideos'])->with('mensaje', 'Video actualizado!');
     }
+
+    public function vistaListaReproduccion(){
+        $listas=Playlist::all();
+        return view('playlistView',compact('listas'));
+         
+    }
+
+    public function vistaVideoListaReproduccion($id_lista_reproduccion){
+        $auxs= PlaylistVideo::all()->where('id_playlist',$id_lista_reproduccion);
+        $videos=Video::all();
+        $videosFiltrados=array();
+        foreach ($auxs as $aux){
+            foreach ($videos as $video){
+                if ($aux->id_video==$video->id) {
+                    array_push($videosFiltrados,$video);
+                }
+            }
+        }
+            
+        return view('playlistVideoView',compact('videosFiltrados'));
+        
+    }   
+    
 }
