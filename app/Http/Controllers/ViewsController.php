@@ -7,9 +7,12 @@ use App\Http\Controllers\CommuneController;
 use App\Http\Controllers\VideoController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Collection;
 use App\Models\User;
+use App\Models\UserVideo;
 use App\Http\Controllers\EditUserController;
 use App\Models\Commune;
+
 
 
 class ViewsController extends Controller
@@ -90,4 +93,20 @@ class ViewsController extends Controller
         //Se regresa a la vista anterior
         return redirect()->action([ViewsController::class, 'vistaMyVideos'])->with('mensaje', 'Video actualizado!');
     }
+
+    //Vista My videos
+    /*public function vistaHistorial(){
+        $user_id = Auth::user()->id;
+
+        $videosHistorial = UserVideo::all()
+                    ->select('id_usuario', $user_id)
+                    ->groupBy('id_usuario')->distinct()->get();
+        /*$arrayVideos = array();                            
+        foreach ($videosHistorial as $vid) {
+            array_push($arrayVideos, VideoController::show($vid->id));
+        }
+            
+
+        return view('historial',compact('videosHistorial'));
+    }*/
 }

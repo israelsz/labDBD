@@ -47,6 +47,7 @@ Route::get('/user/{id}',[ViewsController::class, 'vistaUsuario'])->name('vistaUs
 Route::get('/user/{id}/editUser',[ViewsController::class, 'vistaEditarUsuario'])->name('vistaEditarUsuario');
 Route::get('/watchVideo/{id}', [VideoController::class, 'vistaVideo'])->name('vistaVideo');
 Route::put('/video/update/{id}', [ViewsController::class, 'actualizarVideo'])->name('updateVideo');
+//Route::get('/myhistorial', [ViewsController::class, 'vistaHistorial'])->name('vistaHistorial');
 //Rutas para Tabla/Clase Pais:
 //Muestra todos los paises guardados -> Read
 Route::get('/countries', [CountryController::class, 'index']);
