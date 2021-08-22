@@ -20,6 +20,7 @@ use App\Http\Controllers\DonationController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ViewsController;
 use App\Http\Controllers\EditUserController;
+use App\Http\Controllers\CategoryVideoController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -48,6 +49,8 @@ Route::get('/user/{id}/editUser',[ViewsController::class, 'vistaEditarUsuario'])
 Route::get('/watchVideo/{id}', [VideoController::class, 'vistaVideo'])->name('vistaVideo');
 Route::put('/video/update/{id}', [ViewsController::class, 'actualizarVideo'])->name('updateVideo');
 //Route::get('/myhistorial', [ViewsController::class, 'vistaHistorial'])->name('vistaHistorial');
+Route::get('/uploadvideo', [ViewsController::class, 'vistaSubirVideo'])->name('vistaSubirVideo');
+Route::post('/uploadvideo/create', [ViewsController::class, 'SubirVideo'])->name('SubirVideo');
 //Rutas para Tabla/Clase Pais:
 //Muestra todos los paises guardados -> Read
 Route::get('/countries', [CountryController::class, 'index']);
@@ -143,6 +146,7 @@ Route::delete('/categories/delete/{id}', [CategoryController::class, 'destroy'])
 
 //Rutas para la table VideoCategory
 Route::get('/video_categories', [VideoCategoryController::class, 'index']); 
+Route::get('/video_categories/video/{id}', [VideoCategoryController::class, 'videosDeCategoria']); 
 Route::get('/video_categories/{id}', [VideoCategoryController::class, 'show']);
 Route::post('/video_categories/create', [VideoCategoryController::class, 'store']);
 Route::put('/video_categories/update/{id}', [VideoCategoryController::class, 'update']);
@@ -174,3 +178,7 @@ Route::post('/login/attempt', [LoginController::class, 'login'])->name('intentar
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::put('user/{id}/editUser/attempt',[EditUserController::class, 'update'])->name('intentarEditarUsuario');
+
+//Ruta para CategoryVideo
+Route::get('/categoryVideo/{id}', [CategoryVideoController::class, 'videosPorCategoria']);
+Route::get('/refrescarPagina', [ViewsController::class, 'refrescarPagina'])->name('refrescarPagina');
