@@ -25,12 +25,13 @@
                 <h6 class="mb-3"  style="color: var(--bs-light);">{{$user->email}}</h6>
                 <h4 style="color: var(--bs-light)">Saldo en el monedero</h4>
                 <h6 class="mb-3"  style="color: var(--bs-light);">{{$user->monedero}}</h6>
-                <h4 style="color: var(--bs-light)">Fecha de nacimientp</h4>
+                <h4 style="color: var(--bs-light)">Fecha de nacimiento</h4>
                 <h6 class="mb-3"  style="color: var(--bs-light);">{{$user->fecha_nacimiento}}</h6>
                 <h4 style="color: var(--bs-light)">Comuna</h4>
                 <h6 class="mb-3"  style="color: var(--bs-light);">{{$comuna->nombre_comuna}}</h6>
                 <div class="d-flex flex-row-reverse bd-highlight mt-4">
-                    <a href='/' class="btn btn-secondary" type = "submit" style="margin-left: 20px">Cancelar</a>
+                    <a href='/' class="btn btn-secondary" type = "submit" style="margin-left: 0px">Regresar a inicio</a>
+                    <a href= '{{route('vistaSeguidos')}}' class="btn btn-primary d-block me-3" type="submit">Canales Seguidos</a>
                     <a href= '{{route('vistaEditarUsuario',$user)}}' class="btn btn-primary d-block w-10 me-3" type="submit">Editar Usuario</a>
                     <a href= '{{route('vistaRecargarSaldo',$user)}}' class="btn btn-outline-warning me-3" type="submit">Recargar Saldo</a>
                 </div>

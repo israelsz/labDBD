@@ -171,6 +171,8 @@ class VideoController extends Controller
         //Se traen el video de la tabla de la base de datos
         $videoSeleccionado = Video::findOrFail($video);
         $autorVideo = User::findOrFail($videoSeleccionado->id_usuario_autor);
+        $feedbackDado = -1;
+        $estaSuscrito = 0;
 
         $edad = 19;
         if (Auth::check()){
@@ -208,32 +210,34 @@ class VideoController extends Controller
                 array_push($arrayCategorias, CategoryController::show($vid->id));
             }
         }
+        if (Auth::check()){
+            $suscripcion = UserSubscription::all()
+                            -> where('id_usuario_suscriptor', Auth::user()->id)
+                            -> where('id_usuario_suscripcion', $autorVideo->id);
+            if ($suscripcion->isEmpty()){
+                     $estaSuscrito = 0;
+            }
+            else{
+                    $estaSuscrito = 1;
+            }
+            $userFeedback = Feedback::all()
+            -> where('id_usuario', Auth::user()->id)
+            -> where('id_video', $videoSeleccionado->id)->first();
 
-        $suscripcion = UserSubscription::all()
-                        -> where('id_usuario_suscriptor', Auth::user()->id)
-                        -> where('id_usuario_suscripcion', $autorVideo->id);
-
-        if ($suscripcion->isEmpty()){
-            $estaSuscrito = 0;
-        }
-        else{
-            $estaSuscrito = 1;
-        }
-
-        $userFeedback = Feedback::all()
-                        -> where('id_usuario', Auth::user()->id)
-                        -> where('id_video', $videoSeleccionado->id)->first();
-
-        if (empty($userFeedback)){
+            if (empty($userFeedback)){
             $feedbackDado = -1;
-        }
-        else{
+            }
+            else{
             $feedbackDado = $userFeedback->tipo_valoracion;
+            }
         }
+
+
+
 
 
         return view('watchVideo',
          compact('videoSeleccionado', 'autorVideo', 'comentariosUnidos', 'feedbackDado',
-                 'arrayCategorias', 'likes', 'dislikes', 'edad', 'estaSuscrito', 'suscripcion'));
+                 'arrayCategorias', 'likes', 'dislikes', 'edad', 'estaSuscrito'));
     }
 }

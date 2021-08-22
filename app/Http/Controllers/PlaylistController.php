@@ -44,10 +44,7 @@ class PlaylistController extends Controller
         $playlist->descripcion_playlist = $request->descripcion_playlist;
         $playlist->save();
 
-        return response()->json([
-            "message" => "Se ha creado una nueva playlist",
-            "id" => $playlist->id
-        ]);
+        return back();
     }
 
     //Muestra solo una playlist, según su id -> Read
@@ -92,13 +89,8 @@ class PlaylistController extends Controller
     //Borra una playlist -> Delete
     public function destroy($id)
     {
-        $playlist = Playlist::find($id);
-        
-        if($playlist == NULL){
-            return "No existe una playlist asociada a ese id";
-        }
-
+        $playlist = Playlist::findOrFail($id);
         $playlist->delete();
-        return redirect()->route('vistaListaReproduccion')->with('register','Se ha eliminado la playlist');
+        return back()->with('register','Playlist Eliminada!');
     }
 }

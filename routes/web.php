@@ -48,7 +48,7 @@ Route::get('/user/{id}',[ViewsController::class, 'vistaUsuario'])->name('vistaUs
 Route::get('/user/{id}/editUser',[ViewsController::class, 'vistaEditarUsuario'])->name('vistaEditarUsuario');
 Route::get('/watchVideo/{id}', [VideoController::class, 'vistaVideo'])->name('vistaVideo');
 Route::put('/video/update/{id}', [ViewsController::class, 'actualizarVideo'])->name('updateVideo');
-//Route::get('/myhistorial', [ViewsController::class, 'vistaHistorial'])->name('vistaHistorial');
+Route::get('/seguidos', [ViewsController::class, 'vistaSeguidos'])->name('vistaSeguidos');
 Route::get('/uploadvideo', [ViewsController::class, 'vistaSubirVideo'])->name('vistaSubirVideo');
 Route::post('/uploadvideo/create', [ViewsController::class, 'SubirVideo'])->name('SubirVideo');
 Route::get('/list', [ViewsController::class, 'vistaListaReproduccion'])->name('vistaListaReproduccion');
@@ -61,8 +61,10 @@ Route::post('/donar/tarjeta/{id}/', [ViewsController::class, 'donacionConTarjeta
 Route::get('/adminCrud', [ViewsController::class, 'vistaCrudAdmin'])->name('vistaCrudAdmin');
 Route::get('/adminCrud/user/edit/{id}', [ViewsController::class, 'vistaEditUsuarioCrud'])->name('vistaEditUsuarioCrud');
 Route::put('/adminCrud/user/edit/execute/{id}', [ViewsController::class, 'editarUsuarioCrud'])->name('editarUsuarioCrud');
-
-
+Route::get('/adminCrud/playlists/edit/{id}', [ViewsController::class, 'vistaEditPlaylistCrud'])->name('vistaEditPlaylistCrud');
+Route::put('/adminCrud/playlists/edit/execute/{id}', [ViewsController::class, 'editarPlaylistCrud'])->name('editarPlaylistCrud');
+Route::get('/adminCrud/feedbacks/edit/{id}', [ViewsController::class, 'vistaEditFeedbackCrud'])->name('vistaEditFeedbackCrud');
+Route::put('/adminCrud/feedbacks/edit/execute/{id}', [ViewsController::class, 'editarFeedbackCrud'])->name('editarFeedbackCrud');
 
 //Rutas para Tabla/Clase Pais:
 //Muestra todos los paises guardados -> Read
@@ -100,16 +102,18 @@ Route::delete('/videos/delete/{id}', [VideoController::class, 'destroy']);
 //Rutas para Tabla/Clase Playlist:
 Route::get('/playlists', [PlaylistController::class, 'index']);
 Route::get('/playlists/{id}', [PlaylistController::class, 'show']);
-Route::post('/playlists/create', [PlaylistController::class, 'store']);
+Route::post('/playlists/create', [PlaylistController::class, 'store'])->name('CrearPlaylist');
+Route::post('/playlists/CreateCrud', [PlaylistController::class, 'store'])->name('CrearPlaylistCrud');
 Route::put('/playlists/update/{id}', [PlaylistController::class, 'update']);
-Route::delete('/playlists/delete/{id}', [PlaylistController::class, 'destroy'])->name('eliminarPlaylist');
+Route::delete('/playlists/delete/{id}', [PlaylistController::class, 'destroy'])->name('EliminarPlaylist');
 
 //Rutas para Tabla/Clase Feedback:
 Route::get('/feedbacks', [FeedbackController::class, 'index']);
 Route::get('/feedbacks/{id}', [FeedbackController::class, 'show']);
+Route::post('/feedbacks/CreateCrud', [FeedbackController::class, 'store'])->name('CrearFeedbackCrud');
 Route::post('/feedbacks/create/{tipo_valoracion}/{id_usuario}/{id_video}', [FeedbackController::class, 'store'])->name('HacerFeedback');
 Route::put('/feedbacks/update/{id}', [FeedbackController::class, 'update']);
-Route::delete('/feedbacks/delete/{id}', [FeedbackController::class, 'destroy']);
+Route::delete('/feedbacks/delete/{id}', [FeedbackController::class, 'destroy'])->name('EliminarFeedback');
 
 //Rutas para Tabla/Clase intermedia PlaylistVideo:
 Route::get('/playlist_videos', [PlaylistVideoController::class, 'index']);

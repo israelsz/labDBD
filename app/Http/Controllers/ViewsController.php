@@ -9,7 +9,6 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Collection;
 use App\Models\User;
-use App\Models\UserVideo;
 use App\Http\Controllers\EditUserController;
 use App\Http\Controllers\CategoryVideoController;
 use App\Http\Controllers\CategoryController;
@@ -155,21 +154,21 @@ class ViewsController extends Controller
 
 
 
-    //Vista My videos
-    /*public function vistaHistorial(){
+    public function vistaSeguidos(){
         $user_id = Auth::user()->id;
 
-        $videosHistorial = UserVideo::all()
-                    ->select('id_usuario', $user_id)
-                    ->groupBy('id_usuario')->distinct()->get();
-        /*$arrayVideos = array();                            
-        foreach ($videosHistorial as $vid) {
-            array_push($arrayVideos, VideoController::show($vid->id));
+        $canalesSeguidos = UserSubscription::all()
+            ->where('id_usuario_suscriptor', $user_id);  
+        
+        //$usernamessUnidos = array();
+        $arrayUsernames = array();                            
+        foreach ($canalesSeguidos as $aux) {
+            if(!empty(UserController::show($aux->id_usuario_suscripcion))){
+                array_push($arrayUsernames, UserController::show($aux->id_usuario_suscripcion));
+            }
         }
-            
-
-        return view('historial',compact('videosHistorial'));
-    }*/
+        return view('seguidos',compact('arrayUsernames'));
+    }
 
     public function vistaListaReproduccion(){
         $listas=Playlist::all();
@@ -447,6 +446,8 @@ class ViewsController extends Controller
         return(view('vistaEditUsuarioCrud',compact('usuario','comunas')));
     }
 
+
+
     public function editarUsuarioCrud(Request $request, $id){
 
         $user = User::findOrFail($id);
@@ -485,5 +486,79 @@ class ViewsController extends Controller
          
         return redirect()->route('vistaCrudAdmin')->with('register','Datos de usuarios actualizados !');
 
+    }
+
+    public function editarPlaylistCrud(Request $request, $id){
+
+        $playlist = Playlist::findOrFail($id);
+
+        $validarDatos = Validator::make($request->all(),
+            [
+                'nombre_playlist'=>'required',
+                'descripcion_playlist'=>'required',
+            ],
+            [
+                'nombre_playlist.required'=>'Debe ingresar un nombre de playlist',
+                'descripcion_playlist.required'=>'Debe ingresar una descripcion',
+
+            ]
+        );
+
+        if ($validarDatos->fails()){
+        //Si el logueo no fue correcto
+            return back()->with('registerError', $validarDatos->errors());
+        }
+
+        $playlist->nombre_playlist= $request->nombre_playlist;
+        $playlist->descripcion_playlist= $request->descripcion_playlist;
+
+        $playlist->save();
+         
+        return redirect()->route('vistaCrudAdmin')->with('register','Datos de playlist actualizados!');
+
+    }
+
+    public function vistaEditFeedbackCrud($id){
+
+        $feedback = Feedback::findOrFail($id);
+        return(view('vistaEditFeedbackCrud',compact('feedback')));
+    }
+
+    public function editarFeedbackCrud(Request $request, $id){
+
+        $feedback = Feedback::findOrFail($id);
+
+        $validarDatos = Validator::make($request->all(),
+            [
+                'tipo_valoracion'=>'required',
+                'id_usuario'=>'required',
+                'id_video'=>'required',
+            ],
+            [
+                'tipo_valoracion.required'=>'Debe ingresar un tipo valoracion',
+                'id_usuario.required'=>'Debe ingresar una descripcion',
+                'id_video.required' =>'Debe ingresar una descripcion',
+            ]
+        );
+
+        if ($validarDatos->fails()){
+        //Si el logueo no fue correcto
+            return back()->with('registerError', $validarDatos->errors());
+        }
+
+        $feedback->tipo_valoracion= $request->tipo_valoracion;
+        $feedback->id_usuario= $request->id_usuario;
+        $feedback->id_video= $request->id_video;
+
+        $feedback->save();
+         
+        return redirect()->route('vistaCrudAdmin')->with('register','Datos de feedback actualizados!');
+
+    }
+
+    public function vistaEditPlaylistCrud($id){
+
+        $playlist = Playlist::findOrFail($id);
+        return(view('vistaEditPlaylistCrud',compact('playlist')));
     }
 }

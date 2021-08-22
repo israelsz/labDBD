@@ -90,16 +90,8 @@ class FeedbackController extends Controller
     //Borra una valoración -> Delete
     public function destroy($id)
     {
-        $feedback = Feedback::find($id);
-        
-        if($feedback == NULL){
-            return "No existe ninguna valoración con ese id";
-        }
-
+        $feedback = Feedback::findOrFail($id);
         $feedback->delete();
-        return response()->json([
-            "message" => "Se ha borrado la valoración",
-            "id" => $feedback->id
-        ]);
+        return back()->with('register','Feedback Eliminada!');
     }
 }
