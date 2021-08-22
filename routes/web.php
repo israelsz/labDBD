@@ -111,7 +111,7 @@ Route::delete('/user_playlists/delete/{id}', [UserPlaylistController::class, 'de
 //Rutas para tabla/clase Commentary:
 Route::get('/commentaries', [CommentaryController::class, 'index']);//Probado
 Route::get('/commentaries/{id}', [CommentaryController::class, 'show']);//Probado
-Route::post('/commentaries/create', [CommentaryController::class, 'store']);//Probado
+Route::post('/commentaries/create/{id_video}/{id_usuario}', [CommentaryController::class, 'store'])->name('HacerComentario');
 Route::put('/commentaries/update/{id}', [CommentaryController::class, 'update']); //Probado
 Route::delete('/commentaries/delete/{id}', [CommentaryController::class, 'destroy']);//Probado
 //Rutas para tabla PaymentMethod
@@ -129,7 +129,7 @@ Route::delete('/user_videos/delete/{id}', [UserVideoController::class, 'destroy'
 //Rutas para tabla userSubscription
 Route::get('/user_subscriptions', [UserSubscriptionController::class, 'index']); //Probada
 Route::get('/user_subscriptions/{id}', [UserSubscriptionController::class, 'show']);//Probada
-Route::post('/user_subscriptions/create', [UserSubscriptionController::class, 'store']);//Probada
+Route::post('/user_subscriptions/create/{id_suscriptor}/{id_suscripcion}', [UserSubscriptionController::class, 'store'])->name('HacerSuscripcion');
 Route::put('/user_subscriptions/update/{id}', [UserSubscriptionController::class, 'update']);//Probada
 Route::delete('/user_subscriptions/delete/{id}', [UserSubscriptionController::class, 'destroy']);//Probada
 

@@ -39,3 +39,17 @@
     <button type="button" class="btn-close"  data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 @endif
+
+@if ($message = Session::get('comentarioRealizado'))
+<div class="alert alert-success alert-dismissible" role="alert">
+    <strong>{{ $message }}</strong>
+    <button type="button" class="btn-close"  data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
+
+@if ($message = Session::get('suscripcionCorrecta'))
+<div class="alert alert-success alert-dismissible" role="alert">
+    <strong>{{ $message }}</strong>
+    <button type="button" class="btn-close"  data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif

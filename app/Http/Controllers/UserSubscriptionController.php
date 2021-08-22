@@ -20,28 +20,14 @@ class UserSubscriptionController extends Controller
         return response()->json($usuarioSuscripcion);
     }
 
-    public function store(Request $request)
+    public function store($id_usuario_suscriptor, $id_usuario_suscripcion)
     {
         $usuarioSuscripcion = new UserSubscription();
-        $validarDatos = Validator::make($request->all(),[
-            'id_usuario_suscripcion' => 'required',
-            'id_usuario_suscriptor' => 'required'
-        ],[
-            'id_usuario_suscripcion.required' => 'Debe ingresar el id del usuario suscripcion',
-            'id_usuario_suscriptor.required' => 'Debe ingresar el id del usuario suscriptor'
-        ]);
 
-        if ($validarDatos->fails()){
-            return response()->json($validarDatos->errors(), 400);
-        }
-
-        $usuarioSuscripcion->id_usuario_suscriptor= $request->id_usuario_suscriptor;
-        $usuarioSuscripcion->id_usuario_suscripcion= $request->id_usuario_suscripcion;
+        $usuarioSuscripcion->id_usuario_suscripcion = $id_usuario_suscripcion;
+        $usuarioSuscripcion->id_usuario_suscriptor = $id_usuario_suscriptor;
         $usuarioSuscripcion->save();
-        return response()->json([
-            "message" => "Se ha creado un nueva suscripcion",
-            $usuarioSuscripcion
-        ]);
+        return back()->with('suscripcionCorrecta', 'Te has suscrito correctamente');
     }
 
     public function show($id)

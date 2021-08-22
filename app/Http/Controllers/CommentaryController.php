@@ -23,23 +23,19 @@ class CommentaryController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(Request $request, $id_video, $id_usuario)
     {
         $comentario = new Commentary();
 
         $validarDatos = Validator::make($request->all(),[
             'contenido' => 'required|max:500',
-            'id_usuario' => 'required',
-            'id_video' => 'required'
         ],[
             'contenido.required' => 'Debe ingresar contenido',
             'contenido.max:500' => 'El contenido no debe exceder los 500 caracteres',
-            'id_usuario.required' => 'Debe ingresar el id del usuario',
-            'id_video.required' => 'Debe ingresar el id del video'
         ]);
 
         if ($validarDatos->fails()){
-            return response()->json($validarDatos->errors(), 400);
+            return back()->with('comentarioError', $validarDatos->errors());
         }
 
         $comentario->contenido = $request->contenido;
@@ -47,24 +43,16 @@ class CommentaryController extends Controller
         $comentario->id_video = $request->id_video;
         $comentario->save();
 
-        return response()->json([
-            "message" => "Se ha creado un nuevo comentario",
-            $comentario
-        ]);
+        return back()->with('comentarioRealizado', 'Comentario realizado');
     }
 
-    public function show($id)
+    public static function show($id)
     {
         $comentario = Commentary::find($id);
-        
-        if($comentario == NULL){
-            return "No existe un comentario asociado a ese id";
-        }
-
-        return response()->json($comentario);
+        return $comentario;
     }
 
-
+    
     
     public function update(Request $request, $id)
     {

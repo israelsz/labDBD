@@ -390,8 +390,6 @@ body {
 }
 
 #seccionComentariosDiv {
-  justify-content: center;
-  text-align: center;
   margin-left: auto;
   margin-right: auto;
 }
@@ -403,6 +401,13 @@ body {
 #comentariosHeading{
   color: #ffffff;
   margin-top: 1.5em;
+
+}
+
+#registrateHeading{
+  color :rgb(255, 255, 255);
+  justify-content: center;
+  text-align: center;
 }
 
 #mainDiv {

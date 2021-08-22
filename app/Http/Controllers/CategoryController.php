@@ -63,15 +63,11 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public static function show($id)
     {
         //
         $categoria = Category::find($id);
-
-        if ($categoria==NULL) {
-            return response()->json(["message"=> "No exiten categorias asociadas a la id ingresada"],404);
-        }
-        return response()->json($categoria);
+        return $categoria;
     }
 
     /**
