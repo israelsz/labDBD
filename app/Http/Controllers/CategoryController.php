@@ -51,10 +51,7 @@ class CategoryController extends Controller
 
         $categoria->save();
 
-        return response()->json([
-            "message"=> "Se ha creado una nueva categoria",
-            $categoria
-        ],202);
+        return back()->with('mensaje','categoria creada');
     }
 
     /**
@@ -79,11 +76,8 @@ class CategoryController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $categoria = Category::find($id);
+        $categoria = Category::findOrFail($id);
 
-        if ($categoria==NULL) {
-            return response()->json(["message"=> "No exiten categorias asociadas a la id ingresada"],404);
-        }
 
         $validarDatos = Validator::make($request->all(),
             ['nombre_categoria'=> 'required|max:60'],
@@ -91,15 +85,13 @@ class CategoryController extends Controller
         );
         
         if ($validarDatos->fails()){
-            return response()->json($validarDatos->errors(), 400);
+            return response()->with('mensaje',' Fallo');
         }
 
-        $caregoria->nombre_categoria = $request->nombre_categoria;
+        $categoria->nombre_categoria = $request->nombre_categoria;
+        $categoria->save();
 
-        return response()->json([
-            "message"=> "Se ha actualizado una nueva categoria",
-            $categoria
-        ],202);
+        return back()->with('mensaje','Categoria actualizada');
     }
 
 
@@ -112,18 +104,10 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $categoria = Category::find($id);
-
-        if ($categoria==NULL) {
-            return response()->json(["message"=> "No exiten categorias asociadas a la id ingresada"],404);
-        }
+        $categoria = Category::findOrFail($id);
 
         $categoria->delete();
-        return response()->json(
-            [
-                "message"=> "Se ha borrado la categoria",
-                "id" => $categoria->id
-            ],202);
+        return back()->with('mensaje','Categoria Borrada');
         
     }
 }

@@ -72,6 +72,8 @@ Route::get('/adminCrud/donacion/edit/{id}', [ViewsController::class, 'vistaEdita
 
 
 
+Route::get('/adminCrud/metodos/edit/{id}', [ViewsController::class, 'vistaEditMetodosCrud'])->name('vistaEditMetodosCrud');
+Route::get('/adminCrud/categoria/edit/{id}', [ViewsController::class, 'vistaEditCategoriaCrud'])->name('vistaEditCategoriaCrud');
 //Rutas para Tabla/Clase Pais:
 //Muestra todos los paises guardados -> Read
 Route::get('/countries', [CountryController::class, 'index']);
@@ -144,9 +146,9 @@ Route::delete('/commentaries/delete/{id}', [CommentaryController::class, 'destro
 //Rutas para tabla PaymentMethod
 Route::get('/payment_methods', [PaymentMethodController::class, 'index']); //Probada
 Route::get('/payment_methods/{id}', [PaymentMethodController::class, 'show']);//Probada
-Route::post('/payment_methods/create', [PaymentMethodController::class, 'store']);//Probada
-Route::put('/payment_methods/update/{id}', [PaymentMethodController::class, 'update']);//Probada
-Route::delete('/payment_methods/delete/{id}', [PaymentMethodController::class, 'destroy']);// Probada
+Route::post('/payment_methods/create', [PaymentMethodController::class, 'store'])->name('CrearMetodoPago');//Probada
+Route::put('/payment_methods/update/{id}', [PaymentMethodController::class, 'update'])->name('editarMetodoPago');//Probada
+Route::delete('/payment_methods/delete/{id}', [PaymentMethodController::class, 'destroy'])->name('eliminarMetodo');// Probada
 //Rutas para tabla UserVideo
 Route::get('/user_videos', [UserVideoController::class, 'index']); //Probada
 Route::get('/user_videos/{id}', [UserVideoController::class, 'show']);//Probada
@@ -163,9 +165,9 @@ Route::delete('/user_subscriptions/delete/{id}', [UserSubscriptionController::cl
 //Rutas para tabla Category
 Route::get('/categories', [CategoryController::class, 'index']); 
 Route::get('/categories/{id}', [CategoryController::class, 'show']);
-Route::post('/categories/create', [CategoryController::class, 'store']);
-Route::put('/categories/update/{id}', [CategoryController::class, 'update']);
-Route::delete('/categories/delete/{id}', [CategoryController::class, 'destroy']);
+Route::post('/categories/create', [CategoryController::class, 'store'])->name('crearCategoria');
+Route::put('/categories/update/{id}', [CategoryController::class, 'update'])->name('editarCategoria');
+Route::delete('/categories/delete/{id}', [CategoryController::class, 'destroy'])->name('eliminarCategoria');
 
 //Rutas para la table VideoCategory
 Route::get('/video_categories', [VideoCategoryController::class, 'index']); 

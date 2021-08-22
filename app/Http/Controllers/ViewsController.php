@@ -444,6 +444,15 @@ class ViewsController extends Controller
         $comunas = Commune::all();
         return(view('vistaEditUsuarioCrud',compact('usuario','comunas')));
     }
+    public function vistaEditMetodosCrud($mPago){
+        $metodo = PaymentMethod::findOrFail($mPago);
+        return(view('vistaEditMetodosPagoCrud',compact('metodo')));
+    }
+
+    public function vistaEditCategoriaCrud($mPago){
+        $cat = Category::findOrFail($mPago);
+        return(view('vistaEditCategoriaCrud',compact('cat')));
+    }
 
 
 

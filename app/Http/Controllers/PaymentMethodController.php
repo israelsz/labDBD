@@ -42,10 +42,7 @@ class PaymentMethodController extends Controller
 
         $metodoPago->nombre_metodo_pago = $request->nombre_metodo_pago;
         $metodoPago->save();
-        return response()->json([
-            "message" => "Se ha creado un nuevo metodo de pago",
-            $metodoPago
-        ]);
+        return back()->with('mensaje','Metodo Creado');
     }
 
     public function show($id)
@@ -56,7 +53,7 @@ class PaymentMethodController extends Controller
             return "No existe un metodo de pago asociado a ese id";
         }
 
-        return response()->json($metodoPago);
+        return $metodoPago;
     }
     public function update(Request $request, $id)
     {
@@ -77,7 +74,7 @@ class PaymentMethodController extends Controller
 
         $metodoPago->nombre_metodo_pago = $request->nombre_metodo_pago;
         $metodoPago->save();
-        return response()->json($metodoPago);
+        return back()->with('mensaje','Metodo actualizado');
     }
 
     public function destroy($id)
@@ -88,9 +85,6 @@ class PaymentMethodController extends Controller
             return "No existe un metodo de pago asociado a ese id";
         }
         $metodoPago->delete();
-        return response()->json([
-            "message" => "Se ha borrado el metodo de pago",
-            "id" => $metodoPago->id
-        ]);
+        return back()->with('mensaje','Video Borrado');
     }
 }

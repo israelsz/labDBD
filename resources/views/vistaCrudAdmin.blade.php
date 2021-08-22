@@ -476,6 +476,103 @@
 
   
 
+
+    
+
+    <div class="container mt-5">
+        <h1 class="text-primary">Crud Metodos de pago:</h1>
+        <div class="container p-4 mb-3 mt-2" style="background-color: rgb(30,40,51);">
+            <form method="POST" action="{{route('CrearMetodoPago')}}">
+                <input
+                  type="text"
+                  name="nombre_metodo_pago"
+                  placeholder="Nombre de usuario"
+                  class="form-control mb-3"
+                  style="color: var(--bs-light);background: rgba(255,255,255,0)"
+                />
+                <button class="btn btn-outline-success mt-2" type="submit">Agregar Metodo Pago</button>
+                
+              </form>
+        </div>
+        <table class="table table-dark table-striped">
+            <thead>
+                <tr>
+                  <th scope="col">#Id</th>
+                  <th scope="col">Nombre metodo de pago</th>
+                </tr>
+              </thead>
+              <tbody>
+              @foreach($metodosPago as $metodo)
+                <tr>
+                  <th scope="row">{{$metodo->id}}</th>
+                  <td>{{$metodo->nombre_metodo_pago}}</td>
+                  <td>
+                    <form style = "display: inline" action = "{{route('vistaEditMetodosCrud',$metodo)}}" method="GET">
+                        <a class="btn btn-outline-warning" href="#" role = "button" onclick="this.closest('form').submit()">Modificar</a>
+                    </form>
+
+                    <form style = "display: inline" action = "{{route('eliminarMetodo',$metodo->id)}}" method="post">
+                        @method('DELETE')
+                        <button class="btn btn-outline-danger" type="submit">Eliminar</a>
+                    </form>
+                  </td>
+                </tr>
+                @endforeach
+
+              </tbody>
+        </table>
+    </div>
+
+
+
+
+    <div class="container mt-5">
+        <h1 class="text-primary">Crud Categoria:</h1>
+        <div class="container p-4 mb-3 mt-2" style="background-color: rgb(30,40,51);">
+            <form method="POST" action="{{route('crearCategoria')}}">
+                <input
+                  type="text"
+                  name="nombre_categoria"
+                  placeholder="Nombre de usuario"
+                  class="form-control mb-3"
+                  style="color: var(--bs-light);background: rgba(255,255,255,0)"
+                />
+                <button class="btn btn-outline-success mt-2" type="submit">Agregar Categoria</button>
+                
+              </form>
+        </div>
+        <table class="table table-dark table-striped">
+            <thead>
+                <tr>
+                  <th scope="col">#Id</th>
+                  <th scope="col">Nombre categoria</th>
+                </tr>
+              </thead>
+              <tbody>
+              @foreach($categorias as $categoria)
+                <tr>
+                  <th scope="row">{{$categoria->id}}</th>
+                  <td>{{$categoria->nombre_categoria}}</td>
+                  <td>
+                    <form style = "display: inline" action = "{{route('vistaEditCategoriaCrud',$categoria)}}" method="GET">
+                        <a class="btn btn-outline-warning" href="#" role = "button" onclick="this.closest('form').submit()">Modificar</a>
+                    </form>
+
+                    <form style = "display: inline" action = "{{route('eliminarCategoria',$categoria->id)}}" method="post">
+                        @method('DELETE')
+                        <button class="btn btn-outline-danger" type="submit">Eliminar</a>
+                    </form>
+                  </td>
+                </tr>
+                @endforeach
+
+              </tbody>
+        </table>
+    </div>
+
+
+
+
     <script src="{{asset('assets/bootstrap/js/bootstrap.min.js')}}"></script>
 </body>
 
