@@ -1,6 +1,6 @@
 @if ($message = Session::get('loginCorrecto'))
 <div class="alert alert-success alert-dismissible" role="alert">
-    <strong>{{ $message }}</strong> {{Auth::user()}}
+    <strong>{{ $message }}</strong>
     <button type="button" class="btn-close"  data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 @endif
@@ -84,3 +84,24 @@
 
 
 
+
+@if ($message = Session::get('noUsers'))
+<div class="alert alert-danger alert-dismissible" role="alert">
+    <strong>{{ $message }}</strong>
+    <button type="button" class="btn-close"  data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
+
+@if ($message = Session::get('saldoRecargado'))
+<div class="alert alert-success alert-dismissible" role="alert">
+    <strong>{{ $message }}</strong>
+    <button type="button" class="btn-close"  data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
+
+@if ($message = Session::get('errorMonto'))
+<div class="alert alert-danger alert-dismissible" role="alert">
+    <strong>{{ $message }}</strong>
+    <button type="button" class="btn-close"  data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif

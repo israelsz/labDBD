@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
     <title>Usuario</title>
     <link rel="stylesheet" href="{{asset('assets/bootstrap/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alice&amp;display=swap">
+    <link rel="stylesheet" href="{{asset('https://fonts.googleapis.com/css?family=Alice&amp;display=swap')}}">
     <link rel="stylesheet" href="{{asset('assets/fonts/ionicons.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/styles.css')}}">
     
@@ -29,9 +29,10 @@
                 <h6 class="mb-3"  style="color: var(--bs-light);">{{$user->fecha_nacimiento}}</h6>
                 <h4 style="color: var(--bs-light)">Comuna</h4>
                 <h6 class="mb-3"  style="color: var(--bs-light);">{{$comuna->nombre_comuna}}</h6>
-                <div class="d-flex flex-row-reverse bd-highlight">
+                <div class="d-flex flex-row-reverse bd-highlight mt-4">
                     <a href='/' class="btn btn-secondary" type = "submit" style="margin-left: 20px">Cancelar</a>
-                    <a href= '{{route('vistaEditarUsuario',$user)}}' class="btn btn-primary d-block w-10" type="submit">Editar Usuario</a>
+                    <a href= '{{route('vistaEditarUsuario',$user)}}' class="btn btn-primary d-block w-10 me-3" type="submit">Editar Usuario</a>
+                    <a href= '{{route('vistaRecargarSaldo',$user)}}' class="btn btn-outline-warning me-3" type="submit">Recargar Saldo</a>
                 </div>
             </div>
         @else
@@ -43,12 +44,13 @@
                 <h6 class="mb-3"  style="color: var(--bs-light);">{{$user->email}}</h6>
                 <h4 style="color: var(--bs-light)">Saldo en el monedero</h4>
                 <h6 class="mb-3"  style="color: var(--bs-light);">{{$user->monedero}}</h6>
-                <h4 style="color: var(--bs-light)">Fecha de nacimientp</h4>
+                <h4 style="color: var(--bs-light)">Fecha de nacimiento</h4>
                 <h6 class="mb-3"  style="color: var(--bs-light);">{{$user->fecha_nacimiento}}</h6>
                 <h4 style="color: var(--bs-light)">Comuna</h4>
                 <h6 class="mb-3"  style="color: var(--bs-light);">{{$comuna->nombre_comuna}}</h6>
                 <div class="d-flex flex-row-reverse bd-highlight">
                     <a href='/' class="btn btn-secondary" type = "submit" style="margin-left: 20px">Cancelar</a>
+                    <a href= '{{route('vistaDonar',$user)}}' class="btn btn-outline-info me-3" type="submit">Donar</a>
                 </div>
             </div>
             
@@ -63,7 +65,7 @@
             <h6 class="mb-3"  style="color: var(--bs-light);">{{$user->email}}</h6>
             <h4 style="color: var(--bs-light)">Saldo en el monedero</h4>
             <h6 class="mb-3"  style="color: var(--bs-light);">{{$user->monedero}}</h6>
-            <h4 style="color: var(--bs-light)">Fecha de nacimientp</h4>
+            <h4 style="color: var(--bs-light)">Fecha de nacimiento</h4>
             <h6 class="mb-3"  style="color: var(--bs-light);">{{$user->fecha_nacimiento}}</h6>
             <h4 style="color: var(--bs-light)">Comuna</h4>
             <h6 class="mb-3"  style="color: var(--bs-light);">{{$comuna->nombre_comuna}}</h6>
@@ -74,7 +76,6 @@
     @endauth
     
     
-      
     <script src="{{asset('assets/bootstrap/js/bootstrap.min.js')}}"></script>
 </body>
 

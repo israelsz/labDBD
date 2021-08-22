@@ -30,8 +30,8 @@
                     >
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id="itemBarra" href="#"
-                        >Tercera Sección</a
+                    <a class="nav-link" id="itemBarra" href="{{route('vistaUsuarios')}}"
+                        >Todos los usuarios</a
                     >
                 </li>
             </ul>

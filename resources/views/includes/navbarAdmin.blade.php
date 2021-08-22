@@ -6,6 +6,7 @@
                 <li class="nav-item"><a class="nav-link active" id="itemBarra" href="#">Primera Sección</a></li>
                 <li class="nav-item"><a class="nav-link" id="itemBarra" href="#" style="font-family: Alice, serif;">Segunda Sección</a></li>
                 <li class="nav-item"><a class="nav-link" id="itemBarra" href="{{route('vistaUsuarios')}}">Todos los usuarios</a></li>
+                <li class="nav-item"><a class="nav-link" id="itemBarra" href="{{route('vistaCrudAdmin')}}">Menú de CRUD</a></li>
             </ul>
             <ul class="navbar-nav text-center ms-auto px-5" id="nav2">
                 <li class="nav-item"></li>

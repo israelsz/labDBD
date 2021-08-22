@@ -20,6 +20,8 @@ use App\Models\UserVideo;
 use App\Models\UserSubscription;
 use App\Models\Commentary;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 
 
@@ -49,8 +51,19 @@ class DatabaseSeeder extends Seeder
         Commentary::factory(10)->create();
         UserVideo::factory(10)->create();
         UserSubscription::factory(10)->create();
-
-        
+        DB::table('user_types')->insert([
+            'nombre_tipo_usuario' => 'admin',
+            'descripcion_tipo_usuario' => 'Administrador del sitio',
+        ]);
+        DB::table('users')->insert([
+            'username' => 'admin',
+            'password' => Hash::make('admin'),
+            'fecha_nacimiento' => '1900-01-01',
+            'monedero' => '5000',
+            'email' => 'soyadmin@cheems.com',
+            'id_comuna' => 1,
+            'id_tipo_usuario' => 3,
+        ]);
     }
 
     

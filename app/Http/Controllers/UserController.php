@@ -13,15 +13,15 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public static function index()
     {
         //
         $user = User::all();
-        if ($user==NULL) {
-            return response()->json(["message"=> "No exiten usuarios"],404);
+        if (empty($user)) {
+            return back()->with('noUsers','No hay usuarios en la plataforma !');
         }
 
-        return response()->json($user);
+        return $user;
     }
 
     /**
@@ -69,6 +69,48 @@ class UserController extends Controller
         $user->save();
 
         return redirect()->route('vistaIndice')->with('register','Te has registrado con exito !');
+
+    }
+
+    public function storeAdmin(Request $request)
+    {
+        $user = new User();
+    
+        $validarDatos = Validator::make($request->all(),
+            [
+                'username'=>'required|max:16|unique:users,username',
+                'password'=>'required|max:30',
+                'fecha_nacimiento'=>'required',
+                'email'=>'required|max:30|unique:users,email',
+                'id_comuna'=>'required',
+            ],
+            [
+                'username.unique'=>'El nombre de usuario ya existe',
+                'username.required'=>'Debe ingresar un nombre de usuario',
+                'password.required'=>'Debe ingresar una contraseña',
+                'fecha_nacimiento.required'=>'Debe ingresar una fecha de nacimiento',
+                'email.required'=>'Debe ingresar un correo electronico',
+                'email.unique'=>'El correo electronico ya existe',
+                'id_comuna.required'=>'Debe ingresar un id de comuna'
+            ]
+        );
+
+        if ($validarDatos->fails()){
+        //Si el logueo no fue correcto
+            return back()->with('registerError', $validarDatos->errors());
+        }
+
+        $user->username= $request->username;
+        $user->password= Hash::make($request->password); //Se encripta la contraseña
+        $user->fecha_nacimiento= $request->fecha_nacimiento;
+        $user->monedero= 0.0;
+        $user->email= $request->email;
+        $user->id_comuna= $request->id_comuna;
+        $user->id_tipo_usuario= 1;
+
+        $user->save();
+
+        return back()->with('register','Te has registrado con exito !');
 
     }
 
@@ -140,24 +182,13 @@ class UserController extends Controller
         ],202);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function destroy($id)
     {
-        $user=User::find($id);
-        if ($user==NULL) {
-            return response()->json(["message"=> "No exiten usuarios asociadas a la id ingresada"],404);
-        }
-
+        $user = User::findOrFail($id);
+        
         $user->delete();
-        return response()->json([
-            "message"=> "Se ha eliminado un usuario ",
-            $user
-        ],202);
 
+        return back()->with('register','Usuario Eliminado!');
     }
 }

@@ -52,6 +52,18 @@ Route::put('/video/update/{id}', [ViewsController::class, 'actualizarVideo'])->n
 Route::get('/uploadvideo', [ViewsController::class, 'vistaSubirVideo'])->name('vistaSubirVideo');
 Route::post('/uploadvideo/create', [ViewsController::class, 'SubirVideo'])->name('SubirVideo');
 Route::get('/list', [ViewsController::class, 'vistaListaReproduccion'])->name('vistaListaReproduccion');
+Route::get('/users', [ViewsController::class, 'vistaUsers'])->name('vistaUsuarios');
+Route::get('/cargarSaldo/{id}', [ViewsController::class, 'vistaRecargarSaldo'])->name('vistaRecargarSaldo');
+Route::put('/cargarSaldo/update/{id}', [ViewsController::class, 'recargarSaldo'])->name('recargarSaldo');
+Route::get('/donar/{id}/', [ViewsController::class, 'vistaDonar'])->name('vistaDonar');
+Route::post('/donar/monedero/{id}/', [ViewsController::class, 'donacionConMonedero'])->name('donacionConMonedero');
+Route::post('/donar/tarjeta/{id}/', [ViewsController::class, 'donacionConTarjeta'])->name('donacionConTarjeta');
+Route::get('/adminCrud', [ViewsController::class, 'vistaCrudAdmin'])->name('vistaCrudAdmin');
+Route::get('/adminCrud/user/edit/{id}', [ViewsController::class, 'vistaEditUsuarioCrud'])->name('vistaEditUsuarioCrud');
+Route::put('/adminCrud/user/edit/execute/{id}', [ViewsController::class, 'editarUsuarioCrud'])->name('editarUsuarioCrud');
+
+
+
 //Rutas para Tabla/Clase Pais:
 //Muestra todos los paises guardados -> Read
 Route::get('/countries', [CountryController::class, 'index']);
@@ -161,11 +173,12 @@ Route::put('/user_types/update/{id}', [UserTypeController::class, 'update']);
 Route::delete('/user_types/delete/{id}', [UserTypeController::class, 'destroy']);
 
 //Rutas para la table User
-Route::get('/users', [UserController::class, 'index']); 
+//Route::get('/users', [UserController::class, 'index']); 
 Route::get('/users/{id}', [UserController::class, 'show']);
 Route::post('/users/create', [UserController::class, 'store'])->name('intentarRegister');
+Route::post('/users/createCrud', [UserController::class, 'storeAdmin'])->name('intentarRegisterCrud');
 Route::put('/users/update/{id}', [UserController::class, 'update']);
-Route::delete('/users/delete/{id}', [UserController::class, 'destroy']);
+Route::delete('/users/delete/{id}', [UserController::class, 'destroy'])->name('eliminarUsuario');
 
 //Rutas para la tabla Donation
 Route::get('/donations', [DonationController::class, 'index']); 
