@@ -16,7 +16,7 @@ class VideoCategoryController extends Controller
     public function index()
     {
         //
-        $videoCategoria = videoCategory::all();
+        $videoCategoria = VideoCategory::all();
 
         if ($videoCategoria==NULL) {
             return response()->json(["message"=> "No exiten video-categorias"],404);
@@ -35,7 +35,7 @@ class VideoCategoryController extends Controller
     public function store(Request $request)
     {
         //
-        $videoCategoria = new VideoCategoria();
+        $videoCategoria = new VideoCategory();
         $request->validate([
                 'id_video'=>'required',
                 'id_categoria'=>'required'
@@ -122,7 +122,7 @@ class VideoCategoryController extends Controller
     public function destroy($id)
     {
         //
-        $videoCategoria=VideoCategoria::find($id);
+        $videoCategoria=VideoCategory::find($id);
 
         if ($videoCategoria==NULL) {
             return response()->json(["message"=> "No exiten video-categorias asociadas a la id ingresada"],404);

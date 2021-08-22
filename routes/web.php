@@ -43,11 +43,13 @@ Route::get('/register', [ViewsController::class, 'vistaRegister'])->name('vistaR
 Route::get('/myvideos', [ViewsController::class, 'vistaMyVideos'])->name('vistaMyVideos');
 Route::get('/editvideo/{id}', [ViewsController::class, 'vistaEditVideo'])->name('vistaEditVideo');
 Route::get('/topvideos', [ViewsController::class, 'vistaTopVideos'])->name('vistaTopVideos');
-Route::get('/categoryvideos', [ViewsController::class, 'vistaVideosCategoria'])->name('vistaVideosCategoria');
+Route::get('/categoryvideos/{id}', [ViewsController::class, 'vistaVideosCategoria'])->name('vistaVideosCategoria');
 Route::get('/user/{id}',[ViewsController::class, 'vistaUsuario'])->name('vistaUsuario');
 Route::get('/user/{id}/editUser',[ViewsController::class, 'vistaEditarUsuario'])->name('vistaEditarUsuario');
 Route::get('/watchVideo/{id}', [VideoController::class, 'vistaVideo'])->name('vistaVideo');
 Route::put('/video/update/{id}', [ViewsController::class, 'actualizarVideo'])->name('updateVideo');
+Route::get('/uploadvideo', [ViewsController::class, 'vistaSubirVideo'])->name('vistaSubirVideo');
+Route::post('/uploadvideo/create', [ViewsController::class, 'SubirVideo'])->name('SubirVideo');
 //Rutas para Tabla/Clase Pais:
 //Muestra todos los paises guardados -> Read
 Route::get('/countries', [CountryController::class, 'index']);
@@ -178,3 +180,4 @@ Route::put('user/{id}/editUser/attempt',[EditUserController::class, 'update'])->
 
 //Ruta para CategoryVideo
 Route::get('/categoryVideo/{id}', [CategoryVideoController::class, 'videosPorCategoria']);
+Route::get('/refrescarPagina', [ViewsController::class, 'refrescarPagina'])->name('refrescarPagina');

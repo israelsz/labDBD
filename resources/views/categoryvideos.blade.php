@@ -13,17 +13,15 @@
 </head>
 
 <body>
+    @include('includes.mensajes')
     @auth
     @include('includes.navbarLogin')
     @else
     @include('includes.navbarNoLogin')
     @endauth
-
-    @include('includes.mensajes')
-
-
+    
     <div class="container">
-        <form action="{{route('vistaVideosCategoria')}}" method="GET" style="padding-top:30px">
+        <form action="{{route('refrescarPagina')}}" method="GET" style="padding-top:30px">
             <select class="form-select" id="id" name="id">
                 @foreach($categorias as $cat)
                 <option value="{{$cat->id}}">{{$cat->nombre_categoria}}</option>
@@ -47,7 +45,6 @@
                             <h5 class="card-title">{{ $vid->titulo_video }}</h5>
                             <p class="card-text">{{$vid->descripcion}}</p>
                             <a href="{{route('vistaVideo', $vid)}}" class="btn btn-primary">Ver</a>
-                            <a href="{{route('vistaEditVideo', $vid)}}" class="btn btn-primary">Editar</a>
                         </div>
                     </div>
                 </div>
@@ -59,7 +56,6 @@
                             <h5 class="card-title">Hola</h5>
                             <p class="card-text">xd}</p>
                             <a href="#" class="btn btn-primary">Ver</a>
-                            <a href="#" class="btn btn-primary">Editar</a>
                         </div>
                     </div>
                 </div>
@@ -67,7 +63,10 @@
         </div>
     </div>
 
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+
+
+
+    <script src="{{asset('assets/bootstrap/js/bootstrap.min.js')}}"></script>
 </body>
 
 </html>

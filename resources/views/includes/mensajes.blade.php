@@ -39,3 +39,35 @@
     <button type="button" class="btn-close"  data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 @endif
+
+
+@if ($message = Session::get('videosCargados'))
+<div class="alert alert-warning alert-dismissible" role="alert">
+    <strong>{{ $message }}</strong>
+    <button type="button" class="btn-close"  data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
+ 
+@if ($message = Session::get('Conectarse'))
+<div class="alert alert-warning alert-dismissible" role="alert">
+    <strong>{{ $message }}</strong>
+    <button type="button" class="btn-close"  data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
+
+@if ($message = Session::get('BadUrl'))
+<div class="alert alert-warning alert-dismissible" role="alert">
+    <strong>{{ $message }}</strong>
+    <button type="button" class="btn-close"  data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
+
+@if ($message = Session::get('mensaje'))
+<div class="alert alert-warning alert-dismissible" role="alert">
+    <strong>{{ $message }}</strong>
+    <button type="button" class="btn-close"  data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
+
+
+
