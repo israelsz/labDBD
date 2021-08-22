@@ -7,6 +7,7 @@
                 <<li class="nav-item"><a class="nav-link" id="itemBarra" href="{{route('vistaTopVideos')}}" style="font-family: Alice, serif;">Top Videos</a></li>
                 <li class="nav-item"><a class="nav-link" id="itemBarra" href="{{route('vistaUsuarios')}}">Todos los usuarios</a></li>
                 <li class="nav-item"><a class="nav-link" id="itemBarra" href="{{route('vistaVideosCategoria',-1)}}">Categorias</a></li>
+                <li class="nav-item"><a class="nav-link" id="itemBarra" href="{{route('vistaListaReproduccion')}}">Listas de reproducción</a></li>
                 <li class="nav-item"><a class="nav-link" id="itemBarra" href="{{route('vistaCrudAdmin')}}">Menú de CRUD</a></li>
             </ul>
             <ul class="navbar-nav text-center ms-auto px-5" id="nav2">

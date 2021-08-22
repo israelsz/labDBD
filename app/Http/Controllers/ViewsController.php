@@ -14,6 +14,7 @@ use App\Http\Controllers\CategoryVideoController;
 use App\Http\Controllers\CategoryController;
 use App\Models\Commentary;
 use App\Models\Commune;
+use App\Models\UserVideo;
 use App\Models\Region;
 use App\Models\Video;
 use App\Models\PaymentMethod;

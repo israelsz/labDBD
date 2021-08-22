@@ -19,6 +19,8 @@
                     <li class="nav-item"><a class="nav-link" id="itemBarra" href="{{route('vistaTopVideos')}}" style="font-family: Alice, serif;">Top Videos</a></li>
                 </li>
                 <li class="nav-item"><a class="nav-link" id="itemBarra" href="{{route('vistaVideosCategoria',-1)}}">Categorias</a></li>
+
+                <li class="nav-item"><a class="nav-link" id="itemBarra" href="{{route('vistaListaReproduccion')}}">Listas de reproducción</a></li>
                 <li class="nav-item">
                     <a class="nav-link" id="itemBarra" href="{{route('vistaUsuarios')}}"
                         >Todos los usuarios</a
