@@ -27,7 +27,7 @@
     </div>
 
 
-    <div class="container" style="background-color: #EEEB8E;">
+    <div class="container" style="background-color: #1e2833;">
         <div class="container p-3">
             <form action="{{ route('updateVideo', $video->id) }}" method="POST">
                 @method('PUT')

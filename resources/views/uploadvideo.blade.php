@@ -16,7 +16,7 @@
     @include('includes.mensajes')
     @auth
     @include('includes.navbarLogin')
-    <div class="container mt-4" style="background-color: #EEEB8E;">
+    <div class="container mt-4" style="background-color: #1e2833;">
         <div class="container p-3">
             <form action="{{ route('SubirVideo')}}" method="POST">
                 <input class="form-control mb-2 mt-2" type="text" placeholder="titulo" name="titulo_video" id="titulo_video" value="" required minlength="3">

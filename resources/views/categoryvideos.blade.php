@@ -49,16 +49,6 @@
                     </div>
                 </div>
                 @endforeach
-                <div class="col-4" style="padding-top: 5%;">
-                    <div class="card">
-                        <img src="https://img.youtube.com/vi/SYBj1v1CCKw/0.jpg" class="card-img-top" alt="..." />
-                        <div class="card-body">
-                            <h5 class="card-title">Hola</h5>
-                            <p class="card-text">xd}</p>
-                            <a href="#" class="btn btn-primary">Ver</a>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
