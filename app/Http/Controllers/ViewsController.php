@@ -9,9 +9,23 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Http\Controllers\EditUserController;
+use App\Models\Commentary;
 use App\Models\Commune;
+use App\Models\Region;
+use App\Models\Video;
 use App\Models\PaymentMethod;
 use App\Models\Donation;
+use App\Models\Feedback;
+use App\Models\Playlist;
+use App\Models\PlaylistVideo;
+use App\Models\UserPlaylist;
+use App\Models\UserSubscription;
+use App\Models\UserType;
+use App\Models\Category;
+use App\Models\Country;
+use App\Models\UserVideo;
+use App\Models\VideoCategory;
+use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Validator;
 
@@ -228,6 +242,84 @@ class ViewsController extends Controller
         $donacion->save();
 
         return back()->with('saldoRecargado','Has efectuado la donación !');
+
+    }
+
+    public function vistaCrudAdmin(){
+
+        if(!Auth::check()){
+           return back()->with('logout','No puedes acceder a esta vista');
+        }
+        //Se verifica si el usuario conectado es admin
+        if(Auth::user()->id_tipo_usuario != 3){
+            return back()->with('logout','No puedes acceder a esta vista');
+        }
+        //En caso que sea admin
+        $categorias = Category::all();
+        $comentarios = Commentary::all();
+        $comunas = Commune::all();
+        $paises = Country::all();
+        $donaciones = Donation::all();
+        $feedbacks = Feedback::all();
+        $metodosPago = PaymentMethod::all();
+        $playlists = Playlist::all();
+        $playlistsVideos = PlaylistVideo::all();
+        $regiones = Region::all();
+        $usuarios = User::all();
+        $usuariosPlaylists = UserPlaylist::all();
+        $usuarioSubscripciones = UserSubscription::all();
+        $usuarioTipos = UserType::all();
+        $usuarioVideos = UserVideo::all();
+        $videos = Video::all();
+        $videoCategorias = VideoCategory::all();
+
+        return(view('vistaCrudAdmin', compact('categorias','comentarios','comunas','paises','donaciones','feedbacks','metodosPago','playlists','playlistsVideos','regiones','usuarios','usuariosPlaylists','usuarioSubscripciones','usuarioTipos','usuarioVideos','videos','videoCategorias')));
+    }
+
+    public function vistaEditUsuarioCrud($id){
+
+        $usuario = User::findOrFail($id);
+        $comunas = Commune::all();
+        return(view('vistaEditUsuarioCrud',compact('usuario','comunas')));
+    }
+
+    public function editarUsuarioCrud(Request $request, $id){
+
+        $user = User::findOrFail($id);
+
+        $validarDatos = Validator::make($request->all(),
+            [
+                'username'=>'required|max:16|unique:users,username',
+                'password'=>'required|max:30',
+                'fecha_nacimiento'=>'required',
+                'email'=>'required|max:30|unique:users,email',
+                'id_comuna'=>'required',
+            ],
+            [
+                'username.unique'=>'El nombre de usuario ya existe',
+                'username.required'=>'Debe ingresar un nombre de usuario',
+                'password.required'=>'Debe ingresar una contraseña',
+                'fecha_nacimiento.required'=>'Debe ingresar una fecha de nacimiento',
+                'email.required'=>'Debe ingresar un correo electronico',
+                'email.unique'=>'El correo electronico ya existe',
+                'id_comuna.required'=>'Debe ingresar un id de comuna'
+            ]
+        );
+
+        if ($validarDatos->fails()){
+        //Si el logueo no fue correcto
+            return back()->with('registerError', $validarDatos->errors());
+        }
+
+        $user->username= $request->username;
+        $user->password= Hash::make($request->password); //Se encripta la contraseña
+        $user->fecha_nacimiento= $request->fecha_nacimiento;
+        $user->email= $request->email;
+        $user->id_comuna= $request->id_comuna;
+
+        $user->save();
+         
+        return redirect()->route('vistaCrudAdmin')->with('register','Datos de usuarios actualizados !');
 
     }
 }

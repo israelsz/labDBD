@@ -53,6 +53,11 @@ Route::put('/cargarSaldo/update/{id}', [ViewsController::class, 'recargarSaldo']
 Route::get('/donar/{id}/', [ViewsController::class, 'vistaDonar'])->name('vistaDonar');
 Route::post('/donar/monedero/{id}/', [ViewsController::class, 'donacionConMonedero'])->name('donacionConMonedero');
 Route::post('/donar/tarjeta/{id}/', [ViewsController::class, 'donacionConTarjeta'])->name('donacionConTarjeta');
+Route::get('/adminCrud', [ViewsController::class, 'vistaCrudAdmin'])->name('vistaCrudAdmin');
+Route::get('/adminCrud/user/edit/{id}', [ViewsController::class, 'vistaEditUsuarioCrud'])->name('vistaEditUsuarioCrud');
+Route::put('/adminCrud/user/edit/execute/{id}', [ViewsController::class, 'editarUsuarioCrud'])->name('editarUsuarioCrud');
+
+
 
 //Rutas para Tabla/Clase Pais:
 //Muestra todos los paises guardados -> Read
@@ -165,8 +170,9 @@ Route::delete('/user_types/delete/{id}', [UserTypeController::class, 'destroy'])
 //Route::get('/users', [UserController::class, 'index']); 
 Route::get('/users/{id}', [UserController::class, 'show']);
 Route::post('/users/create', [UserController::class, 'store'])->name('intentarRegister');
+Route::post('/users/createCrud', [UserController::class, 'storeAdmin'])->name('intentarRegisterCrud');
 Route::put('/users/update/{id}', [UserController::class, 'update']);
-Route::delete('/users/delete/{id}', [UserController::class, 'destroy']);
+Route::delete('/users/delete/{id}', [UserController::class, 'destroy'])->name('eliminarUsuario');
 
 //Rutas para la tabla Donation
 Route::get('/donations', [DonationController::class, 'index']); 
