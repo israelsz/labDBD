@@ -221,16 +221,17 @@ body {
 #likeButtom {
   background: inherit;
   border: inherit;
-  margin-right: 2em;
+  margin-right: 3em;
   font-size: 25px;
 }
+
 
 #likeIcon {
   font-size: 60px;
 }
 
 #feedBackDiv {
-  justify-content: left;
+  justify-content: center;
   text-align: center;
   margin-right: 4em;
   margin-top: 1.5em;
@@ -247,29 +248,6 @@ body {
   text-align: left;
 }
 
-.botonLike:active {
-  color: #adff2f !important;
-}
-
-.botonLike:focus {
-  color: #adff2f;
-}
-
-.botonLike:visited {
-  color: #adff2f;
-}
-
-.botonDislike:active {
-  color: var(--bs-red);
-}
-
-.botonDislike:focus {
-  color: var(--bs-red) !important;
-}
-
-.botonDislike:visited {
-  color: var(--bs-red);
-}
 
 #comentarioText {
   height: 70px;
@@ -390,8 +368,6 @@ body {
 }
 
 #seccionComentariosDiv {
-  justify-content: center;
-  text-align: center;
   margin-left: auto;
   margin-right: auto;
 }
@@ -403,6 +379,13 @@ body {
 #comentariosHeading{
   color: #ffffff;
   margin-top: 1.5em;
+
+}
+
+#registrateHeading{
+  color :rgb(255, 255, 255);
+  justify-content: center;
+  text-align: center;
 }
 
 #mainDiv {

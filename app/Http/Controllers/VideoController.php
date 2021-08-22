@@ -4,10 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Video;
 use App\Models\User;
+use App\Models\UserVideo;
 use App\Models\Commentary;
 use App\Models\Category;
+use App\Models\Feedback;
+use App\Models\VideoCategory;
+use App\Models\UserSubscription;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Carbon\Carbon;
 
 class VideoController extends Controller
 {
@@ -165,9 +171,69 @@ class VideoController extends Controller
         //Se traen el video de la tabla de la base de datos
         $videoSeleccionado = Video::findOrFail($video);
         $autorVideo = User::findOrFail($videoSeleccionado->id_usuario_autor);
-        $comentarios = Commentary::find($videoSeleccionado->id_usuario);
-        $categorias = Category::findOrFail($videoSeleccionado->id);
 
-        return view('watchVideo', compact('videoSeleccionado', 'autorVideo', 'comentarios', 'categorias'));
+        $edad = 19;
+        if (Auth::check()){
+            $edad = Carbon::parse(Auth::user()->fecha_nacimiento)->age;
+            $visualizacion = new UserVideo();
+            $visualizacion->id_usuario = Auth::user()->id;
+            $visualizacion->id_video = $videoSeleccionado->id;
+            $visualizacion->save();
+        }
+
+        $comentariosUnidos = array();
+        $comentarios = Commentary::all()->where('id_video', $videoSeleccionado->id);
+        $comentadores = array();
+
+        foreach ($comentarios as $aux) {
+            if(!empty(UserController::show($aux->id_usuario))){
+                $combinacion = array(UserController::show($aux->id_usuario)->username,$aux->contenido);
+                array_push($comentariosUnidos, $combinacion);
+            }
+        }
+        
+        $likes = Feedback::all()
+                        ->where('id_video', $videoSeleccionado->id)
+                        ->where('tipo_valoracion', 1)
+                        ->count();
+        $dislikes = Feedback::all()
+                        ->where('id_video', $videoSeleccionado->id)
+                        ->where('tipo_valoracion', 0)
+                        ->count();
+        $categorias = VideoCategory::all()
+                        ->where('id_video', $videoSeleccionado->id);   
+        $arrayCategorias = array();                            
+        foreach ($categorias as $vid) {
+            if(!empty(CategoryController::show($vid->id))){
+                array_push($arrayCategorias, CategoryController::show($vid->id));
+            }
+        }
+
+        $suscripcion = UserSubscription::all()
+                        -> where('id_usuario_suscriptor', Auth::user()->id)
+                        -> where('id_usuario_suscripcion', $autorVideo->id);
+
+        if ($suscripcion->isEmpty()){
+            $estaSuscrito = 0;
+        }
+        else{
+            $estaSuscrito = 1;
+        }
+
+        $userFeedback = Feedback::all()
+                        -> where('id_usuario', Auth::user()->id)
+                        -> where('id_video', $videoSeleccionado->id)->first();
+
+        if (empty($userFeedback)){
+            $feedbackDado = -1;
+        }
+        else{
+            $feedbackDado = $userFeedback->tipo_valoracion;
+        }
+
+
+        return view('watchVideo',
+         compact('videoSeleccionado', 'autorVideo', 'comentariosUnidos', 'feedbackDado',
+                 'arrayCategorias', 'likes', 'dislikes', 'edad', 'estaSuscrito', 'suscripcion'));
     }
 }

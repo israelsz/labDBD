@@ -43,7 +43,7 @@ class DatabaseSeeder extends Seeder
         Video::factory(10)->create();
         Feedback::factory(10)->create();
         PlaylistVideo::factory(10)->create();
-        VideoCategory::factory(5)->create();
+        VideoCategory::factory(20)->create();
         Donation::factory(10)->create();
         UserPlaylist::factory(10)->create();
         Commentary::factory(10)->create();

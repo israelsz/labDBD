@@ -47,6 +47,7 @@ Route::get('/user/{id}',[ViewsController::class, 'vistaUsuario'])->name('vistaUs
 Route::get('/user/{id}/editUser',[ViewsController::class, 'vistaEditarUsuario'])->name('vistaEditarUsuario');
 Route::get('/watchVideo/{id}', [VideoController::class, 'vistaVideo'])->name('vistaVideo');
 Route::put('/video/update/{id}', [ViewsController::class, 'actualizarVideo'])->name('updateVideo');
+//Route::get('/myhistorial', [ViewsController::class, 'vistaHistorial'])->name('vistaHistorial');
 //Rutas para Tabla/Clase Pais:
 //Muestra todos los paises guardados -> Read
 Route::get('/countries', [CountryController::class, 'index']);
@@ -90,7 +91,7 @@ Route::delete('/playlists/delete/{id}', [PlaylistController::class, 'destroy']);
 //Rutas para Tabla/Clase Feedback:
 Route::get('/feedbacks', [FeedbackController::class, 'index']);
 Route::get('/feedbacks/{id}', [FeedbackController::class, 'show']);
-Route::post('/feedbacks/create', [FeedbackController::class, 'store']);
+Route::post('/feedbacks/create/{tipo_valoracion}/{id_usuario}/{id_video}', [FeedbackController::class, 'store'])->name('HacerFeedback');
 Route::put('/feedbacks/update/{id}', [FeedbackController::class, 'update']);
 Route::delete('/feedbacks/delete/{id}', [FeedbackController::class, 'destroy']);
 
@@ -111,7 +112,7 @@ Route::delete('/user_playlists/delete/{id}', [UserPlaylistController::class, 'de
 //Rutas para tabla/clase Commentary:
 Route::get('/commentaries', [CommentaryController::class, 'index']);//Probado
 Route::get('/commentaries/{id}', [CommentaryController::class, 'show']);//Probado
-Route::post('/commentaries/create', [CommentaryController::class, 'store']);//Probado
+Route::post('/commentaries/create/{id_video}/{id_usuario}', [CommentaryController::class, 'store'])->name('HacerComentario');
 Route::put('/commentaries/update/{id}', [CommentaryController::class, 'update']); //Probado
 Route::delete('/commentaries/delete/{id}', [CommentaryController::class, 'destroy']);//Probado
 //Rutas para tabla PaymentMethod
@@ -129,7 +130,7 @@ Route::delete('/user_videos/delete/{id}', [UserVideoController::class, 'destroy'
 //Rutas para tabla userSubscription
 Route::get('/user_subscriptions', [UserSubscriptionController::class, 'index']); //Probada
 Route::get('/user_subscriptions/{id}', [UserSubscriptionController::class, 'show']);//Probada
-Route::post('/user_subscriptions/create', [UserSubscriptionController::class, 'store']);//Probada
+Route::post('/user_subscriptions/create/{id_suscriptor}/{id_suscripcion}', [UserSubscriptionController::class, 'store'])->name('HacerSuscripcion');
 Route::put('/user_subscriptions/update/{id}', [UserSubscriptionController::class, 'update']);//Probada
 Route::delete('/user_subscriptions/delete/{id}', [UserSubscriptionController::class, 'destroy']);//Probada
 

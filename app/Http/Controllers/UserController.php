@@ -78,15 +78,11 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public static function show($id)
     {
         //
         $user=User::find($id);
-        if ($user==NULL) {
-            return response()->json(["message"=> "No exiten usuarios asociadas a la id ingresada"],404);
-        }
-
-        return response()->json($user);
+        return $user;
     }
 
     /**
