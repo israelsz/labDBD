@@ -45,10 +45,14 @@ class EditUserController extends Controller
             $user->username= $request->username;
         }
 
+        if ($request->email!=null) {
+            $user->email= $request->email;
+        }
+
         if ($request->password!=null){
             $user->password= $request->password;
         }
-        if ($request->password!=null){
+        if ($request->email!=null){
             $user->email= $request->email;
         }
         if ($request->id_comuna!=null) {

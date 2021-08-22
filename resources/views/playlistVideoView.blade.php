@@ -24,8 +24,8 @@
                 @include('includes.mensajes')
                 <div class="d-flex flex-row-reverse bd-highlight gap-2 me-3 mt-2">
                     <a href='{{route('vistaListaReproduccion')}}' class="btn btn-secondary" >Volver</a>
-                    <form style = "display: inline" action = "{{route('eliminarPlaylist',$id)}}" method="POST">
-                        @method('delete')
+                    <form style = "display: inline" action = "{{route('EliminarPlaylist',$id)}}" method="POST">
+                        @method('DELETE')
                             <a class="btn btn-danger" href="#" onclick="this.closest('form').submit()">Eliminar lista</a>
                     </form>
                     <a href='{{route('vistaEditarPlaylist',$id)}}' class="btn btn-primary">Editar lista</a>
