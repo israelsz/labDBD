@@ -36,9 +36,6 @@
                             <p style="color: var(--bs-light);margin: 16px;">{{$lista->descripcion_playlist}}</p>
                         </div>
                     </div>
-                    <div class="col-3 border" style="margin: 16px">
-                        <h1 style="color: var(--bs-light)"> Link_</h1>
-                    </div>
                     <div>
                         <a href="{{route('vistaVideoListaReproduccion',$lista->id)}}" class="col-3 btn btn-primary m-3" type = "submit" >Ver</a>
                     </div>

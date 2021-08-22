@@ -15,14 +15,21 @@
 <body>
     @auth
         @include('includes.navbarLogin')
+        @foreach ($autores as $autor)
+            @if ($autor->id_usuario==Auth::user()->id)
+                @include('includes.mensajes')
+                <div class="d-flex flex-row-reverse bd-highlight gap-2 me-3 mt-2">
+                    <a href="" class="btn btn-danger" >Eliminar lista</a>
+                    <a href="" class="btn btn-primary">Editar lista</a>
+                    
+                </div>
+                @break
+            @endif
+        @endforeach
     @else
         @include('includes.navbarNoLogin')
     @endauth
-    
     @include('includes.mensajes')
-    <div class="row">
-        
-    </div>
     <div class="container">
         <div class="container">
             <div class="row">

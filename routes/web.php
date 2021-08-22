@@ -174,4 +174,6 @@ Route::post('/login/attempt', [LoginController::class, 'login'])->name('intentar
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::put('user/{id}/editUser/attempt',[EditUserController::class, 'update'])->name('intentarEditarUsuario');
-Route::get('list/{id}',[ViewsController::class, 'vistaVideoListaReproduccion'])->name('vistaVideoListaReproduccion');
+Route::get('/list/{id}',[ViewsController::class, 'vistaVideoListaReproduccion'])->name('vistaVideoListaReproduccion');
+Route::get('/listAdd',[ViewsController::class, 'vistaAgregarListaReproduccion'])->name('vistaAgregarListaReproduccion');
+Route::get('/listAdd/attemp',[ViewsController::class, 'vistaAgregarListaReproduccion'])->name('agregarListaReproduccion');

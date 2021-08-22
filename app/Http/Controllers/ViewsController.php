@@ -13,6 +13,8 @@ use App\Models\Commune;
 use App\Models\Playlist;
 use App\Models\PlaylistVideo;
 use App\Models\Video;
+use App\Models\UserPlaylist;
+use Illuminate\Database\Eloquent\Collection;
 
 class ViewsController extends Controller
 {   
@@ -110,9 +112,18 @@ class ViewsController extends Controller
                 }
             }
         }
-            
-        return view('playlistVideoView',compact('videosFiltrados'));
+        $autores = UserPlaylist::select('id_usuario')->where('id_playlist',$id_lista_reproduccion)->get();
+        return view('playlistVideoView',compact('videosFiltrados','autores'));
         
     }   
+
+    public function vistaAgregarListaReproduccion(){
+        $videos=Video::all();
+        return view('createPlaylist',compact('videos'));
+    }
+
+    public function agregarListaReproduccion($request){
+        return $request;
+    }
     
 }
