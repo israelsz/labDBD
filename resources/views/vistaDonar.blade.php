@@ -14,7 +14,11 @@
 
 <body>
     @auth 
-        @include('includes.navbarLogin')
+        @if(Auth::user()->id_tipo_usuario == 3)
+            @include('includes.navbarAdmin')
+        @else
+            @include('includes.navbarLogin')
+        @endif
         @include('includes.mensajes')
         
         <section class="login-dark mt-5" style ="height: auto; width: 500px;">

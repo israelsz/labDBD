@@ -14,7 +14,11 @@
 
 <body>
     @auth
-        @include('includes.navbarLogin')
+        @if(Auth::user()->id_tipo_usuario == 3)
+            @include('includes.navbarAdmin')
+        @else
+            @include('includes.navbarLogin')
+        @endif
         @if (Auth::user()->id==$user->id)
             @include('includes.mensajes')
             <div class="col-4 mx-auto" style="background: rgb(30,40,51);border-radius: 4px;transform-origin: center;padding: 20px; margin-top: 40px" just>

@@ -34,17 +34,14 @@ class CommuneController extends Controller
         ]);
 
         if ($validarDatos->fails()){
-            return response()->json($validarDatos->errors(), 400);
+            return back()->with('register',$validarDatos->errors());
         }
 
         $commune->nombre_comuna = $request->nombre_comuna;
         $commune->id_region = $request->id_region;
         $commune->save();
 
-        return response()->json([
-            "message" => "Se ha creado una nueva comuna",
-            "id" => $commune->id
-        ]);
+        return back()->with('register','Comuna creada !');
     }
 
     public function show($id)
@@ -60,12 +57,8 @@ class CommuneController extends Controller
 
     public function update(Request $request, $id)
     {
-        $commune = Commune::find($id);
+        $commune = Commune::findOrFail($id);
         
-        if($commune == NULL){
-            return "No existe una comuna asociada a ese id";
-        }
-
         $validarDatos = Validator::make($request->all(),[
             'nombre_comuna' => 'required|max:60',
             'id_region' => 'required'
@@ -76,28 +69,22 @@ class CommuneController extends Controller
         ]);
 
         if ($validarDatos->fails()){
-            return response()->json($validarDatos->errors(), 400);
+            return back()->with('register',$validarDatos->errors());
         }
         
         $commune->nombre_comuna = $request->nombre_comuna;
         $commune->id_region = $request->id_region;
         $commune->save();
 
-        return response()->json($commune);
+        return redirect()->route('vistaCrudAdmin')->with('register','Comuna actualizada!');
     }
 
     public function destroy($id)
     {
-        $commune = Commune::find($id);
-        
-        if($commune == NULL){
-            return "No existe una comuna asociada a ese id";
-        }
-
+        $commune = Commune::findOrFail($id);
+    
         $commune->delete();
-        return response()->json([
-            "message" => "Se ha borrado la comuna",
-            "id" => $commune->id
-        ]);
+
+        return back()->with('register','Comuna eliminada');
     }
 }

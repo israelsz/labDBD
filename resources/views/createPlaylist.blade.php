@@ -14,6 +14,9 @@
 <body>
     <section>
         @auth
+             @if(Auth::user()->id_tipo_usuario == 3)
+                @include('includes.navbarAdmin')
+            @else
             @include('includes.navbarLogin')
             <section class="m-5 d-lg-flex d-xl-flex justify-content-lg-center align-items-lg-center justify-content-xl-center align-items-xl-center" style="filter: grayscale(0%) saturate(72%);border-style: none;border-top-style: none;border-bottom-width: 1px;">
                 <div class="row" style="background: rgb(30,40,51);border-radius: 4px;transform-origin: center;">
@@ -39,6 +42,7 @@
                     </form>
                 </div>
             </section>
+            @endif
         @else
             @include('includes.navbarNoLogin')
         @endauth

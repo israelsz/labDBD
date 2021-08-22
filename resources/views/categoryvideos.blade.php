@@ -14,11 +14,15 @@
 
 <body>
     @include('includes.mensajes')
-    @auth
-    @include('includes.navbarLogin')
-    @else
+        @auth
+            @if(Auth::user()->id_tipo_usuario == 3)
+                @include('includes.navbarAdmin')
+        @else
+            @include('includes.navbarLogin')
+        @endif
+        @else
     @include('includes.navbarNoLogin')
-    @endauth
+        @endauth
     
     <div class="container">
         <form action="{{route('refrescarPagina')}}" method="GET" style="padding-top:30px">

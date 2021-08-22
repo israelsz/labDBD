@@ -14,9 +14,13 @@
 
 <body>
     @auth
-    @include('includes.navbarLogin')
+        @if(Auth::user()->id_tipo_usuario == 3)
+            @include('includes.navbarAdmin')
+        @else
+            @include('includes.navbarLogin')
+        @endif
     @else
-    @include('includes.navbarNoLogin')
+        @include('includes.navbarNoLogin')
     @endauth
 
     @include('includes.mensajes')

@@ -52,14 +52,34 @@ class CommentaryController extends Controller
         return $comentario;
     }
 
+    public function storeComment(Request $request){
+        $comentario = new Commentary();
+
+        $validarDatos = Validator::make($request->all(),[
+            'contenido' => 'required|max:500',
+        ],[
+            'contenido.required' => 'Debe ingresar contenido',
+            'contenido.max:500' => 'El contenido no debe exceder los 500 caracteres',
+        ]);
+
+        if ($validarDatos->fails()){
+            return back()->with('register', $validarDatos->errors());
+        }
+
+        $comentario->contenido = $request->contenido;
+        $comentario->id_usuario = $request->id_usuario;
+        $comentario->id_video = $request->id_video;
+        $comentario->save();
+
+        return back()->with('register', 'Comentario registrado !');
+    }
+
     
     
     public function update(Request $request, $id)
     {
-        $comentario = Commentary::find($id);
-        if($comentario == NULL){
-            return "No existe un comentario asociada a ese id";
-        }
+        $comentario = Commentary::findOrFail($id);
+        
         $validarDatos = Validator::make($request->all(),[
             'contenido' => 'required|max:500',
             'id_usuario' => 'required',
@@ -72,7 +92,7 @@ class CommentaryController extends Controller
         ]);
 
         if ($validarDatos->fails()){
-            return response()->json($validarDatos->errors(), 400);
+            return back()->with('register',$validarDatos->errors());
         }
 
         $comentario->contenido = $request->contenido;
@@ -80,22 +100,17 @@ class CommentaryController extends Controller
         $comentario->id_video = $request->id_video;
 
         $comentario->save();
-        return response()->json($comentario);
+
+        return redirect()->route('vistaCrudAdmin')->with('register','Comentarios actualizados!');
     }
 
 
     public function destroy($id)
     {
-        $comentario = Commentary::find($id);
+        $comentario = Commentary::findOrFail($id);
         
-        if($comentario == NULL){
-            return "No existe un comentario asociado a ese id";
-        }
-
         $comentario->delete();
-        return response()->json([
-            "message" => "Se ha borrado el comentario",
-            "id" => $comentario->id
-        ]);
+
+        return back()->with('register','Comentario eliminado !');
     }
 }

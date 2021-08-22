@@ -98,6 +98,208 @@
         </table>
     </div>
 
+
+    <div class="container mt-5">
+        <h1 class="text-primary">Crud Pais:</h1>
+        <div class="container p-4 mb-3 mt-2" style="background-color: rgb(30,40,51);">
+            <form method="POST" action="{{route('RegisterCrudPais')}}">
+                @method('PUT')
+                <input
+                  type="text"
+                  name="nombre_pais"
+                  placeholder="Nombre de pais"
+                  class="form-control mb-3"
+                  style="color: var(--bs-light);background: rgba(255,255,255,0)"
+                />
+        
+                <button class="btn btn-outline-success mt-2" type="submit">Agregar Nuevo País</button>
+                
+              </form>
+        </div>
+        <table class="table table-dark table-striped">
+            <thead>
+                <tr>
+                  <th scope="col">#Id</th>
+                  <th scope="col">Nombre Pais</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach($paises as $pais)
+                <tr>
+                  <th scope="row">{{$pais->id}}</th>
+                  <td>{{$pais->nombre_pais}}</td>
+                  <td>
+                    <form style = "display: inline" action = "{{route('vistaEditPaisCrud',$pais)}}" method="GET">
+                        <a class="btn btn-outline-warning" href="#" role = "button" onclick="this.closest('form').submit()">Modificar</a>
+                    </form>
+
+                    <form style = "display: inline" action = "{{route('eliminarPais',$pais)}}" method="post">
+                        @method('DELETE')
+                        <button class="btn btn-outline-danger" type="submit">Eliminar</a>
+                    </form>
+                  </td>
+                </tr>
+                @endforeach
+              </tbody>
+        </table>
+    </div>
+
+    <div class="container mt-5">
+        <h1 class="text-primary">Crud Region:</h1>
+        <div class="container p-4 mb-3 mt-2" style="background-color: rgb(30,40,51);">
+            <form method="POST" action="{{route('storeRegion')}}">
+                <input
+                  type="text"
+                  name="nombre_region"
+                  placeholder="Nombre de región"
+                  class="form-control mb-3"
+                  style="color: var(--bs-light);background: rgba(255,255,255,0)"
+                />
+                
+                <select class="form-select" id="listaSelect" name="id_pais" style= "width: 230px;height: 40px;margin-top: 22px">
+                    @foreach($paises as $pais)
+                    <option value="{{$pais->id}}" selected="">{{$pais->nombre_pais}}</option>
+                    @endforeach
+                </select>
+
+                <button class="btn btn-outline-success mt-2" type="submit">Agregar Nueva Región</button>
+                
+              </form>
+        </div>
+        <table class="table table-dark table-striped">
+            <thead>
+                <tr>
+                  <th scope="col">#Id</th>
+                  <th scope="col">Nombre Región</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach($regiones as $region)
+                <tr>
+                  <th scope="row">{{$region->id}}</th>
+                  <td>{{$region->nombre_region}}</td>
+                  <td>
+                    <form style = "display: inline" action = "{{route('vistaEditRegionCrud',$region)}}" method="GET">
+                        <a class="btn btn-outline-warning" href="#" role = "button" onclick="this.closest('form').submit()">Modificar</a>
+                    </form>
+
+                    <form style = "display: inline" action = "{{route('eliminarRegion',$region)}}" method="post">
+                        @method('DELETE')
+                        <button class="btn btn-outline-danger" type="submit">Eliminar</a>
+                    </form>
+                  </td>
+                </tr>
+                @endforeach
+              </tbody>
+        </table>
+    </div>
+
+    <div class="container mt-5">
+        <h1 class="text-primary">Crud Comunas:</h1>
+        <div class="container p-4 mb-3 mt-2" style="background-color: rgb(30,40,51);">
+            <form method="POST" action="{{route('storeComuna')}}">
+                <input
+                  type="text"
+                  name="nombre_comuna"
+                  placeholder="Nombre de comuna"
+                  class="form-control mb-3"
+                  style="color: var(--bs-light);background: rgba(255,255,255,0)"
+                />
+                
+                <select class="form-select" id="listaSelect" name="id_region" style= "width: 230px;height: 40px;margin-top: 22px">
+                    @foreach($regiones as $region)
+                    <option value="{{$region->id}}" selected="">{{$region->nombre_region}}</option>
+                    @endforeach
+                </select>
+
+                <button class="btn btn-outline-success mt-2" type="submit">Agregar Nueva Comuna</button>
+                
+              </form>
+        </div>
+        <table class="table table-dark table-striped">
+            <thead>
+                <tr>
+                  <th scope="col">#Id</th>
+                  <th scope="col">Nombre Comunas</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach($comunas as $comuna)
+                <tr>
+                  <th scope="row">{{$comuna->id}}</th>
+                  <td>{{$comuna->nombre_comuna}}</td>
+                  <td>
+                    <form style = "display: inline" action = "{{route('vistaEditComunaCrud',$comuna)}}" method="GET">
+                        <a class="btn btn-outline-warning" href="#" role = "button" onclick="this.closest('form').submit()">Modificar</a>
+                    </form>
+
+                    <form style = "display: inline" action = "{{route('eliminarComuna',$comuna)}}" method="post">
+                        @method('DELETE')
+                        <button class="btn btn-outline-danger" type="submit">Eliminar</a>
+                    </form>
+                  </td>
+                </tr>
+                @endforeach
+              </tbody>
+        </table>
+    </div>
+
+    <div class="container mt-5">
+        <h1 class="text-primary">Crud Comentarios:</h1>
+        <div class="container p-4 mb-3 mt-2" style="background-color: rgb(30,40,51);">
+            <form method="POST" action="{{route('storeComentario')}}">
+                <input
+                  type="text"
+                  name="contenido"
+                  placeholder="Comentario"
+                  class="form-control mb-3"
+                  style="color: var(--bs-light);background: rgba(255,255,255,0)"
+                />
+                
+                <select class="form-select" id="listaSelect" name="id_usuario" style= "width: 230px;height: 40px;margin-top: 22px">
+                    @foreach($usuarios as $usuario)
+                    <option value="{{$usuario->id}}" selected="">{{$usuario->username}}</option>
+                    @endforeach
+                </select>
+
+                <select class="form-select" id="listaSelect" name="id_video" style= "width: 230px;height: 40px;margin-top: 22px">
+                    @foreach($videos as $video)
+                    <option value="{{$video->id}}" selected="">{{$video->titulo_video}}</option>
+                    @endforeach
+                </select>
+
+                <button class="btn btn-outline-success mt-2" type="submit">Agregar Nuevo Comentario</button>
+                
+              </form>
+        </div>
+        <table class="table table-dark table-striped">
+            <thead>
+                <tr>
+                  <th scope="col">#Id</th>
+                  <th scope="col">Nombre Comunas</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach($comentarios as $comentario)
+                <tr>
+                  <th scope="row">{{$comentario->id}}</th>
+                  <td>{{$comentario->contenido}}</td>
+                  <td>
+                    <form style = "display: inline" action = "{{route('vistaEditComentarioCrud',$comentario)}}" method="GET">
+                        <a class="btn btn-outline-warning" href="#" role = "button" onclick="this.closest('form').submit()">Modificar</a>
+                    </form>
+
+                    <form style = "display: inline" action = "{{route('eliminarComentario',$comentario)}}" method="post">
+                        @method('DELETE')
+                        <button class="btn btn-outline-danger" type="submit">Eliminar</a>
+                    </form>
+                  </td>
+                </tr>
+                @endforeach
+              </tbody>
+        </table>
+    </div>
+
     <div class="container mt-5">
         <h1 class="text-primary">Crud Playlist:</h1>
         <div class="container p-4 mb-3 mt-2" style="background-color: rgb(30,40,51);">

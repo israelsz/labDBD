@@ -69,6 +69,12 @@ Route::post('/adminCrud/video/crear',[ViewsController::class, 'crearVideo'])->na
 Route::get('/adminCrud/video/edit/{id}', [ViewsController::class, 'viewEditarVideo'])->name('vistaEditarVideo');
 Route::get('/adminCrud/userType/edit/{id}', [ViewsController::class, 'viewEditarTipoUsuario'])->name('viewEditarTipoUsuario');
 Route::get('/adminCrud/donacion/edit/{id}', [ViewsController::class, 'vistaEditarDonacion'])->name('vistaEditarDonacion');
+Route::put('/adminCrud/country/create', [ViewsController::class, 'RegisterCrudPais'])->name('RegisterCrudPais');
+Route::get('/adminCrud/country/edit/{id}', [ViewsController::class, 'vistaEditPaisCrud'])->name('vistaEditPaisCrud');
+Route::put('/adminCrud/country/edit/execute/{id}', [ViewsController::class, 'editCrudPais'])->name('editCrudPais');
+Route::get('/adminCrud/region/edit/{id}', [ViewsController::class, 'vistaEditRegionCrud'])->name('vistaEditRegionCrud');
+Route::get('/adminCrud/comuna/edit/{id}', [ViewsController::class, 'vistaEditComunaCrud'])->name('vistaEditComunaCrud');
+Route::get('/adminCrud/comentario/edit/{id}', [ViewsController::class, 'vistaEditComentarioCrud'])->name('vistaEditComentarioCrud');
 
 
 
@@ -84,21 +90,21 @@ Route::post('/countries/create', [CountryController::class, 'store']);
 //Actualiza un pais -> Update
 Route::put('/countries/update/{id}', [CountryController::class, 'update']);
 //Borra un pais -> Delete
-Route::delete('/countries/delete/{id}', [CountryController::class, 'destroy']);
+Route::delete('/countries/delete/{id}', [CountryController::class, 'destroy'])->name('eliminarPais');
 
 //Rutas para Tabla/Clase Region:
 Route::get('/regions', [RegionController::class, 'index']);
 Route::get('/regions/{id}', [RegionController::class, 'show']);
-Route::post('/regions/create', [RegionController::class, 'store']);
-Route::put('/regions/update/{id}', [RegionController::class, 'update']);
-Route::delete('/regions/delete/{id}', [RegionController::class, 'destroy']);
+Route::post('/regions/create', [RegionController::class, 'store'])->name('storeRegion');
+Route::put('/regions/update/{id}', [RegionController::class, 'update'])->name('updateRegion');
+Route::delete('/regions/delete/{id}', [RegionController::class, 'destroy'])->name('eliminarRegion');
 
 //Rutas para Tabla/Clase Commune:
 Route::get('/communes', [CommuneController::class, 'index']);
 Route::get('/communes/{id}', [CommuneController::class, 'show']);
-Route::post('/communes/create', [CommuneController::class, 'store']);
-Route::put('/communes/update/{id}', [CommuneController::class, 'update']);
-Route::delete('/communes/delete/{id}', [CommuneController::class, 'destroy']);
+Route::post('/communes/create', [CommuneController::class, 'store'])->name('storeComuna');
+Route::put('/communes/update/{id}', [CommuneController::class, 'update'])->name('updateComuna');
+Route::delete('/communes/delete/{id}', [CommuneController::class, 'destroy'])->name('eliminarComuna');
 
 //Rutas para Tabla/Clase Video:
 Route::get('/videos', [VideoController::class, 'index']);
@@ -141,8 +147,9 @@ Route::delete('/user_playlists/delete/{id}', [UserPlaylistController::class, 'de
 Route::get('/commentaries', [CommentaryController::class, 'index']);//Probado
 Route::get('/commentaries/{id}', [CommentaryController::class, 'show']);//Probado
 Route::post('/commentaries/create/{id_video}/{id_usuario}', [CommentaryController::class, 'store'])->name('HacerComentario');
-Route::put('/commentaries/update/{id}', [CommentaryController::class, 'update']); //Probado
-Route::delete('/commentaries/delete/{id}', [CommentaryController::class, 'destroy']);//Probado
+Route::post('/commentaries/create/', [CommentaryController::class, 'storeComment'])->name('storeComentario');
+Route::put('/commentaries/update/{id}', [CommentaryController::class, 'update'])->name('updateComentario');
+Route::delete('/commentaries/delete/{id}', [CommentaryController::class, 'destroy'])->name('eliminarComentario');
 //Rutas para tabla PaymentMethod
 Route::get('/payment_methods', [PaymentMethodController::class, 'index']); //Probada
 Route::get('/payment_methods/{id}', [PaymentMethodController::class, 'show']);//Probada

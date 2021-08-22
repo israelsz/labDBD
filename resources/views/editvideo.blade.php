@@ -14,8 +14,12 @@
 
 <body>
     @auth
-    @include('includes.mensajes')
-    @include('includes.navbarLogin')
+        @if(Auth::user()->id_tipo_usuario == 3)
+            @include('includes.navbarAdmin')
+        @else
+            @include('includes.navbarLogin')
+        @endif
+            @include('includes.mensajes')
     <div class="col-4 container mb-3" style="padding-top: 5%;">
         <div class="card">
             <img src="https://img.youtube.com/vi/{{substr($video->direccion_video,-11)}}/0.jpg" class="card-img-top" alt="..." />

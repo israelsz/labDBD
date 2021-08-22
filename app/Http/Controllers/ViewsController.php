@@ -128,8 +128,8 @@ class ViewsController extends Controller
     }
     public function vistaSubirVideo(){
         if(!Auth::check()){
-        }
             return redirect()->action([ViewsController::class, 'vistaLogin']);
+        }
         return view('uploadvideo');
     }
     public function SubirVideo(Request $request){
@@ -632,5 +632,79 @@ class ViewsController extends Controller
 
         $playlist = Playlist::findOrFail($id);
         return(view('vistaEditPlaylistCrud',compact('playlist')));
+    }
+
+    public function RegisterCrudPais(Request $request){
+
+        $country = new Country();
+
+        $validarDatos = Validator::make($request->all(),[
+            'nombre_pais' => 'required|max:100'
+        ],[
+            'nombre_pais.required' => 'Debe de ingresar el nombre del pais',
+            'nombre_pais.max:100' => 'El nombre no puede exceder los 100 caracteres'
+        ]);
+
+        if ($validarDatos->fails()){
+            return back()->with('registerError', $validarDatos->errors());
+        }
+        
+        $country->nombre_pais = $request->nombre_pais;
+        $country->save();
+
+        return back()->with('registerError', $validarDatos->errors());
+    }
+
+    public function vistaEditPaisCrud($id){
+
+        $pais = Country::findOrFail($id);
+
+        return view('vistaEditPaisCrud',compact('pais'));
+    }
+
+    public function editCrudPais(Request $request, $id){
+        
+        $country = Country::findOrFail($id);
+
+        $validarDatos = Validator::make($request->all(),[
+            'nombre_pais' => 'required|max:100'
+        ],[
+            'nombre_pais.required' => 'Debe de ingresar el nombre del pais',
+            'nombre_pais.max:100' => 'El nombre no puede exceder los 100 caracteres'
+        ]);
+
+        if ($validarDatos->fails()){
+            return back()->with('registerError', $validarDatos->errors());
+        }
+        
+        $country->nombre_pais = $request->nombre_pais;
+        $country->save();
+
+        return  redirect()->route('vistaCrudAdmin')->with('register','Datos de pais actualizados !');
+    }
+
+    public function vistaEditRegionCrud($id){
+        $region = Region::findOrFail($id);
+
+        $paises = Country::all();
+
+        return view('vistaEditRegion',compact('region','paises'));
+    }
+
+    public function vistaEditComunaCrud($id){
+       
+        $comuna = Commune::findOrFail($id);
+        $regiones = Region::all();
+
+        return view('vistaEditComuna',compact('comuna','regiones'));
+
+    }
+
+    public function vistaEditComentarioCrud($id){
+        $comentario = Commentary::findOrFail($id);
+        $usuarios = User::all();
+        $videos = Video::all();
+
+        return view('vistaEditComentarioCrud',compact('comentario','usuarios','videos'));
     }
 }

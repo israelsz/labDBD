@@ -14,8 +14,12 @@
 
 <body>
     @include('includes.mensajes')
-    @auth
-    @include('includes.navbarLogin')
+        @auth
+            @if(Auth::user()->id_tipo_usuario == 3)
+                @include('includes.navbarAdmin')
+             @else
+                @include('includes.navbarLogin')
+            @endif
     <div class="container mt-4" style="background-color: #1e2833;">
         <div class="container p-3">
             <form action="{{ route('SubirVideo')}}" method="POST">
@@ -28,9 +32,9 @@
         </div>
 
     </div>
-    @else
-    @include('includes.navbarNoLogin')
-    @endauth
+        @else
+            @include('includes.navbarNoLogin')
+        @endauth
 
 
 

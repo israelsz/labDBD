@@ -90,16 +90,10 @@ class CountryController extends Controller
     //Borra un pais -> Delete
     public function destroy($id)
     {
-        $country = Country::find($id);
-        
-        if($country == NULL){
-            return "No existe un pais asociado a ese id";
-        }
-
+        $country = Country::findOrFail($id);
+ 
         $country->delete();
-        return response()->json([
-            "message" => "Se ha borrado el pais",
-            "id" => $country->id
-        ]);
+
+        return back()->with('register','Pais eliminado !');
     }
 }

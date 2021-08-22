@@ -13,8 +13,12 @@
 </head>
 
 <body>
-    @auth 
-        @include('includes.navbarLogin')
+    @auth
+        @if(Auth::user()->id_tipo_usuario == 3)
+            @include('includes.navbarAdmin')
+        @else
+            @include('includes.navbarLogin')
+        @endif
         @if (Auth::user()->id==$user->id) <!-- Vista si usuario esta logueado y la vista corresponde al mismo usuario conectado-->
             @include('includes.mensajes')
         <section class="login-dark">

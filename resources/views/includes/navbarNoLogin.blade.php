@@ -16,19 +16,9 @@
         <div class="collapse navbar-collapse" id="navcol-1">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" id="itemBarra" href="#"
-                        >Primera Sección</a
-                    >
+                    <li class="nav-item"><a class="nav-link" id="itemBarra" href="{{route('vistaTopVideos')}}" style="font-family: Alice, serif;">Top Videos</a></li>
                 </li>
-                <li class="nav-item">
-                    <a
-                        class="nav-link"
-                        id="itemBarra"
-                        href="#"
-                        style="font-family: Alice, serif"
-                        >Segunda Sección</a
-                    >
-                </li>
+                <li class="nav-item"><a class="nav-link" id="itemBarra" href="{{route('vistaVideosCategoria',-1)}}">Categorias</a></li>
                 <li class="nav-item">
                     <a class="nav-link" id="itemBarra" href="{{route('vistaUsuarios')}}"
                         >Todos los usuarios</a

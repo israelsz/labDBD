@@ -38,18 +38,15 @@ class RegionController extends Controller
         ]);
 
         if ($validarDatos->fails()){
-            return response()->json($validarDatos->errors(), 400);
+            return back()->with('login',$validarDatos->errors());
         }
 
         $region->nombre_region = $request->nombre_region;
-        $region->id_pais = $region->id_pais;
+        $region->id_pais = $request->id_pais;
 
         $region->save();
 
-        return response()->json([
-            "message" => "Se ha creado una nueva region",
-            "id" => $region->id
-        ]);
+        return back()->with('login','Region creada !');
     }
 
     //Muestra solo una region, según su id -> Read
@@ -67,12 +64,9 @@ class RegionController extends Controller
     //Actualiza una region -> Update
     public function update(Request $request, $id)
     {
-        $region = Region::find($id);
+        $region = Region::findOrFail($id);
         
-        if($region == NULL){
-            return "No existe una region asociada a ese id";
-        }
-
+       
         $validarDatos = Validator::make($request->all(),[
             'nombre_region' => 'required|max:100',
             'id_pais' => 'required'
@@ -83,7 +77,7 @@ class RegionController extends Controller
         ]);
 
         if ($validarDatos->fails()){
-            return response()->json($validarDatos->errors(), 400);
+            return back()->with('login',$validarDatos->errors());
         }
 
         $region->nombre_region = $request->nombre_region;
@@ -91,22 +85,16 @@ class RegionController extends Controller
 
         $region->save();
 
-        return response()->json($region);
+        return redirect()->route('vistaCrudAdmin')->with('register','Datos de region actualizados !');
     }
 
     //Borra una region -> Delete
     public function destroy($id)
     {
-        $region = Region::find($id);
+        $region = Region::findOrFail($id);
         
-        if($region == NULL){
-            return "No existe una region asociada a ese id";
-        }
-
         $region->delete();
-        return response()->json([
-            "message" => "Se ha borrado la region",
-            "id" => $region->id
-        ]);
+
+        return back()->with('login','Región eliminada');
     }
 }

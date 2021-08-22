@@ -14,6 +14,10 @@
 
 <body>
     @auth
+        @if(Auth::user()->id_tipo_usuario == 3)
+            @include('includes.navbarAdmin')
+        @else
+    
         @include('includes.navbarLogin')
         @foreach ($autores as $autor)
             @if ($autor->id_usuario==Auth::user()->id)
@@ -30,6 +34,7 @@
                 @break
             @endif
         @endforeach
+        @endif
     @else
         @include('includes.navbarNoLogin')
     @endauth
