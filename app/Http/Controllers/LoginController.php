@@ -18,7 +18,7 @@ class LoginController extends Controller
         if(Auth::attempt($credenciales)){
             request()->session()->regenerate();
 
-            return redirect()->route('vistaIndice')->with('loginCorrecto','Logueo correcto !');
+            return redirect()->route('vistaIndice')->with('loginCorrecto','Logueo correcto, Bienvenido a CheemsTube !');
         }
         //Si el logueo no fue correcto
         return back()->with('loginError','Credenciales incorrectas, Verifique sus datos e intentelo de nuevo');

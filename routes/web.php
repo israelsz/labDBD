@@ -47,6 +47,13 @@ Route::get('/user/{id}',[ViewsController::class, 'vistaUsuario'])->name('vistaUs
 Route::get('/user/{id}/editUser',[ViewsController::class, 'vistaEditarUsuario'])->name('vistaEditarUsuario');
 Route::get('/watchVideo/{id}', [VideoController::class, 'vistaVideo'])->name('vistaVideo');
 Route::put('/video/update/{id}', [ViewsController::class, 'actualizarVideo'])->name('updateVideo');
+Route::get('/users', [ViewsController::class, 'vistaUsers'])->name('vistaUsuarios');
+Route::get('/cargarSaldo/{id}', [ViewsController::class, 'vistaRecargarSaldo'])->name('vistaRecargarSaldo');
+Route::put('/cargarSaldo/update/{id}', [ViewsController::class, 'recargarSaldo'])->name('recargarSaldo');
+Route::get('/donar/{id}/', [ViewsController::class, 'vistaDonar'])->name('vistaDonar');
+Route::post('/donar/monedero/{id}/', [ViewsController::class, 'donacionConMonedero'])->name('donacionConMonedero');
+Route::post('/donar/tarjeta/{id}/', [ViewsController::class, 'donacionConTarjeta'])->name('donacionConTarjeta');
+
 //Rutas para Tabla/Clase Pais:
 //Muestra todos los paises guardados -> Read
 Route::get('/countries', [CountryController::class, 'index']);
@@ -155,7 +162,7 @@ Route::put('/user_types/update/{id}', [UserTypeController::class, 'update']);
 Route::delete('/user_types/delete/{id}', [UserTypeController::class, 'destroy']);
 
 //Rutas para la table User
-Route::get('/users', [UserController::class, 'index']); 
+//Route::get('/users', [UserController::class, 'index']); 
 Route::get('/users/{id}', [UserController::class, 'show']);
 Route::post('/users/create', [UserController::class, 'store'])->name('intentarRegister');
 Route::put('/users/update/{id}', [UserController::class, 'update']);

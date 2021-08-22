@@ -13,15 +13,15 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public static function index()
     {
         //
         $user = User::all();
-        if ($user==NULL) {
-            return response()->json(["message"=> "No exiten usuarios"],404);
+        if (empty($user)) {
+            return back()->with('noUsers','No hay usuarios en la plataforma !');
         }
 
-        return response()->json($user);
+        return $user;
     }
 
     /**

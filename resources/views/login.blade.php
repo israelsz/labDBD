@@ -19,7 +19,8 @@
         @else
             @include('includes.navbarNoLogin')
         @endauth
-   
+
+        @include('includes.mensajes')
 
         <div class="container mt-2">
             <h1 id="tituloLogin">Conectarse a una cuenta</h1>
