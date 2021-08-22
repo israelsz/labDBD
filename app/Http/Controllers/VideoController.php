@@ -123,9 +123,8 @@ class VideoController extends Controller
         ]);
 
         if ($validarDatos->fails()){
-            return response()->json($validarDatos->errors(), 400);
+            return back()->with('editVideoError', $validarDatos->errors());
         }
-
 
         $video->direccion_video = $request->direccion_video;
         $video->titulo_video = $request->titulo_video;
@@ -138,7 +137,7 @@ class VideoController extends Controller
         $video->id_comuna = $request->id_comuna;
 
         $video->save();
-        return response()->json($video);
+        return redirect()->route('vistaCrudAdmin')->with('register','Se ha editado video!');
     }
 
     public function destroy($id)
@@ -146,14 +145,10 @@ class VideoController extends Controller
         $video = Video::find($id);
         
         if($video == NULL){
-            return "No existe un video asociado a ese id";
+            return redirect()->route('vistaCrudAdmin')->with('register','No existe el video!');
         }
-
         $video->delete();
-        return response()->json([
-            "message" => "Se ha borrado el video",
-            "id" => $video->id
-        ]);
+        return redirect()->route('vistaCrudAdmin')->with('register','Se ha eliminado un video!');
     }
     public static function ordenadosViews()
     {

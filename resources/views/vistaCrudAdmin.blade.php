@@ -215,6 +215,267 @@
         </table>
     </div>
 
+    <div class="container mt-5">
+      <h1 class="text-primary">Crud Videos:</h1>
+      <div class="container p-4 mb-3 mt-2" style="background-color: rgb(30,40,51);">
+          <form method="POST" action='{{route('crearVideo')}}'>
+              <input
+                type="text"
+                name="titulo_video"
+                placeholder="Ingrese titulo video"
+                class="form-control mb-3"
+                style="color: var(--bs-light);background: rgba(255,255,255,0)"
+              />
+              <input
+                type="text"
+                name="direccion_video"
+                placeholder="Ingrese direccion de video"
+                class="form-control mb-3"
+                style= "color: var(--bs-light);background: rgba(255,255,255,0)"
+              />
+              <input
+                type="text"
+                name="visitas"
+                placeholder="Ingrese cantidad de visitas"
+                class="form-control mb-3"
+                style ="color: var(--bs-light);background: rgba(255,255,255,0)"
+              />
+              <input
+                type="text"
+                name="popularidad"
+                placeholder="Ingrese popularidad"
+                class="form-control mb-3"
+                style ="color: var(--bs-light);background: rgba(255,255,255,0)"
+              />
+              <input
+                type="text"
+                name="cantidad_temporadas"
+                placeholder="Ingrese cantidad temporadas"
+                class="form-control mb-3"
+                style ="color: var(--bs-light);background: rgba(255,255,255,0)"
+              />
+              <input
+                type="text"
+                name="descripcion"
+                placeholder="Ingrese descripcion"
+                class="form-control mb-3"
+                style ="color: var(--bs-light);background: rgba(255,255,255,0)"
+              />
+              <input
+                type="text"
+                name="restriccion_edad"
+                placeholder="Ingrese restriccion"
+                class="form-control mb-3"
+                style ="color: var(--bs-light);background: rgba(255,255,255,0)"
+              />
+
+              <h5 class="text-primary">Ingrese usuario autor</h1>
+
+                <select class="form-select" id="listaSelect" name="id_usuario_autor" style= "width: 230px;height: 40px;margin-top: 22px">
+                    @foreach($usuarios as $usuario)
+                    <option value="{{$usuario->id}}" selected="">{{$usuario->username}}</option>
+                    @endforeach
+                </select>
+              
+              <h5 class="text-primary">Ingrese comuna:</h1>
+
+              <select class="form-select" id="listaSelect" name="id_comuna" style= "width: 230px;height: 40px;margin-top: 22px">
+                  @foreach($comunas as $comuna)
+                  <option value="{{$comuna->id}}" selected="">{{$comuna->nombre_comuna}}</option>
+                  @endforeach
+              </select>
+              
+              <button class="btn btn-outline-success mt-2" type="submit">Agregar nuevo video</button>
+              
+            </form>
+      </div>
+      <table class="table table-dark table-striped">
+          <thead>
+              <tr>
+                <th scope="col">#Id</th>
+                <th scope="col">Titulo</th>
+                <th scope="col">Visitas</th>
+                <th scope="col">Descripcion</th>
+                <th scope="col">Autor</th>
+                <th scope="col">Restriccion</th>
+                <th scope="col">Popularidad</th>
+                <th scope="col">Cantidad Temporadas</th>
+                <th scope="col">Id comna</th>
+                <th scope="col"></th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach($videos as $video)
+              <tr>
+                <th scope="row">{{$video->id}}</th>
+                <td>{{$video->titulo_video}}</td>
+                <td>{{$video->visitas}}</td>
+                <td>{{$video->descripcion}}</td>
+                <td>{{$video->id_usuario_autor}}</td>
+                <td>{{$video->restriccion_edad}}</td>
+                <td>{{$video->popularidad}}</td>
+                <td>{{$video->cantidad_temporadas}}</td>
+                <td>{{$video->id_comuna}}</td>
+                <td>
+                  <form style = "display: inline" action = '{{route('vistaEditarVideo',$video->id)}}' method="GET">
+                      <a class="btn btn-outline-warning" href="#" role = "button" onclick="this.closest('form').submit()">Modificar</a>
+                  </form>
+                  <form style = "display: inline" action = {{route('eliminarVideo',$video->id)}} method="post">
+                      @method('DELETE')
+                      <button class="btn btn-outline-danger" type="submit">Eliminar</a>
+                  </form>
+                </td>
+              </tr>
+              @endforeach
+            </tbody>
+      </table>
+  </div>
+
+  <div class="container mt-5">
+    <h1 class="text-primary">Crud Tipo de usuario:</h1>
+    <div class="container p-4 mb-3 mt-2" style="background-color: rgb(30,40,51);">
+        <form method="POST" action="{{route('crearTipoUsuario')}}">
+            <input
+              type="text"
+              name="nombre_tipo_usuario"
+              placeholder="Ingrese nombre del tipo de usuario"
+              class="form-control mb-3"
+              style="color: var(--bs-light);background: rgba(255,255,255,0)"
+            />
+            <input
+              type="text"
+              name="descripcion_tipo_usuario"
+              placeholder="Ingrese descripcion del tipo de usuario"
+              class="form-control mb-3"
+              style= "color: var(--bs-light);background: rgba(255,255,255,0)"
+            />
+
+            <button class="btn btn-outline-success mt-2" type="submit">Agregar Nuevo tipo de usuario</button>
+            
+          </form>
+    </div>
+    <table class="table table-dark table-striped">
+        <thead>
+            <tr>
+              <th scope="col">#Id</th>
+              <th scope="col">Nombre Tipo Usuario</th>
+              <th scope="col">Descripción</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach($usuarioTipos as $usuarioTipo)
+            <tr>
+              <th scope="row">{{$usuarioTipo->id}}</th>
+              <td>{{$usuarioTipo->nombre_tipo_usuario}}</td>
+              <td>{{$usuarioTipo->descripcion_tipo_usuario}}</td>
+              <td>
+                <form style = "display: inline" action = {{route('viewEditarTipoUsuario',$usuarioTipo->id)}} method="GET">
+                    <a class="btn btn-outline-warning" href="#" role = "button" onclick="this.closest('form').submit()">Modificar</a>
+                </form>
+
+                <form style = "display: inline" action = {{route('eliminarTipousuario',$usuarioTipo->id)}} method="post">
+                    @method('DELETE')
+                    <button class="btn btn-outline-danger" type="submit">Eliminar</a>
+                </form>
+              </td>
+            </tr>
+            @endforeach
+          </tbody>
+    </table>
+  </div>
+
+  <div class="container mt-5">
+    <h1 class="text-primary">Crud Donaciones:</h1>
+    <div class="container p-4 mb-3 mt-2" style="background-color: rgb(30,40,51);">
+        <form method="POST" action="{{route('crearDonacion')}}">
+            <input
+              type="text"
+              name="monto"
+              placeholder="Ingrese monto"
+              class="form-control mb-3"
+              style="color: var(--bs-light);background: rgba(255,255,255,0)"
+            />
+
+            <select class="form-select" id="listaSelect" name="id_donador" style= "width: 230px;height: 40px;margin-top: 22px">
+              @foreach($usuarios as $usuario)
+                <option value="{{$usuario->id}}" selected="">{{$usuario->username}}</option>
+              @endforeach
+            </select>
+
+            <select class="form-select" id="listaSelect" name="id_receptor" style= "width: 230px;height: 40px;margin-top: 22px">
+              @foreach($usuarios as $usuario)
+                <option value="{{$usuario->id}}" selected="">{{$usuario->username}}</option>
+              @endforeach
+            </select>
+
+            <select class="form-select" id="listaSelect" name="id_metodo_pago" style= "width: 230px;height: 40px;margin-top: 22px">
+              @foreach($metodosPago as $metodo)
+                <option value="{{$metodo->id}}" selected="">{{$metodo->nombre_metodo_pago}}</option>
+              @endforeach
+            </select>
+
+            <select class="form-select" id="listaSelect" name="id_playlist" style= "width: 230px;height: 40px;margin-top: 22px">
+              @foreach($playlists as $lista)
+                <option value="{{$lista->id}}" selected="">{{$lista->nombre_playlist}}</option>
+              @endforeach
+            </select>
+
+            <select class="form-select" id="listaSelect" name="id_video" style= "width: 230px;height: 40px;margin-top: 22px">
+              @foreach($videos as $video)
+                <option value="{{$video->id}}" selected="">{{$video->titulo_video}}</option>
+              @endforeach
+            </select>
+            <h5 class="text-primary mt-3">Ingrese Fecha de donación:</h1>
+
+            <div class="mt-3 mb-3"><input class="form-control" type="date" required="" name="fecha_donacion" style="background: rgba(255,255,255,0);color: var(--bs-light)"></div>
+
+
+            <button class="btn btn-outline-success mt-2" type="submit">Agregar nueva donación</button>
+            
+          </form>
+    </div>
+    <table class="table table-dark table-striped">
+        <thead>
+            <tr>
+              <th scope="col">#Id</th>
+              <th scope="col">id_donador</th>
+              <th scope="col">id_receptor</th>
+              <th scope="col">id_metodo_pago</th>
+              <th scope="col">id_playlist</th>
+              <th scope="col">id_video</th>
+              <th scope="col">fecha_donacion</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach($donaciones as $donacion)
+            <tr>
+              <th scope="row">{{$donacion->id}}</th>
+              <td>{{$donacion->id_donador}}</td>
+              <td>{{$donacion->id_receptor}}</td>
+              <td>{{$donacion->id_metodo_pago}}</td>
+              <td>{{$donacion->id_playlist}}</td>
+              <td>{{$donacion->id_video}}</td>
+              <td>{{$donacion->fecha_donacion}}</td>
+              <td>
+                <form style = "display: inline" action = '{{route('vistaEditarDonacion',$donacion->id)}}'  method="GET">
+                    <a class="btn btn-outline-warning" href="#" role = "button" onclick="this.closest('form').submit()">Modificar</a>
+                </form>
+
+                <form style = "display: inline" action = '{{route('eliminarDonacion',$donacion->id)}}' method="post">
+                    @method('DELETE')
+                    <button class="btn btn-outline-danger" type="submit">Eliminar</a>
+                </form>
+              </td>
+            </tr>
+            @endforeach
+          </tbody>
+    </table>
+  </div>
+
+  
+
     <script src="{{asset('assets/bootstrap/js/bootstrap.min.js')}}"></script>
 </body>
 

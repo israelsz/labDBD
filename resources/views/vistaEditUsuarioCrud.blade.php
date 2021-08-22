@@ -28,7 +28,7 @@
     <div class="container mt-5">
         <h1 class="text-primary">Crud Usuarios:</h1>
         <div class="container p-4 mb-3 mt-2" style="background-color: rgb(30,40,51);">
-            <form method="POST" action="{{route('editarUsuarioCrud',$usuario)}}">
+            <form method="POST" action="{{route('editarUsuarioCrud',$id)}}">
               @method('PUT')
                 <input
                   type="text"

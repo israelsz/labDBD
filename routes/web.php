@@ -65,6 +65,12 @@ Route::get('/adminCrud/playlists/edit/{id}', [ViewsController::class, 'vistaEdit
 Route::put('/adminCrud/playlists/edit/execute/{id}', [ViewsController::class, 'editarPlaylistCrud'])->name('editarPlaylistCrud');
 Route::get('/adminCrud/feedbacks/edit/{id}', [ViewsController::class, 'vistaEditFeedbackCrud'])->name('vistaEditFeedbackCrud');
 Route::put('/adminCrud/feedbacks/edit/execute/{id}', [ViewsController::class, 'editarFeedbackCrud'])->name('editarFeedbackCrud');
+Route::post('/adminCrud/video/crear',[ViewsController::class, 'crearVideo'])->name('crearVideo');
+Route::get('/adminCrud/video/edit/{id}', [ViewsController::class, 'viewEditarVideo'])->name('vistaEditarVideo');
+Route::get('/adminCrud/userType/edit/{id}', [ViewsController::class, 'viewEditarTipoUsuario'])->name('viewEditarTipoUsuario');
+Route::get('/adminCrud/donacion/edit/{id}', [ViewsController::class, 'vistaEditarDonacion'])->name('vistaEditarDonacion');
+
+
 
 //Rutas para Tabla/Clase Pais:
 //Muestra todos los paises guardados -> Read
@@ -96,8 +102,8 @@ Route::delete('/communes/delete/{id}', [CommuneController::class, 'destroy']);
 Route::get('/videos', [VideoController::class, 'index']);
 Route::get('/videos/{id}', [VideoController::class, 'show']);
 Route::post('/videos/create', [VideoController::class, 'store']);
-Route::put('/videos/update/{id}', [VideoController::class, 'update']);
-Route::delete('/videos/delete/{id}', [VideoController::class, 'destroy']);
+Route::put('/videos/update/{id}', [VideoController::class, 'update'])->name('editarVideo');
+Route::delete('/videos/delete/{id}', [VideoController::class, 'destroy'])->name('eliminarVideo');;
 
 //Rutas para Tabla/Clase Playlist:
 Route::get('/playlists', [PlaylistController::class, 'index']);
@@ -170,11 +176,11 @@ Route::put('/video_categories/update/{id}', [VideoCategoryController::class, 'up
 Route::delete('/video_categories/delete/{id}', [VideoCategoryController::class, 'destroy']);
 
 //Rutas para la tabla UserType
-Route::get('/user_types', [UserTypeController::class, 'index']); 
+Route::get('/user_types', [UserTypeController::class, 'index']);
 Route::get('/user_types/{id}', [UserTypeController::class, 'show']);
-Route::post('/user_types/create', [UserTypeController::class, 'store']);
-Route::put('/user_types/update/{id}', [UserTypeController::class, 'update']);
-Route::delete('/user_types/delete/{id}', [UserTypeController::class, 'destroy']);
+Route::post('/user_types/create', [UserTypeController::class, 'store'])->name('crearTipoUsuario'); 
+Route::put('/user_types/update/{id}', [UserTypeController::class, 'update'])->name('editarTipoUsuario');
+Route::delete('/user_types/delete/{id}', [UserTypeController::class, 'destroy'])->name('eliminarTipousuario');
 
 //Rutas para la table User
 //Route::get('/users', [UserController::class, 'index']); 
@@ -187,9 +193,9 @@ Route::delete('/users/delete/{id}', [UserController::class, 'destroy'])->name('e
 //Rutas para la tabla Donation
 Route::get('/donations', [DonationController::class, 'index']); 
 Route::get('/donations/{id}', [DonationController::class, 'show']);
-Route::post('/donations/create', [DonationController::class, 'store']);
-Route::put('/donations/update/{id}', [DonationController::class, 'update']);
-Route::delete('/donations/delete/{id}', [DonationController::class, 'destroy']);
+Route::post('/donations/create', [DonationController::class, 'store'])->name('crearDonacion');
+Route::put('/donations/update/{id}', [DonationController::class, 'update'])->name('editarDonacion');
+Route::delete('/donations/delete/{id}', [DonationController::class, 'destroy'])->name('eliminarDonacion');
 
 //Ruta para Login
 Route::post('/login/attempt', [LoginController::class, 'login'])->name('intentarLogin');
@@ -204,3 +210,4 @@ Route::put('/list/{id}/edit/attemp',[ViewsController::class, 'editarPlaylist'])-
 //Ruta para CategoryVideo
 Route::get('/categoryVideo/{id}', [CategoryVideoController::class, 'videosPorCategoria']);
 Route::get('/refrescarPagina', [ViewsController::class, 'refrescarPagina'])->name('refrescarPagina');
+

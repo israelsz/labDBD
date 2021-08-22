@@ -47,19 +47,15 @@ class UserTypeController extends Controller
             ]
             );
         
-        if ($validarDatos->fails()){
-            return response()->json($validarDatos->errors(), 400);
-        }
+            if ($validarDatos->fails()){
+                return back()->with('editTipoUsuarioError', $validarDatos->errors());
+            }
 
         $tipoUsuario->nombre_tipo_usuario=$request->nombre_tipo_usuario;
         $tipoUsuario->descripcion_tipo_usuario=$request->descripcion_tipo_usuario;
 
         $tipoUsuario->save();
-
-        return response()->json([
-            "message"=> "Se ha creado un nuevo tipo de usuario",
-            $tipoUsuario
-        ],202);
+        return redirect()->route('vistaCrudAdmin')->with('register','Se ha registrado un nuevo tipo de usuario!');
     }
 
     /**
@@ -106,19 +102,14 @@ class UserTypeController extends Controller
         );
         
         if ($validarDatos->fails()){
-            return response()->json($validarDatos->errors(), 400);
+            return back()->with('editVideoError', $validarDatos->errors());
         }
 
         $tipoUsuario->nombre_tipo_usuario=$request->nombre_tipo_usuario;
         $tipoUsuario->descripcion_tipo_usuario=$request->descripcion_tipo_usuario;
 
         $tipoUsuario->save();
-
-        return response()->json([
-            "message"=> "Se ha actualizado el tipo de usuario",
-            $tipoUsuario
-        ],202);
-
+        return redirect()->route('vistaCrudAdmin')->with('register','Se ha editado el tipo de usuario!');
 
     }
 
@@ -133,16 +124,10 @@ class UserTypeController extends Controller
         $tipoUsuario=UserType::find($id);
 
         if ($tipoUsuario==NULL) {
-            return response()->json(["message"=> "No exiten tipos de usuarios asociadas a la id ingresada"],404);
+            return back()->with('Error', 'No existe un tipo de usuario con es id');
         }
 
         $tipoUsuario->delete();
-
-        return response()->json(
-            [
-                "message"=>"Se ha borrado el tipo de usuario",
-                "id"=>$tipoUsuario->id
-            ]
-            ,202);
+        return redirect()->route('vistaCrudAdmin')->with('register','Se ha eliminado el tipo de usuario!');
     }
 }

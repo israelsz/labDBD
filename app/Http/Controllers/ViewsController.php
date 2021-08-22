@@ -26,7 +26,6 @@ use App\Models\UserSubscription;
 use App\Models\UserType;
 use App\Models\Category;
 use App\Models\Country;
-use App\Models\UserVideo;
 use App\Models\VideoCategory;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
@@ -486,6 +485,70 @@ class ViewsController extends Controller
          
         return redirect()->route('vistaCrudAdmin')->with('register','Datos de usuarios actualizados !');
 
+    }
+
+    public function crearVideo(Request $request){
+        $video = new Video();
+
+        $validarDatos = Validator::make($request->all(),[
+            'direccion_video' => 'required|max:100',
+            'titulo_video' => 'required|max:60',
+            'visitas' => 'required',
+            'restriccion_edad' => 'required',
+            'popularidad' => 'required',
+            'cantidad_temporadas' => 'required',
+            'descripcion' => 'required|max:500',
+            'id_usuario_autor' => 'required',
+            'id_comuna' => 'required'
+        ],[
+            'direccion_video.required' => 'Debe ingresar una direccion de video',
+            'direccion_video.max' => 'No puede exceder mas de 100 caracteres',
+            'titulo_video.required' => 'Debe ingresar el titulo del video',
+            'visitas.required' => 'Debe ingresar el numero de visitas',
+            'restriccion_edad.required' => 'Debe ingresar la restriccion de edad 1 o 0',
+            'popularidad.required' => 'Debe ingresar el flotante de popularidad entre 0-1',
+            'cantidad_temporadas.required' => 'Debe ingresar la cantidad de temporadas',
+            'descripcion.required' => 'Debe ingresar la descripcion del video',
+            'descripcion.max' => 'La descripcion del video no puede exceder 500 caracteres',
+            'id_usuario_autor.required' => 'Debe ingresar el id del usuario que subio el video',
+            'id_comuna.required' => 'Debe ingresar el id de la comuna al que pertenece el video'
+        ]);
+
+        if ($validarDatos->fails()){
+            return back()->with('editUserError', $validarDatos->errors());
+        }
+        
+        $video->direccion_video = $request->direccion_video;
+        $video->titulo_video = $request->titulo_video;
+        $video->visitas= $request->visitas;
+        $video->restriccion_edad = $request->restriccion_edad;
+        $video->popularidad = $request->popularidad;
+        $video->cantidad_temporadas = $request->cantidad_temporadas;
+        $video->descripcion = $request->descripcion;
+        $video->id_usuario_autor= $request->id_usuario_autor;
+        $video->id_comuna = $request->id_comuna;
+
+        $video->save();
+
+        return redirect()->route('vistaCrudAdmin')->with('register','Se ha agregado un nuevo video!');
+    }
+
+    public function viewEditarVideo($id){
+        $comunas=Commune::all();
+        $usuarios=User::all();
+        return view('vistaEditarVideoCrud',compact('id','comunas','usuarios'));
+    }
+
+    public function viewEditarTipoUsuario($id){
+        return view('viewEditUserType',compact('id'));
+    }
+
+    public function vistaEditarDonacion($id){
+        $usuarios=User::all();
+        $videos=Video::all();
+        $metodosPago=PaymentMethod::all();
+        $playlists = Playlist::all();
+        return view('vistaEditDonation',compact('id','usuarios','videos','metodosPago', 'playlists'));
     }
 
     public function editarPlaylistCrud(Request $request, $id){

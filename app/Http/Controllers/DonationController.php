@@ -63,7 +63,7 @@ class DonationController extends Controller
             );
    
         if ($validarDatos->fails()){
-            return response()->json($validarDatos->errors(), 400);
+            return back()->with('createDonationsError', $validarDatos->errors());
         }
         
         $donacion->monto = $request->monto;
@@ -75,10 +75,7 @@ class DonationController extends Controller
         $donacion->id_video= $request->id_video;
         $donacion->save();
 
-        return response()->json([
-            "message"=> "Se ha creado una nueva donacion",
-            $donacion
-        ],202);
+        return redirect()->route('vistaCrudAdmin')->with('register','Se registrado una nueva donacion!');
         
     }
 
@@ -115,7 +112,7 @@ class DonationController extends Controller
         $donacion= Donation::find($id);
 
         if ($donacion==NULL) {
-            return response()->json(["message"=> "No exiten donaciones asociadas a la id ingresada"],404);
+            return back()->with('createDonationsError', $validarDatos->errors());
         }
 
         $validarDatos = Validator::make($request->all(),
@@ -140,9 +137,7 @@ class DonationController extends Controller
         
         );
 
-        if ($validarDatos->fails()){
-            return response()->json($validarDatos->errors(), 400);
-        }
+        
         
         $donacion->monto = $request->monto;
         $donacion->fecha_donacion= $request->fecha_donacion;
@@ -153,11 +148,8 @@ class DonationController extends Controller
         $donacion->id_video= $request->id_video;
         $donacion->save();
 
-        return response()->json([
-            "message"=> "Se ha editado una donacion",
-            $donacion
-        ],202);
-
+        
+        return redirect()->route('vistaCrudAdmin')->with('register','Se editado una donacion!');
 
     }
 
@@ -173,13 +165,10 @@ class DonationController extends Controller
         $donacion= Donation::find($id);
 
         if ($donacion==NULL) {
-            return response()->json(["message"=> "No exiten donaciones asociadas a la id ingresada"],404);
+            return back()->with('deleteDonationsError', 'Ha existido un error al elimina la donacion');
         }
 
         $donacion->delete();
-        return response()->json([
-            "message"=> "Se ha eliminado una donacion",
-            $donacion
-        ],202);
+        return redirect()->route('vistaCrudAdmin')->with('register','Se eliminado una donacion!');
     }
 }
