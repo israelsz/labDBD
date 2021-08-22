@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>editUser</title>
+    <title>Editar Usuario</title>
     <link rel="stylesheet" href="{{asset('assets/bootstrap/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/css/styles.css')}}">
 </head>
@@ -23,7 +23,6 @@
         <div class="col-6" style="background: rgb(30,40,51);border-radius: 4px;transform-origin: center;">
             <h1 style="color: var(--bs-light);margin: 16px;">Editar información de usuario {{$usuario->username}}</h1>
             <form action='{{route('intentarEditarUsuario',$usuario)}}' style="margin: 18px;", method="POST">
-                @csrf
                 @method('PUT')   
                 <div class="container">
                     <div class="row">
@@ -67,6 +66,6 @@
             </form>
         </div>
     </section>
-    <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="{{asset('assets/bootstrap/js/bootstrap.min.js')}}"></script>
 </body>
 </html>

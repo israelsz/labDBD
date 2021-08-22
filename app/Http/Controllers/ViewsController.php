@@ -14,7 +14,6 @@ use App\Models\Playlist;
 use App\Models\PlaylistVideo;
 use App\Models\Video;
 use App\Models\UserPlaylist;
-use Illuminate\Database\Eloquent\Collection;
 
 class ViewsController extends Controller
 {   
@@ -101,8 +100,8 @@ class ViewsController extends Controller
          
     }
 
-    public function vistaVideoListaReproduccion($id_lista_reproduccion){
-        $auxs= PlaylistVideo::all()->where('id_playlist',$id_lista_reproduccion);
+    public function vistaVideoListaReproduccion($id){
+        $auxs= PlaylistVideo::all()->where('id_playlist',$id);
         $videos=Video::all();
         $videosFiltrados=array();
         foreach ($auxs as $aux){
@@ -112,8 +111,9 @@ class ViewsController extends Controller
                 }
             }
         }
-        $autores = UserPlaylist::select('id_usuario')->where('id_playlist',$id_lista_reproduccion)->get();
-        return view('playlistVideoView',compact('videosFiltrados','autores'));
+        $autores = UserPlaylist::select('id_usuario')->where('id_playlist',$id)->get();
+
+        return view('playlistVideoView',compact('videosFiltrados','autores','id'));
         
     }   
 
@@ -122,8 +122,77 @@ class ViewsController extends Controller
         return view('createPlaylist',compact('videos'));
     }
 
-    public function agregarListaReproduccion($request){
-        return $request;
+    public function agregarListaReproduccion($id_usuario,Request $request){
+
+        $playlist= new Playlist();
+        $playlist->nombre_playlist = $request->nombre_playlist;
+        $playlist->descripcion_playlist = $request->descripcion_playlist;
+        $playlist->save();
+        $userPlaylist= new UserPlaylist();
+        $userPlaylist->id_playlist = $playlist->id;
+        $userPlaylist->id_usuario = $id_usuario;
+        $userPlaylist->save();
+        
+        $videos = $request->input('check_videos');
+        foreach ($videos as $video){
+
+            $playlistVideo = new PlaylistVideo();
+            $playlistVideo->id_playlist = $playlist->id;
+            $playlistVideo->id_video = $video;
+            $playlistVideo->save();
+        }
+        return redirect(route('vistaListaReproduccion'));
+    
     }
     
+    public function vistaEditarPlaylist($id){
+        $playlist=Playlist::find($id);
+
+        $videos=Video::all();
+        $video_checked=PlaylistVideo::select('id_video')->where('id_playlist',$id)->get();
+        $seleccionados=array();
+        foreach ($video_checked as $ckecked){
+
+            array_push($seleccionados,$ckecked->id_video);
+        }
+        
+        return view('editPlaylistView',compact('playlist','videos','seleccionados'));
+    }
+
+    public function editarPlaylist($id, Request $request){
+
+
+        $playlist= Playlist::find($id);
+        
+    
+        if ($request->nombre_playlist!=null) {
+            $playlist->nombre_playlist = $request->nombre_playlist;
+        }
+           
+        if ($request->descripcion_playlist!=null) {
+            $playlist->descripcion_playlist = $request->descripcion_playlist;
+        }
+        
+        $playlist->save();
+
+        $videos_para_cambiar = $request->input('check_videos_edit');
+        $videos_originales = PlaylistVideo::all()->where('id_playlist',$id);
+        
+    
+        if($videos_originales!=null){
+            foreach ($videos_originales as $video_original){
+                PlaylistVideo::destroy($video_original->id);
+            }
+        }
+
+        if($videos_para_cambiar!=null){
+            foreach($videos_para_cambiar as $video_cambiar){
+                $playlistVideo = new PlaylistVideo();
+                $playlistVideo->id_playlist = $playlist->id;
+                $playlistVideo->id_video = $video_cambiar;
+                $playlistVideo->save();
+            }
+        }
+        return redirect(route('vistaListaReproduccion'));
+    }
 }

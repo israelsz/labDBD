@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Login</title>
+    <title>Listas de reproducción</title>
     <link rel="stylesheet" href="{{asset('assets/bootstrap/css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Alice&amp;display=swap">
     <link rel="stylesheet" href="{{asset('assets/fonts/ionicons.min.css')}}">
@@ -13,7 +13,7 @@
 </head>
 
 <body>
-    <section class="login-dark">
+    <section>
         @auth
             @include('includes.navbarLogin')
         @else
@@ -24,7 +24,7 @@
                 <h1 style="color: var(--bs-light);margin: 16px;">Listas de Reproduccion</h1>
             </div>
             @auth
-                <a href='' class="col-3 m-3 btn btn-success" type = "submit" >Agregar lista de reproduccion</a>
+                <a href='{{route('vistaAgregarListaReproduccion')}}' class="col-3 m-3 btn btn-success" type = "submit" >Agregar lista de reproduccion</a>
             @endauth
         </div>
         @foreach ($listas as $lista )
@@ -42,9 +42,8 @@
                 </div>
             </section> 
         @endforeach
-        
-        
-        
+    </section>
+    <script src="{{asset('assets/bootstrap/js/bootstrap.min.js')}}"></script> 
 </body>
 
 </html>
