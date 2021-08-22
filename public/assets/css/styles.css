@@ -221,16 +221,17 @@ body {
 #likeButtom {
   background: inherit;
   border: inherit;
-  margin-right: 2em;
+  margin-right: 3em;
   font-size: 25px;
 }
+
 
 #likeIcon {
   font-size: 60px;
 }
 
 #feedBackDiv {
-  justify-content: left;
+  justify-content: center;
   text-align: center;
   margin-right: 4em;
   margin-top: 1.5em;
@@ -247,7 +248,7 @@ body {
   text-align: left;
 }
 
-.botonLike:active {
+/*.botonLike:active {
   color: #adff2f !important;
 }
 
@@ -269,7 +270,7 @@ body {
 
 .botonDislike:visited {
   color: var(--bs-red);
-}
+}*/
 
 #comentarioText {
   height: 70px;

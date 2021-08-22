@@ -24,30 +24,26 @@ class FeedbackController extends Controller
     //Guarda una nueva valoracion-> Create
     public function store(Request $request)
     {
-        $feedback = new Feedback();
+        $dioFeedback = Feedback::all()
+                        -> where('id_usuario', $request->id_usuario)
+                        -> where('id_video', $request->id_video)->first();
 
-        $validarDatos = Validator::make($request->all(),[
-            'tipo_valoracion' => 'required',
-            'id_usuario' => 'required',
-            'id_video' => 'required',
-        ],[ //Mensajes de error abajo
-            'tipo_valoracion.required' => 'Debe ingresar una valoracion 1 o 0',
-            'id_usuario.required' => 'Debe ingresar el id el usuario que dió la valoración',
-            'id_video.required' => 'Debe ingresar el id del video que recibió la valoración',
-        ]);
-        if ($validarDatos->fails()){
-            return response()->json($validarDatos->errors(), 400);
+        if (empty($dioFeedback)){
+            $feedback = new Feedback();
+            $feedback->tipo_valoracion = $request->tipo_valoracion;
+            $feedback->id_usuario = $request->id_usuario;
+            $feedback->id_video = $request->id_video;
+            $feedback->save();
+            return back();
         }
-
+        $feedback = Feedback::find($dioFeedback->id);
+        $feedback->delete();
+        $feedback = new Feedback();
         $feedback->tipo_valoracion = $request->tipo_valoracion;
         $feedback->id_usuario = $request->id_usuario;
         $feedback->id_video = $request->id_video;
         $feedback->save();
-
-        return response()->json([
-            "message" => "Se ha generado una nueva valoración",
-            "id" => $feedback->id
-        ]);
+        return back();
     }
 
     //Muestra solo una valoración, según su id -> Read

@@ -34,10 +34,15 @@
                         <div class="col" style="border-bottom: 4px solid var(--bs-white) ;">
                             <form id="formSuscripcion" method="POST" action="{{route('HacerSuscripcion', ['id_suscriptor' => Auth::user()->id, 'id_suscripcion' => $autorVideo->id])}}">
                                 <h4 id="autorVideo">por: {{$autorVideo->username}}
-                                    <button class="btn btn-primary" id="suscribeButton" type="submit">
-                                        <strong>Suscribirse</strong>
-                                    </button>
-                                </h4>
+                                    @if ($estaSuscrito == 0)
+                                        <button class="btn btn-primary" id="suscribeButton" type="submit">
+                                            <strong>Suscribirse</strong>
+                                        </button>
+                                        </h4>
+                                    @else
+                                        <strong>&nbsp; &nbsp;✓ Suscrito</strong>
+                                        </h4>
+                                    @endif  
                             </form>
                                 
                         </div>
@@ -57,10 +62,33 @@
             </div>
         </div>
         <div id="valoracionDiv" class="d-flex">
-            <div id="feedBackDiv">
+            <div id="feedBackDiv" class = "row">
                 <h3 id="valoraEsteVideo">Valora este video</h3>
-                <button class="btn btn-primary botonLike" id="likeButtom" type="button"><i class="fa fa-thumbs-o-up botonLike" id="likeIcon"></i>&nbsp; &nbsp; {{$likes}}</button>
-                <button class="btn btn-primary botonDislike" id="dislikeButton" type="button"><i class="fa fa-thumbs-o-down botonDislike" id="dislikeIcon"></i>&nbsp; &nbsp; {{$dislikes}}</button>
+                
+                
+                <form id="formLike" class="formFeedback col-2" method="POST" action="{{route('HacerFeedback', ['tipo_valoracion' => 1, 'id_usuario' => Auth::user()->id, 'id_video' => $videoSeleccionado->id])}}">
+                @if ($feedbackDado == -1)
+                <button class="btn btn-primary botonLike" id="likeButtom" onclick="myFunction()" type="submit"></form>
+                    <i class="fa fa-thumbs-o-up botonLike" id="likeIcon"></i>&nbsp; {{$likes}}</button>
+                <form id="formDislike" class="formFeedback col-2" method="POST" action="{{route('HacerFeedback', ['tipo_valoracion' => 0, 'id_usuario' => Auth::user()->id, 'id_video' => $videoSeleccionado->id])}}">
+                    <button class="btn btn-primary botonDislike" id="dislikeButton" onclick="myFunction()" type="submit"></form>
+                    <i class="fa fa-thumbs-o-down botonDislike" id="dislikeIcon"></i>&nbsp; {{$dislikes}}</button>
+                @endif
+                @if ($feedbackDado == 0)
+                <button class="btn btn-primary botonLike" id="likeButtom" onclick="myFunction()" type="submit"></form>
+                    <i class="fa fa-thumbs-o-up botonLike" id="likeIcon"></i>&nbsp; {{$likes}}</button>
+                <form id="formDislike" class="formFeedback col-2" method="POST" action="{{route('HacerFeedback', ['tipo_valoracion' => 0, 'id_usuario' => Auth::user()->id, 'id_video' => $videoSeleccionado->id])}}">
+                    <button class="btn btn-primary botonDislike" style = "color: var(--bs-red);" id="dislikeButton" onclick="myFunction()" type="submit"></form>
+                    <i class="fa fa-thumbs-o-down botonDislike" id="dislikeIcon"></i>&nbsp; {{$dislikes}}</button>
+                @endif
+                @if ($feedbackDado == 1)
+                <button class="btn btn-primary botonLike" id="likeButtom" style = "color : #adff2f;" onclick="myFunction()" type="submit"></form>
+                    <i class="fa fa-thumbs-o-up botonLike" id="likeIcon"></i>&nbsp; {{$likes}}</button>
+                <form id="formDislike" class="formFeedback col-2" method="POST" action="{{route('HacerFeedback', ['tipo_valoracion' => 0, 'id_usuario' => Auth::user()->id, 'id_video' => $videoSeleccionado->id])}}">
+                    <button class="btn btn-primary botonDislike"  id="dislikeButton" onclick="myFunction()" type="submit"></form>
+                    <i class="fa fa-thumbs-o-down botonDislike" id="dislikeIcon"></i>&nbsp; {{$dislikes}}</button>
+                @endif
+
             </div>
             <div id="comentarioDiv">
                 <form id="formularioComentario" method="POST" action="{{route('HacerComentario', ['id_video' => $videoSeleccionado->id, 'id_usuario' => Auth::user()->id])}}">
@@ -97,7 +125,7 @@
                 <div class="container" id="infoVideoContainer">
                     <div class="row" id="rowAutor">
                         <div class="col" style="border-bottom: 4px solid var(--bs-white) ;">
-                            <h4 id="autorVideo">por: {{$autorVideo->username}}<button class="btn btn-primary" id="suscribeButton" type="button"><strong>Suscribirse</strong></button></h4>
+                            <h4 id="autorVideo">por: {{$autorVideo->username}}</h4>
                         </div>
                     </div>
                     <div class="overflow-auto" id="divDescripcion"">

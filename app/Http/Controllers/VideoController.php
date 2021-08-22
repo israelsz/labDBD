@@ -9,6 +9,7 @@ use App\Models\Commentary;
 use App\Models\Category;
 use App\Models\Feedback;
 use App\Models\VideoCategory;
+use App\Models\UserSubscription;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -207,7 +208,32 @@ class VideoController extends Controller
                 array_push($arrayCategorias, CategoryController::show($vid->id));
             }
         }
+
+        $suscripcion = UserSubscription::all()
+                        -> where('id_usuario_suscriptor', Auth::user()->id)
+                        -> where('id_usuario_suscripcion', $autorVideo->id);
+
+        if ($suscripcion->isEmpty()){
+            $estaSuscrito = 0;
+        }
+        else{
+            $estaSuscrito = 1;
+        }
+
+        $userFeedback = Feedback::all()
+                        -> where('id_usuario', Auth::user()->id)
+                        -> where('id_video', $videoSeleccionado->id)->first();
+
+        if (empty($userFeedback)){
+            $feedbackDado = -1;
+        }
+        else{
+            $feedbackDado = $userFeedback->tipo_valoracion;
+        }
+
+
         return view('watchVideo',
-         compact('videoSeleccionado', 'autorVideo', 'comentariosUnidos', 'arrayCategorias', 'likes', 'dislikes', 'edad'));
+         compact('videoSeleccionado', 'autorVideo', 'comentariosUnidos', 'feedbackDado',
+                 'arrayCategorias', 'likes', 'dislikes', 'edad', 'estaSuscrito', 'suscripcion'));
     }
 }

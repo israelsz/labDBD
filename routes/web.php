@@ -90,7 +90,7 @@ Route::delete('/playlists/delete/{id}', [PlaylistController::class, 'destroy']);
 //Rutas para Tabla/Clase Feedback:
 Route::get('/feedbacks', [FeedbackController::class, 'index']);
 Route::get('/feedbacks/{id}', [FeedbackController::class, 'show']);
-Route::post('/feedbacks/create', [FeedbackController::class, 'store']);
+Route::post('/feedbacks/create/{tipo_valoracion}/{id_usuario}/{id_video}', [FeedbackController::class, 'store'])->name('HacerFeedback');
 Route::put('/feedbacks/update/{id}', [FeedbackController::class, 'update']);
 Route::delete('/feedbacks/delete/{id}', [FeedbackController::class, 'destroy']);
 
