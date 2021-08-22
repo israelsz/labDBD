@@ -12,7 +12,7 @@
                 <li class="nav-item"></li>
                 <li class="nav-item"></li>
                 <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" id="linkMiCuenta" href="#" style="color: rgb(255,255,255);">Mi cuenta</a>
-                    <div class="dropdown-menu dropdown-menu-dark"><a class="dropdown-item" href="{{route('vistaUsuario',0)}}">Mi cuenta</a>
+                    <div class="dropdown-menu dropdown-menu-dark"><a class="dropdown-item" href="{{route('vistaUsuario',Auth::user()->id)}}">Mi cuenta</a>
                         <form style = "display: inline" action = "{{'logout'}}" method="POST">
                             <a class="dropdown-item" href="#" onclick="this.closest('form').submit()">Desconectarse</a>
                         </form>

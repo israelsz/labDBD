@@ -99,9 +99,6 @@ class PlaylistController extends Controller
         }
 
         $playlist->delete();
-        return response()->json([
-            "message" => "Se ha borrado la playlist",
-            "id" => $playlist->id
-        ]);
+        return redirect()->route('vistaListaReproduccion')->with('register','Se ha eliminado la playlist');
     }
 }

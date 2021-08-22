@@ -51,6 +51,7 @@ Route::put('/video/update/{id}', [ViewsController::class, 'actualizarVideo'])->n
 //Route::get('/myhistorial', [ViewsController::class, 'vistaHistorial'])->name('vistaHistorial');
 Route::get('/uploadvideo', [ViewsController::class, 'vistaSubirVideo'])->name('vistaSubirVideo');
 Route::post('/uploadvideo/create', [ViewsController::class, 'SubirVideo'])->name('SubirVideo');
+Route::get('/list', [ViewsController::class, 'vistaListaReproduccion'])->name('vistaListaReproduccion');
 //Rutas para Tabla/Clase Pais:
 //Muestra todos los paises guardados -> Read
 Route::get('/countries', [CountryController::class, 'index']);
@@ -89,7 +90,7 @@ Route::get('/playlists', [PlaylistController::class, 'index']);
 Route::get('/playlists/{id}', [PlaylistController::class, 'show']);
 Route::post('/playlists/create', [PlaylistController::class, 'store']);
 Route::put('/playlists/update/{id}', [PlaylistController::class, 'update']);
-Route::delete('/playlists/delete/{id}', [PlaylistController::class, 'destroy']);
+Route::delete('/playlists/delete/{id}', [PlaylistController::class, 'destroy'])->name('eliminarPlaylist');
 
 //Rutas para Tabla/Clase Feedback:
 Route::get('/feedbacks', [FeedbackController::class, 'index']);
@@ -178,7 +179,11 @@ Route::post('/login/attempt', [LoginController::class, 'login'])->name('intentar
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::put('user/{id}/editUser/attempt',[EditUserController::class, 'update'])->name('intentarEditarUsuario');
-
+Route::get('/list/{id}',[ViewsController::class, 'vistaVideoListaReproduccion'])->name('vistaVideoListaReproduccion');
+Route::get('/listAdd',[ViewsController::class, 'vistaAgregarListaReproduccion'])->name('vistaAgregarListaReproduccion');
+Route::post('/listAdd/attemp/{id}',[ViewsController::class, 'agregarListaReproduccion'])->name('agregarListaReproduccion');
+Route::get('/list/{id}/edit', [ViewsController::class, 'vistaEditarPlaylist'])->name('vistaEditarPlaylist');
+Route::put('/list/{id}/edit/attemp',[ViewsController::class, 'editarPlaylist'])->name('editarPlaylist');
 //Ruta para CategoryVideo
 Route::get('/categoryVideo/{id}', [CategoryVideoController::class, 'videosPorCategoria']);
 Route::get('/refrescarPagina', [ViewsController::class, 'refrescarPagina'])->name('refrescarPagina');
